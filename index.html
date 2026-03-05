@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -7,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
         body {
             font-family: 'Nunito', sans-serif;
             background-color: #f0fdf4;
@@ -14,118 +16,325 @@
             touch-action: pan-y;
             overflow-x: hidden;
         }
-        .btn-option { transition: all 0.2s; }
-        .btn-option:active { transform: scale(0.95); }
-        .correct { background-color: #4ade80 !important; color: white !important; border-color: #22c55e !important; }
-        .incorrect { background-color: #f87171 !important; color: white !important; border-color: #ef4444 !important; }
-        .hint-reveal { box-shadow: 0 0 15px 5px #4ade80; border: 3px solid #16a34a !important; }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(-15%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
-            50% { transform: none; animation-timing-function: cubic-bezier(0,0,0.2,1); }
+
+        .btn-option {
+            transition: all 0.2s;
         }
-        .animate-bounce-slow { animation: bounce 2s infinite; }
-        
+
+        .btn-option:active {
+            transform: scale(0.95);
+        }
+
+        .correct {
+            background-color: #4ade80 !important;
+            color: white !important;
+            border-color: #22c55e !important;
+        }
+
+        .incorrect {
+            background-color: #f87171 !important;
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+
+        .hint-reveal {
+            box-shadow: 0 0 15px 5px #4ade80;
+            border: 3px solid #16a34a !important;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(-15%);
+                animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+            }
+
+            50% {
+                transform: none;
+                animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            }
+        }
+
+        .animate-bounce-slow {
+            animation: bounce 2s infinite;
+        }
+
         /* Drag and Drop Custom Styles */
-        .draggable { touch-action: none; cursor: grab; z-index: 20; position: relative; }
-        .draggable:active { cursor: grabbing; }
-        .dropzone { border: 3px dashed #cbd5e1; transition: all 0.3s; min-height: 3rem; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.5); position: relative; }
-        .dropzone.filled { border: 3px solid #22c55e; background-color: #f0fdf4; border-style: solid; }
-        .dragging-clone { position: fixed; z-index: 9999; pointer-events: none; opacity: 0.9; transform: scale(1.1); box-shadow: 0 10px 25px rgba(0,0,0,0.3); transition: none; margin: 0; }
-        
+        .draggable {
+            touch-action: none;
+            cursor: grab;
+            z-index: 20;
+            position: relative;
+        }
+
+        .draggable:active {
+            cursor: grabbing;
+        }
+
+        .dropzone {
+            border: 3px dashed #cbd5e1;
+            transition: all 0.3s;
+            min-height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.5);
+            position: relative;
+        }
+
+        .dropzone.filled {
+            border: 3px solid #22c55e;
+            background-color: #f0fdf4;
+            border-style: solid;
+        }
+
+        .dragging-clone {
+            position: fixed;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.9;
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: none;
+            margin: 0;
+        }
+
         /* Canvas para líneas */
-        #line-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
-        .match-dot { width: 28px; height: 28px; background: #3b82f6; border-radius: 50%; display: inline-block; cursor: pointer; border: 4px solid white; box-shadow: 0 0 8px rgba(0,0,0,0.4); touch-action: none; position: relative; z-index: 20; }
-        .matched-dot { background: #22c55e; border-color: #dcfce7; }
+        #line-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .match-dot {
+            width: 28px;
+            height: 28px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            border: 4px solid white;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+            touch-action: none;
+            position: relative;
+            z-index: 20;
+        }
+
+        /* Custom classes para 3D Flip */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        .is-flipped {
+            transform: rotateY(180deg);
+        }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col items-center py-6 px-4">
 
     <!-- Pantalla Principal -->
     <div id="home-screen" class="w-full max-w-2xl text-center">
-        <h1 class="text-4xl md:text-5xl font-black text-green-600 mb-4 animate-bounce-slow">🌟 ¡Súper Repaso! 🌟</h1>
+        <h1 class="text-4xl md:text-5xl font-black text-green-600 mb-4 animate-bounce-slow">🌟 ¡Súper Zaid! 🌟</h1>
         <p class="text-xl text-gray-700 mb-6 font-bold">Elige la misión de hoy:</p>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            <button onclick="startQuiz('espanol')" class="bg-blue-400 hover:bg-blue-500 text-white p-6 rounded-3xl shadow-lg border-b-8 border-blue-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
+            <button onclick="startQuiz('espanol')"
+                class="bg-blue-400 hover:bg-blue-500 text-white p-6 rounded-3xl shadow-lg border-b-8 border-blue-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
                 <span class="text-4xl mb-2">📚</span> Examen Español
             </button>
-            <button onclick="startQuiz('matematicas')" class="bg-red-400 hover:bg-red-500 text-white p-6 rounded-3xl shadow-lg border-b-8 border-red-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
+            <button onclick="startQuiz('matematicas')"
+                class="bg-red-400 hover:bg-red-500 text-white p-6 rounded-3xl shadow-lg border-b-8 border-red-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
                 <span class="text-4xl mb-2">🔢</span> Examen Mate
             </button>
-            <button onclick="startQuiz('ingles')" class="bg-yellow-400 hover:bg-yellow-500 text-white p-6 rounded-3xl shadow-lg border-b-8 border-yellow-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
+            <button onclick="startQuiz('ingles')"
+                class="bg-yellow-400 hover:bg-yellow-500 text-white p-6 rounded-3xl shadow-lg border-b-8 border-yellow-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
                 <span class="text-4xl mb-2">🌎</span> Examen Inglés
             </button>
-            <button onclick="startQuiz('naturaleza')" class="bg-green-400 hover:bg-green-500 text-white p-6 rounded-3xl shadow-lg border-b-8 border-green-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
+            <button onclick="startQuiz('naturaleza')"
+                class="bg-green-400 hover:bg-green-500 text-white p-6 rounded-3xl shadow-lg border-b-8 border-green-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
                 <span class="text-4xl mb-2">🌱</span> Examen Nat.
             </button>
         </div>
 
-        <button onclick="showMinigamesMenu()" class="w-full bg-purple-500 hover:bg-purple-600 text-white p-6 rounded-3xl shadow-xl border-b-8 border-purple-700 transform transition hover:-translate-y-1 text-3xl font-black flex items-center justify-center gap-4 animate-pulse">
+        <button onclick="showFlashcardsSubjectMenu()"
+            class="w-full bg-orange-400 hover:bg-orange-500 text-white p-6 rounded-3xl shadow-xl border-b-8 border-orange-600 transform transition hover:-translate-y-1 text-3xl font-black flex items-center justify-center gap-4 mb-4">
+            🎴 ¡Tarjetas de Repaso!
+        </button>
+
+        <button onclick="showMinigamesMenu()"
+            class="w-full bg-purple-500 hover:bg-purple-600 text-white p-6 rounded-3xl shadow-xl border-b-8 border-purple-700 transform transition hover:-translate-y-1 text-3xl font-black flex items-center justify-center gap-4 animate-pulse">
             🧩 ¡Minijuegos Mágicos! ✨
         </button>
+    </div>
+
+    <!-- PANTALLA: MENÚ MATERIAS FLASHCARDS -->
+    <div id="flashcards-subject-menu" class="w-full max-w-2xl hidden flex-col">
+        <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-2xl shadow-sm border-2 border-gray-100">
+            <button onclick="goHome()"
+                class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-xl">⬅️ Volver</button>
+            <h2 class="text-2xl font-black uppercase text-orange-500">🎴 Tarjetas</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <button onclick="startFlashcards('espanol')"
+                class="bg-blue-100 border-4 border-blue-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-blue-800 flex items-center justify-center gap-4 hover:bg-blue-200">
+                <span class="text-4xl">📚</span> Español
+            </button>
+            <button onclick="startFlashcards('matematicas')"
+                class="bg-red-100 border-4 border-red-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-red-800 flex items-center justify-center gap-4 hover:bg-red-200">
+                <span class="text-4xl">🔢</span> Matemáticas
+            </button>
+            <button onclick="startFlashcards('ingles')"
+                class="bg-yellow-100 border-4 border-yellow-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-yellow-800 flex items-center justify-center gap-4 hover:bg-yellow-200">
+                <span class="text-4xl">🌎</span> Inglés
+            </button>
+            <button onclick="startFlashcards('naturaleza')"
+                class="bg-green-100 border-4 border-green-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-green-800 flex items-center justify-center gap-4 hover:bg-green-200">
+                <span class="text-4xl">🌱</span> Naturaleza
+            </button>
+        </div>
+    </div>
+
+    <!-- PANTALLA: FLASHCARDS -->
+    <div id="flashcards-screen" class="w-full max-w-md hidden flex-col items-center">
+        <div
+            class="w-full flex justify-between items-center mb-6 bg-white p-4 rounded-2xl shadow-sm border-2 border-gray-100">
+            <button onclick="showFlashcardsSubjectMenu()"
+                class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-xl">⬅️ Salir</button>
+            <h2 id="fc-subject-title" class="text-xl md:text-2xl font-black uppercase text-orange-500">Materia</h2>
+            <div class="text-xl font-bold text-blue-600 bg-blue-100 px-4 py-1 rounded-full"><span
+                    id="fc-counter">1/10</span></div>
+        </div>
+
+        <!-- Tarjeta (Flip Container) -->
+        <div class="relative w-full h-80 perspective-1000 mb-8 cursor-pointer group" onclick="flipCard()">
+            <div id="fc-inner"
+                class="w-full h-full text-center transition-transform duration-500 transform-style-3d shadow-xl rounded-3xl">
+                <!-- Frente (Pregunta) -->
+                <div
+                    class="absolute w-full h-full bg-white border-4 border-blue-400 rounded-3xl p-6 flex flex-col justify-center items-center backface-hidden">
+                    <p class="text-blue-400 font-bold mb-4">PREGUNTA</p>
+                    <h3 id="fc-question" class="text-2xl md:text-3xl font-black text-gray-800 leading-tight">¿Pregunta?
+                    </h3>
+                </div>
+                <!-- Reverso (Respuesta) -->
+                <div
+                    class="absolute w-full h-full bg-green-500 border-4 border-green-600 rounded-3xl p-6 flex flex-col justify-center items-center backface-hidden rotate-y-180">
+                    <p class="text-green-200 font-bold mb-4">RESPUESTA</p>
+                    <h3 id="fc-answer" class="text-2xl md:text-3xl font-black text-white leading-tight">¡Respuesta!</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex gap-4 w-full">
+            <button onclick="prevFlashcard()"
+                class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-4 rounded-2xl text-xl shadow-md">Anterior</button>
+            <button onclick="nextFlashcard()"
+                class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-2xl text-xl shadow-md border-b-4 border-blue-700">Siguiente</button>
+        </div>
     </div>
 
     <!-- PANTALLA: MENÚ DE MINIJUEGOS -->
     <div id="minigames-menu" class="w-full max-w-2xl hidden flex-col">
         <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-2xl shadow-sm">
-            <button onclick="goHome()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-xl">⬅️ Volver</button>
+            <button onclick="goHome()"
+                class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-xl">⬅️ Volver</button>
             <h2 class="text-2xl font-black uppercase text-purple-600">🧩 Minijuegos</h2>
         </div>
-        
+
         <div class="grid grid-cols-1 gap-4">
-            <button onclick="startMinigame('nota')" class="bg-blue-100 border-4 border-blue-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-blue-800 text-left flex items-center gap-4 hover:bg-blue-200">
+            <button onclick="startMinigame('nota')"
+                class="bg-blue-100 border-4 border-blue-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-blue-800 text-left flex items-center gap-4 hover:bg-blue-200">
                 <span class="text-4xl">📰</span> 1. Arma la Nota
             </button>
-            <button onclick="startMinigame('carta')" class="bg-red-100 border-4 border-red-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-red-800 text-left flex items-center gap-4 hover:bg-red-200">
+            <button onclick="startMinigame('carta')"
+                class="bg-red-100 border-4 border-red-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-red-800 text-left flex items-center gap-4 hover:bg-red-200">
                 <span class="text-4xl">✉️</span> 2. Arma la Carta
             </button>
-            <button onclick="startMinigame('cuento')" class="bg-yellow-100 border-4 border-yellow-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-yellow-800 text-left flex items-center gap-4 hover:bg-yellow-200">
+            <button onclick="startMinigame('cuento')"
+                class="bg-yellow-100 border-4 border-yellow-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-yellow-800 text-left flex items-center gap-4 hover:bg-yellow-200">
                 <span class="text-4xl">📖</span> 3. El Cuento Mágico
             </button>
-            <button onclick="startMinigame('onomatopeyas')" class="bg-green-100 border-4 border-green-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-green-800 text-left flex items-center gap-4 hover:bg-green-200">
+            <button onclick="startMinigame('onomatopeyas')"
+                class="bg-green-100 border-4 border-green-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-green-800 text-left flex items-center gap-4 hover:bg-green-200">
                 <span class="text-4xl">🖍️</span> 4. Une los Sonidos
             </button>
         </div>
     </div>
 
     <!-- CONTENEDOR DE MINIJUEGOS -->
-    <div id="minigame-container" class="w-full max-w-3xl hidden flex-col bg-white p-4 md:p-8 rounded-3xl shadow-lg border-4 border-purple-300">
+    <div id="minigame-container"
+        class="w-full max-w-3xl hidden flex-col bg-white p-4 md:p-8 rounded-3xl shadow-lg border-4 border-purple-300">
         <div class="flex justify-between items-center mb-6">
-            <button onclick="showMinigamesMenu()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-xl">⬅️ Regresar</button>
-            <h2 id="minigame-title" class="text-xl md:text-2xl font-black text-purple-600" ondblclick="solveMinigame()">Título</h2>
+            <button onclick="showMinigamesMenu()"
+                class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-xl">⬅️ Regresar</button>
+            <h2 id="minigame-title" class="text-xl md:text-2xl font-black text-purple-600" ondblclick="solveMinigame()">
+                Título</h2>
         </div>
-        
+
         <div id="minigame-content" class="relative w-full"></div>
-        
-        <div id="minigame-success" class="hidden text-center mt-6 p-6 bg-green-100 border-4 border-green-400 rounded-2xl">
+
+        <div id="minigame-success"
+            class="hidden text-center mt-6 p-6 bg-green-100 border-4 border-green-400 rounded-2xl">
             <p class="text-4xl animate-bounce-slow mb-2">🌟 ¡Lo lograste! 🌟</p>
-            <button onclick="showMinigamesMenu()" class="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-xl border-b-4 border-green-700">Jugar a otro</button>
+            <button onclick="showMinigamesMenu()"
+                class="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-xl border-b-4 border-green-700">Jugar
+                a otro</button>
         </div>
     </div>
 
     <!-- PANTALLA QUIZ NORMAL -->
     <div id="quiz-screen" class="w-full max-w-2xl hidden flex-col">
         <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-2xl shadow-sm border-2 border-gray-100">
-            <button onclick="goHome()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-xl">⬅️ Salir</button>
+            <button onclick="goHome()"
+                class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-xl">⬅️ Salir</button>
             <h2 id="subject-title" class="text-xl md:text-2xl font-black uppercase text-gray-700">Materia</h2>
-            <div class="text-xl font-bold text-blue-600 bg-blue-100 px-4 py-1 rounded-full"><span id="question-counter">1/40</span></div>
+            <div class="text-xl font-bold text-blue-600 bg-blue-100 px-4 py-1 rounded-full"><span
+                    id="question-counter">1/40</span></div>
         </div>
-        <div class="w-full bg-gray-200 rounded-full h-4 mb-6"><div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-6">
+            <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all duration-500" style="width: 0%">
+            </div>
+        </div>
         <div class="bg-white p-6 md:p-8 rounded-3xl shadow-lg border-4 border-white mb-6">
-            <h3 id="question-text" ondblclick="revealAnswer()" class="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-8 leading-tight">¿Pregunta?</h3>
+            <h3 id="question-text" ondblclick="revealAnswer()"
+                class="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-8 leading-tight">¿Pregunta?</h3>
             <div id="options-container" class="flex flex-col gap-4"></div>
         </div>
-        <button id="next-btn" onclick="nextQuestion()" class="hidden w-full bg-blue-500 hover:bg-blue-600 text-white text-2xl font-bold py-5 rounded-2xl shadow-lg border-b-8 border-blue-700 active:border-b-0 active:translate-y-2 transition-all">¡Siguiente! 🚀</button>
+        <button id="next-btn" onclick="nextQuestion()"
+            class="hidden w-full bg-blue-500 hover:bg-blue-600 text-white text-2xl font-bold py-5 rounded-2xl shadow-lg border-b-8 border-blue-700 active:border-b-0 active:translate-y-2 transition-all">¡Siguiente!
+            🚀</button>
     </div>
 
     <!-- RESULTADOS QUIZ -->
-    <div id="result-screen" class="w-full max-w-2xl hidden text-center bg-white p-10 rounded-3xl shadow-2xl border-4 border-yellow-300">
+    <div id="result-screen"
+        class="w-full max-w-2xl hidden text-center bg-white p-10 rounded-3xl shadow-2xl border-4 border-yellow-300">
         <div class="text-8xl mb-6 animate-bounce-slow">🏆</div>
         <h2 class="text-5xl font-black text-yellow-500 mb-4">¡Misión Cumplida!</h2>
         <p class="text-2xl text-gray-700 font-bold mb-6">Aciertos:</p>
-        <p class="text-6xl font-black text-blue-600 mb-8"><span id="final-score">0</span> / <span id="total-score-display">20</span></p>
-        <button onclick="goHome()" class="bg-green-500 hover:bg-green-600 text-white text-2xl font-bold py-4 px-10 rounded-2xl shadow-lg border-b-8 border-green-700">Jugar de nuevo 🔄</button>
+        <p class="text-6xl font-black text-blue-600 mb-8"><span id="final-score">0</span> / <span
+                id="total-score-display">20</span></p>
+        <button onclick="goHome()"
+            class="bg-green-500 hover:bg-green-600 text-white text-2xl font-bold py-4 px-10 rounded-2xl shadow-lg border-b-8 border-green-700">Jugar
+            de nuevo 🔄</button>
     </div>
 
     <script>
@@ -144,8 +353,37 @@
                 { q: "La palabra 'Chocolate' viene de un idioma antiguo llamado:", options: ["Inglés", "Náhuatl", "Francés"], ans: 1 },
                 { q: "En una obra de teatro, las instrucciones entre paréntesis se llaman:", options: ["Acotaciones", "Diálogos", "Títulos"], ans: 0 },
                 { q: "¿Qué usamos para describir algo con sonidos?", options: ["Formato visual", "Formato sonoro", "Formato escrito"], ans: 1 },
-                { q: "El lobo en Caperucita Roja es un personaje...", options: ["Secundario", "Principal", "Ficticio"], ans: 2 }
-                // Agrega el resto aquí...
+                { q: "El lobo en Caperucita Roja es un personaje...", options: ["Secundario", "Principal", "Ficticio"], ans: 2 },
+                { q: "¿Con qué letra empieza la palabra 'Avión'?", options: ["A", "E", "O"], ans: 0 },
+                { q: "¿Qué palabra es más larga?", options: ["Sol", "Mariposa", "Pan"], ans: 1 },
+                { q: "¿Qué palabra rima con 'Gato'?", options: ["Pato", "Perro", "Silla"], ans: 0 },
+                { q: "Las palabras como 'Zaid' se escriben al inicio con:", options: ["Minúscula", "Mayúscula", "Números"], ans: 1 },
+                { q: "¿Qué palabra dice 'Mamá' de forma correcta?", options: ["Naná", "Mamá", "Mam"], ans: 1 },
+                { q: "En 'Los Tres Cerditos', ¿quién sopla la casa?", options: ["El Lobo", "El Perro", "El Gato"], ans: 0 },
+                { q: "¿Cuántas sílabas (aplausos) tiene la palabra 'Pe-lo-ta'?", options: ["1", "2", "3"], ans: 2 },
+                { q: "¿Cuál de estas es una VOCAL?", options: ["M", "P", "E"], ans: 2 },
+                { q: "¿Qué nombre de animal tiene la letra 'M'?", options: ["Pato", "Mono", "Sapo"], ans: 1 },
+                { q: "El TÍTULO de un cuento sirve para...", options: ["Saber de qué trata", "Saber el precio", "Leer más rápido"], ans: 0 },
+                { q: "¿Qué signo usamos para hacer una PREGUNTA?", options: ["¡ !", "¿ ?", ". ."], ans: 1 },
+                { q: "Elige la oración bien acomodada:", options: ["El perro corre.", "Corre él perro.", "perro El corre."], ans: 0 },
+                { q: "¿Cuál de estas palabras es el nombre de un niño?", options: ["Mesa", "Zaid", "Manzana"], ans: 1 },
+                { q: "¿Qué leemos en un reglamento de biblioteca?", options: ["El menú de comida", "Las reglas para cuidarla", "Poemas y canciones"], ans: 1 },
+                { q: "¿Qué dice aquí: 'S-O-L'?", options: ["Luna", "Sol", "Estrella"], ans: 1 },
+                { q: "¿Cuál NO es una vocal?", options: ["A", "O", "Z"], ans: 2 },
+                { q: "Para separar palabras al escribir dejamos un...", options: ["Rayón", "Espacio", "Dibujo"], ans: 1 },
+                { q: "En la obra de teatro, lo que hablan los personajes son sus...", options: ["Diálogos", "Nombres", "Rimas"], ans: 0 },
+                { q: "Una adivinanza te da...", options: ["Sustos", "Pistas para descubrir algo", "Regalitos"], ans: 1 },
+                { q: "'Blanco es, la gallina lo pone...' ¿Qué es?", options: ["Huevo", "Leche", "Queso"], ans: 0 },
+                { q: "¿Qué palabra empieza DIFERENTE a las demás?", options: ["Mesa", "Mono", "Sapo"], ans: 2 },
+                { q: "Es lo que usas para borrar cuando te equivocas:", options: ["Lápiz", "Goma", "Regla"], ans: 1 },
+                { q: "Un cartel grande en la pared sirve para...", options: ["Dar información a muchos", "Esconder secretos", "Dormir"], ans: 0 },
+                { q: "¿Dónde buscamos palabras que no entendemos?", options: ["En el refrigerador", "En el diccionario", "En el cuento"], ans: 1 },
+                { q: "Completa la canción: 'Estrellita dónde...'", options: ["Estás", "Duermes", "Vas"], ans: 0 },
+                { q: "¿Qué usa el superhéroe en la cara para que no lo reconozcan?", options: ["Sombrero", "Máscara o antifaz", "Lentes"], ans: 1 },
+                { q: "El acta de nacimiento trae escrito...", options: ["Tus calificaciones", "Tu nombre y cuándo naciste", "Tus dibujos"], ans: 1 },
+                { q: "Un poema corto tiene...", options: ["Versos y rimas", "Ingredientes", "Títulos y fotos"], ans: 0 },
+                { q: "El INSTRUCTIVO sirve para...", options: ["Saber cómo armar o hacer algo", "Reírse a carcajadas", "Contar un cuento"], ans: 0 },
+                { q: "La moraleja es la ____________ que deja una fábula.", options: ["Canción", "Enseñanza", "Foto"], ans: 1 }
             ],
             matematicas: [
                 { q: "¿Qué número sigue después del 149?", options: ["140", "150", "100"], ans: 1 },
@@ -153,24 +391,125 @@
                 { q: "Si cuento de 10 en 10: 10, 20, 30... ¿Qué sigue?", options: ["31", "40", "50"], ans: 1 },
                 { q: "Juan tiene 10 manzanas y se come 4. ¿Cuántas le quedan?", options: ["14", "5", "6"], ans: 2 },
                 { q: "¿En qué país se inventó el juego del Tangram?", options: ["México", "Estados Unidos", "China"], ans: 2 },
-                { q: "Si hoy es martes, ¿qué día fue ayer?", options: ["Lunes", "Miércoles", "Domingo"], ans: 0 }
-                // Agrega el resto aquí...
+                { q: "Si hoy es martes, ¿qué día fue ayer?", options: ["Lunes", "Miércoles", "Domingo"], ans: 0 },
+                { q: "Si sumamos 5 + 5 da...", options: ["10", "8", "12"], ans: 0 },
+                { q: "¿Qué número es el MAYOR (el más grande)?", options: ["15", "23", "11"], ans: 1 },
+                { q: "Tienes 8 dulces y te comes 3. ¿Cuántos te quedan?", options: ["4", "5", "8"], ans: 1 },
+                { q: "¿Qué número está justo ANTES del 20?", options: ["19", "21", "18"], ans: 0 },
+                { q: "10 + 10 es igual a...", options: ["20", "30", "100"], ans: 0 },
+                { q: "Es una figura con 3 lados:", options: ["Círculo", "Triángulo", "Cuadrado"], ans: 1 },
+                { q: "¿Cuál es el número cincuenta?", options: ["15", "5", "50"], ans: 2 },
+                { q: "Si cuento saltando de 2 en 2: 2, 4, 6... ¿Qué sigue?", options: ["7", "8", "9"], ans: 1 },
+                { q: "Hay 3 gatos adentro y 2 afuera. ¿Cuántos son en total?", options: ["5", "4", "6"], ans: 0 },
+                { q: "Es una figura redonda sin esquinas:", options: ["Triángulo", "Rectángulo", "Círculo"], ans: 2 },
+                { q: "¿Cuántas decenas (paquetes de 10) tiene el número 30?", options: ["3", "0", "30"], ans: 0 },
+                { q: "¿Qué objeto es más LARGO?", options: ["Un lápiz nuevo", "Una goma", "Un sacapuntas"], ans: 0 },
+                { q: "7 - 2 = ?", options: ["4", "5", "6"], ans: 1 },
+                { q: "Si el lunes es el día 1 de ir a la escuela, el martes es el...", options: ["Día 2", "Día 3", "Día 5"], ans: 0 },
+                { q: "Si tienes 1 moneda de 10 pesos y otra de 5 pesos. ¿Cuánto dinero tienes?", options: ["10 pesos", "15 pesos", "20 pesos"], ans: 1 },
+                { q: "¿Qué número va después del 99?", options: ["98", "100", "101"], ans: 1 },
+                { q: "En una semana hay...", options: ["5 días", "7 días", "10 días"], ans: 1 },
+                { q: "6 + 4 = ?", options: ["11", "10", "9"], ans: 1 },
+                { q: "Una 'docena' son...", options: ["10 cosas", "12 cosas", "20 cosas"], ans: 1 },
+                { q: "¿Qué pesa MÁS?", options: ["Una plumita de ave", "Un elefante", "Una hoja de papel"], ans: 1 },
+                { q: "El número 15 es MAYOR que...", options: ["20", "10", "18"], ans: 1 },
+                { q: "Si tienes 10 dedos en las manos y 10 en los pies, ¿cuántos tienes en total?", options: ["10", "15", "20"], ans: 2 },
+                { q: "¿Qué instrumento usamos para medir cuánto mide tu cuaderno en centímetros?", options: ["Báscula", "Regla", "Reloj"], ans: 1 },
+                { q: "¿Cuántos meses tiene 1 año?", options: ["10", "12", "7"], ans: 1 },
+                { q: "9 - 9 = ?", options: ["9", "1", "0"], ans: 2 },
+                { q: "Un rectángulo tiene...", options: ["4 lados (2 largos y 2 cortos)", "3 lados iguales", "No tiene lados"], ans: 0 },
+                { q: "Sigue el patrón: Rojo, Azul, Rojo, Azul, ...", options: ["Verde", "Rojo", "Amarillo"], ans: 1 },
+                { q: "Si Zaid tiene 6 carritos y le regalan 4 más, ¿cuántos tiene ahora?", options: ["10", "8", "12"], ans: 0 },
+                { q: "¿A qué hora hacemos el DESAYUNO normalmente?", options: ["En la noche", "En la mañana recién despiertos", "A medianoche"], ans: 1 },
+                { q: "8 + 2 = ?", options: ["10", "9", "11"], ans: 0 },
+                { q: "Si a 5 le sumas 0...", options: ["Da 0", "Se queda en 5", "Da 50"], ans: 1 },
+                { q: "¿Cual número es el MENOR (más chiquito)?", options: ["45", "21", "33"], ans: 1 },
+                { q: "Un año entero tiene...", options: ["7 días", "365 días", "12 días"], ans: 1 },
+                { q: "La MITAD de 10 es...", options: ["5", "2", "4"], ans: 0 }
             ],
             ingles: [
                 { q: "¿Cómo se dice 'Verde' en inglés?", options: ["Yellow", "Green", "Blue"], ans: 1 },
                 { q: "¿Cómo se dice 'Papá' en inglés?", options: ["Mom", "Brother", "Dad"], ans: 2 },
                 { q: "Si quiero preguntar '¿Quién es él?', digo:", options: ["What color?", "Who is this?", "There is"], ans: 1 },
                 { q: "¿Cómo se dice 'Plátano' en inglés?", options: ["Apple", "Carrot", "Banana"], ans: 2 },
-                { q: "Para decir 'Hay MUCHAS galletas' uso:", options: ["There is", "There are", "It is"], ans: 1 }
-                // Agrega el resto aquí...
+                { q: "Para decir 'Hay MUCHAS galletas' uso:", options: ["There is", "There are", "It is"], ans: 1 },
+                { q: "¿Cómo se dice 'Rojo'?", options: ["Green", "Red", "Blue"], ans: 1 },
+                { q: "El número 'Uno' es:", options: ["One", "Two", "Three"], ans: 0 },
+                { q: "¿Cómo se dice 'Perro' en inglés?", options: ["Cat", "Dog", "Fish"], ans: 1 },
+                { q: "¿Qué significa 'Hello'?", options: ["Adiós", "Hola", "Gracias"], ans: 1 },
+                { q: "Gato en inglés es:", options: ["Dog", "Bird", "Cat"], ans: 2 },
+                { q: "El número 2 es:", options: ["Two", "Three", "One"], ans: 0 },
+                { q: "'Goodbye' significa:", options: ["Hola", "Por favor", "Adiós"], ans: 2 },
+                { q: "¿Cómo se dice 'Azul'?", options: ["Red", "Blue", "Yellow"], ans: 1 },
+                { q: "El color del sol (Amarillo) en inglés es:", options: ["Yellow", "Green", "Black"], ans: 0 },
+                { q: "Number 'Three' significa:", options: ["2", "3", "4"], ans: 1 },
+                { q: "'Manzana' en inglés es:", options: ["Apple", "Banana", "Orange"], ans: 0 },
+                { q: "¿Cómo se dice 'Mamá'?", options: ["Dad", "Mom", "Sister"], ans: 1 },
+                { q: "'Gracias' en inglés es:", options: ["Please", "Thank you", "Sorry"], ans: 1 },
+                { q: "Number 'Four' es el:", options: ["4", "5", "2"], ans: 0 },
+                { q: "El color 'Rosa' se dice:", options: ["Purple", "Pink", "Orange"], ans: 1 },
+                { q: "¿Qué es un 'Book'?", options: ["Lápiz", "Cuaderno", "Libro"], ans: 2 },
+                { q: "¿Cómo se dice 'Agua'?", options: ["Water", "Milk", "Juice"], ans: 0 },
+                { q: "'Por favor' en inglés es:", options: ["Please", "Thank you", "Hello"], ans: 0 },
+                { q: "Number 'Five' es el número...", options: ["6", "4", "5"], ans: 2 },
+                { q: "Un 'Pencil' es un:", options: ["Lápiz", "Goma", "Pluma"], ans: 0 },
+                { q: "¿Qué color es 'Black'?", options: ["Blanco", "Negro", "Gris"], ans: 1 },
+                { q: "Número 6 en inglés se dice:", options: ["Six", "Seven", "Eight"], ans: 0 },
+                { q: "¿Qué animal dice 'oink' (cerdo) en inglés?", options: ["Dog", "Pig", "Cat"], ans: 1 },
+                { q: "¿Qué parte del día es 'Morning'?", options: ["Noche", "Tarde", "Mañana"], ans: 2 },
+                { q: "'Good night' se usa para decir:", options: ["Hola", "Buenas noches a dormir", "Buenos días"], ans: 1 },
+                { q: "¿Cómo se dice 'Siete' en inglés?", options: ["Seven", "Nine", "Ten"], ans: 0 },
+                { q: "Un 'Boy' es un:", options: ["Niña", "Niño", "Perro"], ans: 1 },
+                { q: "Una 'Girl' es una:", options: ["Niño", "Casa", "Niña"], ans: 2 },
+                { q: "En tu cara, los 'Eyes' son:", options: ["Orejas", "Ojos", "Nariz"], ans: 1 },
+                { q: "¿Qué significa 'Open the door'?", options: ["Cerrar", "Abrir la puerta", "Correr"], ans: 1 },
+                { q: "¿Qué significa 'Play'?", options: ["Jugar", "Comer", "Dormir"], ans: 0 },
+                { q: "'Ten' es el número...", options: ["1", "5", "10"], ans: 2 },
+                { q: "'Milk' significa:", options: ["Jugo", "Leche", "Agua"], ans: 1 },
+                { q: "Un 'Car' es un:", options: ["Avión", "Coche o Carrito", "Tren"], ans: 1 },
+                { q: "El color 'Blanco' en inglés es:", options: ["White", "Black", "Gray"], ans: 0 }
             ],
             naturaleza: [
                 { q: "¿Qué es un factor 'Abiótico'?", options: ["Un animal", "Algo sin vida (sol, agua, tierra)", "Un hongo"], ans: 1 },
                 { q: "Un animal 'Nocturno' es el que...", options: ["Duerme todo el día", "Sale a cazar y jugar de noche", "No tiene huesos"], ans: 1 },
                 { q: "Para abrir una puerta hacia ti, debes...", options: ["Empujar", "Jalar", "Patear"], ans: 1 },
                 { q: "¿Cómo cuidamos nuestro entorno?", options: ["Tirando basura al piso", "Rompiendo plantas", "Poniendo la basura en su lugar"], ans: 2 },
-                { q: "Cuando te tiras por un tobogán, tu movimiento es...", options: ["Rodar", "Girar", "Deslizar"], ans: 2 }
-                // Agrega el resto aquí...
+                { q: "Cuando te tiras por un tobogán, tu movimiento es...", options: ["Rodar", "Girar", "Deslizar"], ans: 2 },
+                { q: "¿Qué sentido de tu cuerpo usas para VER los colores?", options: ["Oído", "Vista (ojos)", "Tacto"], ans: 1 },
+                { q: "El león come carne, entonces es un animal...", options: ["Manso", "Carnívoro", "Herbívoro"], ans: 1 },
+                { q: "¿De qué animal granjero sacamos la leche que bebé Zaid?", options: ["De la gallina", "Del árbol", "De la vaca"], ans: 2 },
+                { q: "Las plantas y las flores necesitan ______ para vivir y crecer.", options: ["Refresco y pizza", "Agua y luz del Sol", "Oscuridad"], ans: 1 },
+                { q: "¿Qué hacemos en la NOCHE cuando sale la luna?", options: ["Ir a la escuela", "Dormir en la camita", "Jugar béisbol en el parque"], ans: 1 },
+                { q: "Usas el sentido del OÍDO (tus orejas) para...", options: ["Comer helado", "Escuchar música y a los pajaritos", "Ver la tele"], ans: 1 },
+                { q: "Es un alimento SALUDABLE que te hace fuerte:", options: ["Manzana", "Muchos dulces", "Refresco"], ans: 0 },
+                { q: "Un animal que VUELA en el cielo es el...", options: ["Perro", "Pájaro", "Pez"], ans: 1 },
+                { q: "El sentido del GUSTO para saborear pasteles está en la...", options: ["Nariz", "Mano", "Lengua"], ans: 2 },
+                { q: "Animal que vive adentro del AGUA:", options: ["Gato", "Pez", "Caballo"], ans: 1 },
+                { q: "Es un buen hábito de HIGIENE para estar limpios:", options: ["Dormir sin bañarse", "Bañarse y lavarse los dientes", "Jugar en el lodo siempre"], ans: 1 },
+                { q: "El sentido del TACTO para tocar cosas suaves está en...", options: ["Los ojos", "La piel y las manos", "Las orejas"], ans: 1 },
+                { q: "En la estación de PRIMAVERA...", options: ["Hace mucho frío y nieva", "Nacen las flores y hace calorcito", "Se caen todas las hojas secas"], ans: 1 },
+                { q: "¿Cómo podemos CUIDAR EL AGUA del planeta?", options: ["Dejando la llave abierta", "Cerrando la llave al jabonarnos", "Tirando basura al mar"], ans: 1 },
+                { q: "Los animales HERBÍVOROS (como la jirafa) comen...", options: ["Pura Carne", "Insectos", "Plantas y hojas"], ans: 2 },
+                { q: "El Sol brillante del cielo nos da...", options: ["Hielo y frío", "Luz y calor", "Mucha Lluvia"], ans: 1 },
+                { q: "El sentido del OLFATO (tu nariz) nos sirve para...", options: ["Oler las flores y la comida rica", "Sentir frío", "Probar comida"], ans: 0 },
+                { q: "Las VACUNAS que nos dan los doctores sirven para...", options: ["Enfermarnos", "Protegernos de enfermedades como superhéroes", "Hacernos llorar solamente"], ans: 1 },
+                { q: "Es un animal que vive en una GRANJA:", options: ["León salvaje", "Cerdo", "Tiburón"], ans: 1 },
+                { q: "De los grandes ÁRBOLES del bosque obtenemos...", options: ["Rica leche", "Ricas frutas y madera", "Vasos de Plástico"], ans: 1 },
+                { q: "Cuando el semáforo para coches está en ROJO, los coches deben...", options: ["Avanzar súper rápido", "Detenerse sin moverse", "Tocar el claxon fuerte"], ans: 1 },
+                { q: "Para que tú cruces la calle seguro caminando, debes usar...", options: ["El paso peatonal (rayas blancas)", "A mitad de la calle corriendo", "Con los ojos cerrados"], ans: 0 },
+                { q: "En INVIERNO cuando hace mucho frío usamos...", options: ["Traje de baño", "Chamarra calientita y bufanda", "Lentes de sol"], ans: 1 },
+                { q: "Adentro de tu cuerpo, todos tus huesos forman tu duro...", options: ["Músculo", "Esqueleto", "Pelo"], ans: 1 },
+                { q: "Un animal resbaloso que SE ARRASTRA para caminar es:", options: ["El águila voladora", "La serpiente", "El conejo saltarín"], ans: 1 },
+                { q: "¿Cuál de estos es un RECURSO NATURAL que nos da la Tierra?", options: ["El agua dulce de los ríos", "Un coche de juguete", "Una televisión"], ans: 0 },
+                { q: "Hacer EJERCICIO y jugar corriendo es bueno para...", options: ["Estar tristes aburridos", "Mantener nuestro cuerpo muy fuerte y sano", "Estar enfermos"], ans: 1 },
+                { q: "Estos SÍ son SERES VIVOS que nacen y crecen:", options: ["Las piedras y el agua", "Las plantas y los animales", "Las mesas y sillas"], ans: 1 },
+                { q: "Para ver el cielo lleno de ESTRELLAS brillantes esperamos a la...", options: ["Hora del recreo a mediodía", "Noche oscura", "Mañana con sol"], ans: 1 },
+                { q: "Un MAMÍFERO es un animalito que...", options: ["Nace de un huevito", "Toma leche de su mamá", "Es un robot de plástico"], ans: 1 },
+                { q: "¿Qué parte adentro de tu cuerpo usas para RESPIRAR el aire?", options: ["Los pulmones", "El corazón que late", "El estómago que digiere"], ans: 0 },
+                { q: "Es algo muy PELIGROSO que NO debes hacer en casa:", options: ["Jugar con cables y enchufes de luz", "Jugar con legos", "Dormir en tu cama"], ans: 0 },
+                { q: "Un material muy SUAVECITO al tocarlo es...", options: ["Una piedra dura", "Un bloque de madera", "Una lanita de algodón"], ans: 2 },
+                { q: "Un sonido muy FUERTE y molesto para tus oídos es...", options: ["El canto suave de un pájaro", "El ruido de un taladro en la pared", "Alguien que habla quedito"], ans: 1 },
+                { q: "Todos los niños del mundo crecen y...", options: ["Se hacen bebés otra vez", "Cambian y se hacen grandes", "Se quedan chiquitos por siempre"], ans: 1 }
             ]
         };
 
@@ -215,15 +554,20 @@
             document.getElementById('quiz-screen').classList.remove('flex');
             document.getElementById('result-screen').classList.add('hidden');
             document.getElementById('minigames-menu').classList.add('hidden');
+            document.getElementById('minigames-menu').classList.remove('flex');
             document.getElementById('minigame-container').classList.add('hidden');
             document.getElementById('minigame-container').classList.remove('flex');
+            document.getElementById('flashcards-subject-menu').classList.add('hidden');
+            document.getElementById('flashcards-subject-menu').classList.remove('flex');
+            document.getElementById('flashcards-screen').classList.add('hidden');
+            document.getElementById('flashcards-screen').classList.remove('flex');
             document.getElementById('home-screen').classList.remove('hidden');
             window.speechSynthesis.cancel();
         }
 
         function startQuiz(subject) {
             const subjectNames = { espanol: "📚 Español", matematicas: "🔢 Matemáticas", ingles: "🌎 Inglés", naturaleza: "🌱 Naturaleza" };
-            currentQuestions = [...db[subject]].sort(() => Math.random() - 0.5).slice(0, 20); 
+            currentQuestions = [...db[subject]].sort(() => Math.random() - 0.5).slice(0, 20);
             currentIndex = 0; score = 0;
             document.getElementById('subject-title').innerText = subjectNames[subject];
             document.getElementById('home-screen').classList.add('hidden');
@@ -260,7 +604,7 @@
             }
             allBtns.forEach(b => b.classList.add('opacity-80', 'cursor-not-allowed'));
             selectedBtn.classList.remove('opacity-80'); allBtns[correctIndex].classList.remove('opacity-80');
-            
+
             const nextBtn = document.getElementById('next-btn');
             nextBtn.classList.remove('hidden');
             nextBtn.innerText = currentIndex === currentQuestions.length - 1 ? "¡Ver mis resultados! 🌟" : "¡Siguiente! 🚀";
@@ -290,12 +634,10 @@
         // 3. LÓGICA DE MINIJUEGOS 
         // ==========================================
         function showMinigamesMenu() {
+            goHome(); // Reset todo
             document.getElementById('home-screen').classList.add('hidden');
-            document.getElementById('minigame-container').classList.add('hidden');
-            document.getElementById('minigame-container').classList.remove('flex');
             document.getElementById('minigames-menu').classList.remove('hidden');
             document.getElementById('minigames-menu').classList.add('flex');
-            window.speechSynthesis.cancel();
         }
 
         let currentGameType = ''; let correctMatches = 0; let totalMatches = 0;
@@ -306,7 +648,7 @@
             document.getElementById('minigame-container').classList.remove('hidden');
             document.getElementById('minigame-container').classList.add('flex');
             document.getElementById('minigame-success').classList.add('hidden');
-            
+
             const content = document.getElementById('minigame-content');
             content.innerHTML = ''; currentGameType = type; correctMatches = 0;
 
@@ -329,7 +671,7 @@
                     </div>
                 `;
                 initPointerDragDrop();
-            } 
+            }
             else if (type === 'carta') {
                 document.getElementById('minigame-title').innerText = "✉️ Arma la Carta";
                 totalMatches = 5;
@@ -354,9 +696,9 @@
             }
             else if (type === 'cuento') {
                 document.getElementById('minigame-title').innerText = "📖 El Cuento Mágico";
-                totalMatches = 5; 
+                totalMatches = 5;
                 const randomStory = STORIES_DB[Math.floor(Math.random() * STORIES_DB.length)];
-                
+
                 content.innerHTML = `
                     <div class="bg-blue-50 p-4 rounded-2xl border-2 border-blue-200 mb-6 flex flex-col items-center">
                         <button onclick="readStoryText('${randomStory.text.replace(/'/g, "\\'")}')" class="bg-purple-500 hover:bg-purple-600 text-white font-black py-3 px-6 rounded-full shadow-lg text-xl flex items-center gap-2 mb-4 animate-bounce">
@@ -390,14 +732,14 @@
             else if (type === 'onomatopeyas') {
                 document.getElementById('minigame-title').innerText = "🖍️ Une los Sonidos";
                 totalMatches = 4;
-                
+
                 const pairs = [...ONOMATOPEYAS_DB].sort(() => Math.random() - 0.5).slice(0, 4);
                 const leftCol = [...pairs].sort(() => Math.random() - 0.5);
                 const rightCol = [...pairs].sort(() => Math.random() - 0.5);
 
                 let leftHTML = leftCol.map(p => `
                     <div class="flex items-center justify-between bg-blue-100 p-2 md:p-4 rounded-xl border-2 border-blue-300 w-full mb-4">
-                        <button onclick="playSound('${p.vocal}')" class="bg-white rounded-full p-2 shadow hover:bg-gray-100 text-2xl">🔊</button>
+                        <button onclick="playSound('${p.vocal}', '${p.id}')" class="bg-white rounded-full p-2 shadow hover:bg-gray-100 text-2xl">🔊</button>
                         <span class="font-bold text-lg md:text-xl text-blue-800 ml-2">${p.snd}</span>
                         <div class="match-dot left-dot ml-auto" data-id="${p.id}"></div>
                     </div>
@@ -420,7 +762,15 @@
                         </div>
                     </div>
                 `;
-                setTimeout(initCanvasDrawing, 100); 
+                setTimeout(initCanvasDrawing, 100);
+            }
+            else if (type === 'memorama') {
+                document.getElementById('minigame-title').innerText = "🎴 Memoria de Textos";
+                content.innerHTML = `
+                    <p class="text-center font-bold text-gray-600 mb-4">¡Encuentra los pares! Ej: "Había una vez..." va con "Inicio de un cuento".</p>
+                    <div id="memo-grid" class="grid grid-cols-3 md:grid-cols-4 gap-3"></div>
+                `;
+                initMemorama();
             }
         }
 
@@ -439,19 +789,19 @@
 
         function handleDragStart(e) {
             if (e.target.parentElement.classList.contains('dropzone')) return;
-            
+
             activeDragEl = e.target.closest('.draggable');
-            if(!activeDragEl) return;
-            
-            e.preventDefault(); 
+            if (!activeDragEl) return;
+
+            e.preventDefault();
 
             dragClone = activeDragEl.cloneNode(true);
             dragClone.classList.add('dragging-clone');
             document.body.appendChild(dragClone);
-            
+
             moveClone(e.clientX, e.clientY);
-            
-            document.addEventListener('pointermove', handleDragMove, {passive: false});
+
+            document.addEventListener('pointermove', handleDragMove, { passive: false });
             document.addEventListener('pointerup', handleDragEnd);
         }
 
@@ -462,7 +812,7 @@
         }
 
         function handleDragMove(e) {
-            if(!dragClone) return;
+            if (!dragClone) return;
             e.preventDefault();
             moveClone(e.clientX, e.clientY);
         }
@@ -470,13 +820,13 @@
         function handleDragEnd(e) {
             document.removeEventListener('pointermove', handleDragMove);
             document.removeEventListener('pointerup', handleDragEnd);
-            
+
             if (!dragClone || !activeDragEl) return;
-            
+
             dragClone.style.display = 'none';
             let elemBelow = document.elementFromPoint(e.clientX, e.clientY);
             let dropzone = elemBelow ? elemBelow.closest('.dropzone') : null;
-            
+
             if (dropzone && !dropzone.classList.contains('filled')) {
                 if (dropzone.dataset.target === activeDragEl.dataset.match) {
                     dropzone.innerHTML = '';
@@ -487,7 +837,7 @@
                     correctMatches++;
                     if (correctMatches === totalMatches) {
                         setTimeout(() => document.getElementById('minigame-success').classList.remove('hidden'), 400);
-                        playAudio(true); 
+                        playAudio(true);
                     }
                 } else {
                     playAudio(false);
@@ -497,7 +847,7 @@
             } else {
                 playAudio(false);
             }
-            
+
             dragClone.remove();
             dragClone = null;
             activeDragEl = null;
@@ -509,37 +859,37 @@
         function initCanvasDrawing() {
             const canvas = document.getElementById('line-canvas');
             const container = document.getElementById('canvas-container');
-            if(!canvas || !container) return;
-            
+            if (!canvas || !container) return;
+
             const ctx = canvas.getContext('2d');
             canvas.width = container.clientWidth;
             canvas.height = container.clientHeight;
 
             let isDrawing = false; let startDot = null;
             let currentX = 0; let currentY = 0;
-            let lines = []; 
+            let lines = [];
 
             const getCenter = (el) => {
                 const rect = el.getBoundingClientRect();
                 const containerRect = container.getBoundingClientRect();
                 return {
-                    x: rect.left - containerRect.left + rect.width/2,
-                    y: rect.top - containerRect.top + rect.height/2
+                    x: rect.left - containerRect.left + rect.width / 2,
+                    y: rect.top - containerRect.top + rect.height / 2
                 };
             };
 
             const drawAll = () => {
-                ctx.clearRect(0,0, canvas.width, canvas.height);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.lineWidth = 8;
                 ctx.lineCap = 'round';
-                
+
                 lines.forEach(l => {
                     const p1 = getCenter(l.startEl); const p2 = getCenter(l.endEl);
                     ctx.strokeStyle = '#22c55e';
                     ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
                 });
-                
-                if(isDrawing && startDot) {
+
+                if (isDrawing && startDot) {
                     const p1 = getCenter(startDot);
                     ctx.strokeStyle = '#3b82f6';
                     ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(currentX, currentY); ctx.stroke();
@@ -558,7 +908,7 @@
             };
 
             container.onpointermove = (e) => {
-                if(!isDrawing) return;
+                if (!isDrawing) return;
                 const containerRect = container.getBoundingClientRect();
                 currentX = e.clientX - containerRect.left;
                 currentY = e.clientY - containerRect.top;
@@ -567,16 +917,16 @@
             };
 
             container.onpointerup = (e) => {
-                if(!isDrawing) return;
+                if (!isDrawing) return;
                 isDrawing = false;
-                
+
                 const el = document.elementFromPoint(e.clientX, e.clientY);
                 if (el && el.classList.contains('right-dot') && !el.classList.contains('matched-dot')) {
-                    if(el.dataset.id === startDot.dataset.id) {
-                        lines.push({startEl: startDot, endEl: el});
+                    if (el.dataset.id === startDot.dataset.id) {
+                        lines.push({ startEl: startDot, endEl: el });
                         startDot.classList.add('matched-dot'); el.classList.add('matched-dot');
                         playAudio(true); correctMatches++;
-                        if(correctMatches === totalMatches) {
+                        if (correctMatches === totalMatches) {
                             setTimeout(() => document.getElementById('minigame-success').classList.remove('hidden'), 500);
                         }
                     } else {
@@ -594,21 +944,57 @@
         // ==========================================
         // 6. UTILIDADES: AUDIO Y TEXT-TO-SPEECH
         // ==========================================
+        let preferredVoice = null;
+        
+        window.speechSynthesis.onvoiceschanged = () => {
+             const voices = window.speechSynthesis.getVoices();
+             preferredVoice = voices.find(v => v.lang.includes('es-MX') || v.lang.includes('es-ES') || v.lang.includes('es_US'));
+        };
+
         function readStoryText(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel(); 
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'es-MX'; utterance.rate = 0.85; utterance.pitch = 1.2;
+                utterance.lang = 'es-MX'; 
+                utterance.rate = 0.85; 
+                utterance.pitch = 1.2;
+                if(preferredVoice) utterance.voice = preferredVoice;
                 window.speechSynthesis.speak(utterance);
             }
+        }
+
+        function playSound(text_or_path, id_for_audio = null) {
+            if (id_for_audio) {
+                const audioFile = new Audio(`sounds/${id_for_audio}.mp3`);
+                audioFile.play().catch(e => {
+                    console.log("No audio file found, falling back to TTS for: ", text_or_path);
+                    fallbackToTTS(text_or_path);
+                });
+            } else {
+                 fallbackToTTS(text_or_path);
+            }
+        }
+        
+        function fallbackToTTS(text) {
+             if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'es-MX'; 
+                utterance.rate = 1.0; 
+                utterance.pitch = 1.8; 
+                if(preferredVoice) utterance.voice = preferredVoice;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
         }
 
         function playSound(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'es-MX'; 
-                utterance.rate = 1.0; utterance.pitch = 1.8; 
+                utterance.lang = 'es-MX';
+                utterance.rate = 1.0; utterance.pitch = 1.8;
                 window.speechSynthesis.speak(utterance);
             }
         }
@@ -618,7 +1004,7 @@
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
                 const osc = ctx.createOscillator(); const gain = ctx.createGain();
                 osc.connect(gain); gain.connect(ctx.destination);
-                
+
                 if (isCorrect) {
                     osc.type = 'sine'; osc.frequency.setValueAtTime(500, ctx.currentTime);
                     osc.frequency.exponentialRampToValueAtTime(1000, ctx.currentTime + 0.1);
@@ -629,21 +1015,186 @@
                     gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
                 }
                 osc.start(); osc.stop(ctx.currentTime + 0.3);
-            } catch (e) {}
+            } catch (e) { }
         }
-        
+
         function solveMinigame() {
-            if(currentGameType === 'nota' || currentGameType === 'carta' || currentGameType === 'cuento') {
+            if (currentGameType === 'nota' || currentGameType === 'carta' || currentGameType === 'cuento') {
                 document.querySelectorAll('.dropzone').forEach(zone => {
                     const matchId = zone.dataset.target;
                     const dragEl = document.querySelector(`.draggable[data-match="${matchId}"]`);
-                    if(dragEl && !zone.classList.contains('filled')) {
+                    if (dragEl && !zone.classList.contains('filled')) {
                         dragEl.style.margin = '0'; zone.innerHTML = ''; zone.appendChild(dragEl); zone.classList.add('filled');
                     }
                 });
                 document.getElementById('minigame-success').classList.remove('hidden');
+            } else if (currentGameType === 'memorama') {
+                document.querySelectorAll('.memo-card:not(.matched)').forEach(card => card.classList.add('flipped', 'matched'));
+                setTimeout(() => document.getElementById('minigame-success').classList.remove('hidden'), 500);
+            }
+        }
+        "]`);
+        if (dragEl && !zone.classList.contains('filled')) {
+            dragEl.style.margin = '0'; zone.innerHTML = ''; zone.appendChild(dragEl); zone.classList.add('filled');
+        }
+                });
+        document.getElementById('minigame-success').classList.remove('hidden');
+            }
+        }
+
+        // ==========================================
+        // 7. LÓGICA TARJETAS DE REPASO (FLASHCARDS)
+        // ==========================================
+        let fcQuestions = []; let fcIndex = 0;
+
+        function showFlashcardsSubjectMenu() {
+            goHome(); // Reset todo
+            document.getElementById('home-screen').classList.add('hidden');
+            document.getElementById('flashcards-subject-menu').classList.remove('hidden');
+            document.getElementById('flashcards-subject-menu').classList.add('flex');
+        }
+
+        function startFlashcards(subject) {
+            const subjectNames = { espanol: "📚 Español", matematicas: "🔢 Matemáticas", ingles: "🌎 Inglés", naturaleza: "🌱 Naturaleza" };
+            // Toma 20 aleatorias para que no sea tan largo de un jalón, o las 40 según prefieras. Aquí tomamos 20.
+            fcQuestions = [...db[subject]].sort(() => Math.random() - 0.5).slice(0, 20);
+            fcIndex = 0;
+
+            document.getElementById('fc-subject-title').innerText = subjectNames[subject];
+            document.getElementById('flashcards-subject-menu').classList.add('hidden');
+            document.getElementById('flashcards-subject-menu').classList.remove('flex');
+            document.getElementById('flashcards-screen').classList.remove('hidden');
+            document.getElementById('flashcards-screen').classList.add('flex');
+
+            loadFlashcard();
+        }
+
+        function loadFlashcard() {
+            const fcInner = document.getElementById('fc-inner');
+            fcInner.classList.remove('is-flipped'); // Asegurar que muestre el frente
+
+            setTimeout(() => {
+                const qData = fcQuestions[fcIndex];
+                document.getElementById('fc-question').innerText = qData.q;
+                document.getElementById('fc-answer').innerText = qData.options[qData.ans];
+                document.getElementById('fc-counter').innerText = `${fcIndex + 1} / ${fcQuestions.length}`;
+            }, 100); // Pequeño delay para que no se vea el cambio si estaba volteada
+        }
+
+        function flipCard() {
+            document.getElementById('fc-inner').classList.toggle('is-flipped');
+            playAudio(true); // Pequeño sonidito de volteo
+        }
+
+        function nextFlashcard() {
+            if (fcIndex < fcQuestions.length - 1) {
+                fcIndex++;
+                loadFlashcard();
+            } else {
+                // Termina
+                showFlashcardsSubjectMenu();
+            }
+        }
+
+        function prevFlashcard() {
+            if (fcIndex > 0) {
+                fcIndex--;
+                loadFlashcard();
+            }
+        }
+
+
+        // ==========================================
+        // 8. LÓGICA MEMORIA DE TEXTOS (MEMORAMA)
+        // ==========================================
+        const MEMO_PAIRS = [
+            { id: 1, text1: "Querido\namigo:", text2: "Saludo de\nuna Carta" },
+            { id: 2, text1: "Monterrey, N.L.\na 5 de Mayo", text2: "Lugar y Fecha\nde Carta" },
+            { id: 3, text1: "Atentamente,\ntu amigo Zaid", text2: "Despedida\ny Firma" },
+            { id: 4, text1: "Había una\nvez...", text2: "Inicio de\nun Cuento" },
+            { id: 5, text1: "Y vivieron felices\npara siempre.", text2: "Final de\nun Cuento" },
+            { id: 6, text1: "Se perdió\nPerrito Café", text2: "Título de\nNota Infor." }
+        ];
+
+        let memoCards = [];
+        let flippedMemoCards = [];
+        let memoMatches = 0;
+
+        function initMemorama() {
+            const grid = document.getElementById('memo-grid');
+            grid.innerHTML = '';
+            memoCards = [];
+            flippedMemoCards = [];
+            memoMatches = 0;
+
+            const cardsData = [];
+            MEMO_PAIRS.forEach(pair => {
+                cardsData.push({ id: pair.id, type: 'a', text: pair.text1 });
+                cardsData.push({ id: pair.id, type: 'b', text: pair.text2 });
+            });
+
+            cardsData.sort(() => Math.random() - 0.5);
+
+            cardsData.forEach((data, index) => {
+                const cardFront = document.createElement('div');
+                cardFront.className = 'memo-card h-24 md:h-32';
+                cardFront.dataset.id = data.id;
+                cardFront.dataset.index = index;
+
+                cardFront.innerHTML = `
+                    <div class="memo-inner shadow-md rounded-xl">
+                        <div class="memo-front">?</div>
+                        <div class="memo-back border-4 shadow-inner">${data.text.replace(/\n/g, '<br>')}</div>
+                    </div>
+                `;
+
+                cardFront.onclick = () => flipMemoCard(cardFront);
+                grid.appendChild(cardFront);
+                memoCards.push(cardFront);
+            });
+
+            totalMatches = MEMO_PAIRS.length;
+        }
+
+        function flipMemoCard(card) {
+            if (flippedMemoCards.length === 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+
+            card.classList.add('flipped');
+            flippedMemoCards.push(card);
+            playAudio(true); // Flip sound
+
+            if (flippedMemoCards.length === 2) {
+                checkMemoMatch();
+            }
+        }
+
+        function checkMemoMatch() {
+            const [card1, card2] = flippedMemoCards;
+
+            if (card1.dataset.id === card2.dataset.id) {
+                // Match
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                memoMatches++;
+                flippedMemoCards = []; // Reset fast allowing to quickly click others
+
+                setTimeout(() => playAudio(true), 150);
+
+                if (memoMatches === totalMatches) {
+                    setTimeout(() => document.getElementById('minigame-success').classList.remove('hidden'), 600);
+                }
+            } else {
+                // No match
+                setTimeout(() => playAudio(false), 300);
+                setTimeout(() => {
+                    card1.classList.remove('flipped');
+                    card2.classList.remove('flipped');
+                    flippedMemoCards = [];
+                }, 1000);
             }
         }
     </script>
 </body>
+
+
 </html>
