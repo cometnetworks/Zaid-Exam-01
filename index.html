@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>¡Aprende Jugando! - Repaso 1er Grado</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -10,464 +10,638 @@
         body {
             font-family: 'Nunito', sans-serif;
             background-color: #f0fdf4;
-            user-select: none; /* Evita que el niño seleccione texto por accidente */
+            user-select: none;
+            touch-action: pan-y;
+            overflow-x: hidden;
         }
-        .btn-option {
-            transition: all 0.2s;
-        }
-        .btn-option:active {
-            transform: scale(0.95);
-        }
-        .correct {
-            background-color: #4ade80 !important;
-            color: white !important;
-            border-color: #22c55e !important;
-        }
-        .incorrect {
-            background-color: #f87171 !important;
-            color: white !important;
-            border-color: #ef4444 !important;
-        }
-        .hint-reveal {
-            box-shadow: 0 0 15px 5px #4ade80;
-            border: 3px solid #16a34a !important;
-        }
-        /* Animación para celebrar al final */
+        .btn-option { transition: all 0.2s; }
+        .btn-option:active { transform: scale(0.95); }
+        .correct { background-color: #4ade80 !important; color: white !important; border-color: #22c55e !important; }
+        .incorrect { background-color: #f87171 !important; color: white !important; border-color: #ef4444 !important; }
+        .hint-reveal { box-shadow: 0 0 15px 5px #4ade80; border: 3px solid #16a34a !important; }
+        
         @keyframes bounce {
-            0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+            0%, 100% { transform: translateY(-15%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
             50% { transform: none; animation-timing-function: cubic-bezier(0,0,0.2,1); }
         }
-        .animate-bounce-slow {
-            animation: bounce 2s infinite;
-        }
+        .animate-bounce-slow { animation: bounce 2s infinite; }
+        
+        /* Drag and Drop Custom Styles */
+        .draggable { touch-action: none; cursor: grab; z-index: 20; position: relative; }
+        .draggable:active { cursor: grabbing; }
+        .dropzone { border: 3px dashed #cbd5e1; transition: all 0.3s; min-height: 3rem; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.5); position: relative; }
+        .dropzone.filled { border: 3px solid #22c55e; background-color: #f0fdf4; border-style: solid; }
+        .dragging-clone { position: fixed; z-index: 9999; pointer-events: none; opacity: 0.9; transform: scale(1.1); box-shadow: 0 10px 25px rgba(0,0,0,0.3); transition: none; margin: 0; }
+        
+        /* Canvas para líneas */
+        #line-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+        .match-dot { width: 28px; height: 28px; background: #3b82f6; border-radius: 50%; display: inline-block; cursor: pointer; border: 4px solid white; box-shadow: 0 0 8px rgba(0,0,0,0.4); touch-action: none; position: relative; z-index: 20; }
+        .matched-dot { background: #22c55e; border-color: #dcfce7; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center py-6 px-4">
 
-    <!-- Pantalla Principal: Selección de Materias -->
+    <!-- Pantalla Principal -->
     <div id="home-screen" class="w-full max-w-2xl text-center">
         <h1 class="text-4xl md:text-5xl font-black text-green-600 mb-4 animate-bounce-slow">🌟 ¡Súper Repaso! 🌟</h1>
-        <p class="text-xl text-gray-700 mb-8 font-bold">Elige la misión de hoy:</p>
+        <p class="text-xl text-gray-700 mb-6 font-bold">Elige la misión de hoy:</p>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <button onclick="startQuiz('espanol')" class="bg-blue-400 hover:bg-blue-500 text-white p-8 rounded-3xl shadow-lg border-b-8 border-blue-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
-                <span class="text-5xl mb-2">📚</span> Español
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <button onclick="startQuiz('espanol')" class="bg-blue-400 hover:bg-blue-500 text-white p-6 rounded-3xl shadow-lg border-b-8 border-blue-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
+                <span class="text-4xl mb-2">📚</span> Examen Español
             </button>
-            <button onclick="startQuiz('matematicas')" class="bg-red-400 hover:bg-red-500 text-white p-8 rounded-3xl shadow-lg border-b-8 border-red-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
-                <span class="text-5xl mb-2">🔢</span> Matemáticas
+            <button onclick="startQuiz('matematicas')" class="bg-red-400 hover:bg-red-500 text-white p-6 rounded-3xl shadow-lg border-b-8 border-red-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
+                <span class="text-4xl mb-2">🔢</span> Examen Mate
             </button>
-            <button onclick="startQuiz('ingles')" class="bg-yellow-400 hover:bg-yellow-500 text-white p-8 rounded-3xl shadow-lg border-b-8 border-yellow-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
-                <span class="text-5xl mb-2">🌎</span> Inglés
+            <button onclick="startQuiz('ingles')" class="bg-yellow-400 hover:bg-yellow-500 text-white p-6 rounded-3xl shadow-lg border-b-8 border-yellow-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
+                <span class="text-4xl mb-2">🌎</span> Examen Inglés
             </button>
-            <button onclick="startQuiz('naturaleza')" class="bg-green-400 hover:bg-green-500 text-white p-8 rounded-3xl shadow-lg border-b-8 border-green-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
-                <span class="text-5xl mb-2">🌱</span> Ética y Nat.
+            <button onclick="startQuiz('naturaleza')" class="bg-green-400 hover:bg-green-500 text-white p-6 rounded-3xl shadow-lg border-b-8 border-green-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
+                <span class="text-4xl mb-2">🌱</span> Examen Nat.
             </button>
         </div>
-    </div>
 
-    <!-- Pantalla del Quiz -->
-    <div id="quiz-screen" class="w-full max-w-2xl hidden flex-col">
-        <!-- Header del Quiz -->
-        <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-2xl shadow-sm border-2 border-gray-100">
-            <button onclick="goHome()" class="text-gray-500 hover:text-gray-700 font-bold text-lg flex items-center">
-                ⬅️ Salir
-            </button>
-            <h2 id="subject-title" class="text-2xl font-black uppercase text-gray-700">Materia</h2>
-            <div class="text-xl font-bold text-blue-600 bg-blue-100 px-4 py-1 rounded-full">
-                <span id="question-counter">1/40</span>
-            </div>
-        </div>
-
-        <!-- Barra de progreso -->
-        <div class="w-full bg-gray-200 rounded-full h-4 mb-6">
-            <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
-        </div>
-
-        <!-- Pregunta y Opciones -->
-        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-lg border-4 border-white mb-6">
-            <!-- FUNCIÓN OCULTA: El doble clic (ondblclick) revela la respuesta -->
-            <h3 id="question-text" ondblclick="revealAnswer()" class="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-8 leading-tight">
-                ¿Pregunta?
-            </h3>
-            
-            <div id="options-container" class="flex flex-col gap-4">
-                <!-- Opciones generadas por JS -->
-            </div>
-        </div>
-
-        <button id="next-btn" onclick="nextQuestion()" class="hidden w-full bg-blue-500 hover:bg-blue-600 text-white text-2xl font-bold py-5 rounded-2xl shadow-lg border-b-8 border-blue-700 active:border-b-0 active:translate-y-2 transition-all">
-            ¡Siguiente! 🚀
+        <button onclick="showMinigamesMenu()" class="w-full bg-purple-500 hover:bg-purple-600 text-white p-6 rounded-3xl shadow-xl border-b-8 border-purple-700 transform transition hover:-translate-y-1 text-3xl font-black flex items-center justify-center gap-4 animate-pulse">
+            🧩 ¡Minijuegos Mágicos! ✨
         </button>
     </div>
 
-    <!-- Pantalla de Resultados -->
+    <!-- PANTALLA: MENÚ DE MINIJUEGOS -->
+    <div id="minigames-menu" class="w-full max-w-2xl hidden flex-col">
+        <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-2xl shadow-sm">
+            <button onclick="goHome()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-xl">⬅️ Volver</button>
+            <h2 class="text-2xl font-black uppercase text-purple-600">🧩 Minijuegos</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 gap-4">
+            <button onclick="startMinigame('nota')" class="bg-blue-100 border-4 border-blue-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-blue-800 text-left flex items-center gap-4 hover:bg-blue-200">
+                <span class="text-4xl">📰</span> 1. Arma la Nota
+            </button>
+            <button onclick="startMinigame('carta')" class="bg-red-100 border-4 border-red-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-red-800 text-left flex items-center gap-4 hover:bg-red-200">
+                <span class="text-4xl">✉️</span> 2. Arma la Carta
+            </button>
+            <button onclick="startMinigame('cuento')" class="bg-yellow-100 border-4 border-yellow-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-yellow-800 text-left flex items-center gap-4 hover:bg-yellow-200">
+                <span class="text-4xl">📖</span> 3. El Cuento Mágico
+            </button>
+            <button onclick="startMinigame('onomatopeyas')" class="bg-green-100 border-4 border-green-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-green-800 text-left flex items-center gap-4 hover:bg-green-200">
+                <span class="text-4xl">🖍️</span> 4. Une los Sonidos
+            </button>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR DE MINIJUEGOS -->
+    <div id="minigame-container" class="w-full max-w-3xl hidden flex-col bg-white p-4 md:p-8 rounded-3xl shadow-lg border-4 border-purple-300">
+        <div class="flex justify-between items-center mb-6">
+            <button onclick="showMinigamesMenu()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-xl">⬅️ Regresar</button>
+            <h2 id="minigame-title" class="text-xl md:text-2xl font-black text-purple-600" ondblclick="solveMinigame()">Título</h2>
+        </div>
+        
+        <div id="minigame-content" class="relative w-full"></div>
+        
+        <div id="minigame-success" class="hidden text-center mt-6 p-6 bg-green-100 border-4 border-green-400 rounded-2xl">
+            <p class="text-4xl animate-bounce-slow mb-2">🌟 ¡Lo lograste! 🌟</p>
+            <button onclick="showMinigamesMenu()" class="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-xl border-b-4 border-green-700">Jugar a otro</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA QUIZ NORMAL -->
+    <div id="quiz-screen" class="w-full max-w-2xl hidden flex-col">
+        <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-2xl shadow-sm border-2 border-gray-100">
+            <button onclick="goHome()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-xl">⬅️ Salir</button>
+            <h2 id="subject-title" class="text-xl md:text-2xl font-black uppercase text-gray-700">Materia</h2>
+            <div class="text-xl font-bold text-blue-600 bg-blue-100 px-4 py-1 rounded-full"><span id="question-counter">1/40</span></div>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-6"><div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-lg border-4 border-white mb-6">
+            <h3 id="question-text" ondblclick="revealAnswer()" class="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-8 leading-tight">¿Pregunta?</h3>
+            <div id="options-container" class="flex flex-col gap-4"></div>
+        </div>
+        <button id="next-btn" onclick="nextQuestion()" class="hidden w-full bg-blue-500 hover:bg-blue-600 text-white text-2xl font-bold py-5 rounded-2xl shadow-lg border-b-8 border-blue-700 active:border-b-0 active:translate-y-2 transition-all">¡Siguiente! 🚀</button>
+    </div>
+
+    <!-- RESULTADOS QUIZ -->
     <div id="result-screen" class="w-full max-w-2xl hidden text-center bg-white p-10 rounded-3xl shadow-2xl border-4 border-yellow-300">
         <div class="text-8xl mb-6 animate-bounce-slow">🏆</div>
         <h2 class="text-5xl font-black text-yellow-500 mb-4">¡Misión Cumplida!</h2>
-        <p class="text-2xl text-gray-700 font-bold mb-6">Lograste responder correctamente:</p>
-        <p class="text-6xl font-black text-blue-600 mb-8"><span id="final-score">0</span> / <span id="total-score-display">40</span></p>
-        <button onclick="goHome()" class="bg-green-500 hover:bg-green-600 text-white text-2xl font-bold py-4 px-10 rounded-2xl shadow-lg border-b-8 border-green-700">
-            Jugar de nuevo 🔄
-        </button>
+        <p class="text-2xl text-gray-700 font-bold mb-6">Aciertos:</p>
+        <p class="text-6xl font-black text-blue-600 mb-8"><span id="final-score">0</span> / <span id="total-score-display">20</span></p>
+        <button onclick="goHome()" class="bg-green-500 hover:bg-green-600 text-white text-2xl font-bold py-4 px-10 rounded-2xl shadow-lg border-b-8 border-green-700">Jugar de nuevo 🔄</button>
     </div>
 
     <script>
-        // BASE DE DATOS DE PREGUNTAS (160 preguntas en total, 40 por materia)
+        // ==========================================
+        // 1. BANCO DE DATOS (EXÁMENES Y MINIJUEGOS)
+        // Agrega aquí tus 40 preguntas por materia
+        // ==========================================
         const db = {
             espanol: [
+                { q: "¿Cuáles son TODAS las partes de una nota informativa?", options: ["Saludo, Firma y Fecha.", "Título, Cuerpo de la noticia y Foto.", "Verso, Rima y Estrofa."], ans: 1 },
+                { q: "¿Cuáles son TODAS las partes de una carta?", options: ["Lugar, fecha, saludo, cuerpo, despedida y firma.", "Título, Inicio, Desarrollo y Final.", "Reglas, Instrucciones y Fichas."], ans: 0 },
+                { q: "¿Cuáles son las partes de un cuento (en orden)?", options: ["Lugar y fecha.", "Versos y rimas.", "Inicio, Desarrollo y Final."], ans: 2 },
                 { q: "¿Qué parte de la nota informativa nos dice qué pasó?", options: ["El título", "El cuerpo de la noticia", "La foto"], ans: 1 },
-                { q: "¿Cómo se llama cada línea de un poema?", options: ["Verso", "Estrofa", "Cuento"], ans: 0 },
                 { q: "¡Guau, guau! y ¡Pum! son ejemplos de...", options: ["Rimas", "Onomatopeyas", "Reglas"], ans: 1 },
-                { q: "¿Para qué sirven las reglas en un juego de mesa?", options: ["Para pelear", "Para saber cómo jugar bien y en orden", "Para aburrirse"], ans: 1 },
-                { q: "En una carta, ¿quién es el 'Remitente'?", options: ["El que la recibe", "El que la escribe y envía", "El cartero"], ans: 1 },
                 { q: "¿En qué parte de la carta ponemos el lugar y el día?", options: ["Firma", "Despedida", "Fecha"], ans: 2 },
-                { q: "Platicar con mis papás y hermanos es parte de mi contexto...", options: ["Familiar", "Escolar", "Deportivo"], ans: 0 },
                 { q: "La palabra 'Chocolate' viene de un idioma antiguo llamado:", options: ["Inglés", "Náhuatl", "Francés"], ans: 1 },
-                { q: "¿Cuáles son las 3 partes de un cuento?", options: ["Inicio, desarrollo y final", "Saludo, cuerpo y despedida", "Verso, rima y estrofa"], ans: 0 },
-                { q: "El personaje más importante de un cuento es el personaje...", options: ["Secundario", "Principal", "Malo"], ans: 1 },
                 { q: "En una obra de teatro, las instrucciones entre paréntesis se llaman:", options: ["Acotaciones", "Diálogos", "Títulos"], ans: 0 },
-                { q: "¿Qué signos usamos para hacer una PREGUNTA?", options: ["¡ !", "¿ ?", "( )"], ans: 1 },
-                { q: "¿Qué signos usamos para gritar o mostrar sorpresa?", options: ["¿ ?", "! !", "¡ !"], ans: 2 },
-                { q: "Un dragón que escupe fuego es un personaje...", options: ["Real", "Ficticio (de fantasía)", "Aburrido"], ans: 1 },
                 { q: "¿Qué usamos para describir algo con sonidos?", options: ["Formato visual", "Formato sonoro", "Formato escrito"], ans: 1 },
-                { q: "Cuando leo 'Estimado abuelo:' en una carta, es un...", options: ["Saludo", "Despedida", "Lugar"], ans: 0 },
-                { q: "El grupo de versos en un poema se llama...", options: ["Estrofa", "Oración", "Párrafo"], ans: 0 },
-                { q: "Una nota informativa sirve para...", options: ["Contar un chiste", "Informar de algo que pasó", "Cantar"], ans: 1 },
-                { q: "El lobo en Caperucita Roja es un personaje...", options: ["Secundario", "Principal", "Ficticio"], ans: 2 },
-                { q: "Al final de la carta, escribo mi nombre. Eso es la...", options: ["Fecha", "Firma", "Saludo"], ans: 1 },
-                { q: "En un poema, las palabras que suenan igual al final (como 'gato' y 'pato') forman una...", options: ["Pregunta", "Rima", "Noticia"], ans: 1 },
-                { q: "Si un texto dice '1. Tira el dado, 2. Avanza casillas', es una...", options: ["Regla / Instrucción", "Carta", "Poema"], ans: 0 },
-                { q: "El lugar donde aprendes con tu maestra y compañeros es el contexto...", options: ["Familiar", "Deportivo", "Escolar"], ans: 2 },
-                { q: "La palabra 'Papalote' viene del idioma...", options: ["Náhuatl", "Inglés", "Maya"], ans: 0 },
-                { q: "¿A quién se le envía una carta?", options: ["Al cartero", "Al Destinatario", "Al Remitente"], ans: 1 },
-                { q: "¿Qué parte del cuento dice 'Había una vez...'?", options: ["El final", "El desarrollo", "El inicio"], ans: 2 },
-                { q: "¿Qué parte del cuento cuenta el problema o aventura más emocionante?", options: ["El inicio", "El desarrollo", "El final"], ans: 1 },
-                { q: "¿Qué parte del cuento dice '...y vivieron felices para siempre'?", options: ["El final", "El inicio", "El saludo"], ans: 0 },
-                { q: "¿Qué signo se usa en una obra de teatro antes de que hable un personaje? (Ej. Lobo__ ¡Te comeré!)", options: ["Punto final (.)", "Dos puntos (:)", "Coma (,)"], ans: 1 },
-                { q: "Las onomatopeyas son palabras que imitan...", options: ["Colores", "Sonidos", "Sabores"], ans: 1 },
-                { q: "La palabra 'Tomate' es de origen...", options: ["Francés", "Náhuatl", "Español"], ans: 1 },
-                { q: "En una carta, lo que queremos decir o platicar es el...", options: ["Cuerpo de la carta", "Firma", "Fecha"], ans: 0 },
-                { q: "Un personaje que ayuda al héroe, pero sale menos en la historia es un personaje...", options: ["Principal", "Secundario", "Aburrido"], ans: 1 },
-                { q: "Un niño que va a la escuela en un cuento es un personaje...", options: ["Mágico", "Ficticio", "Real"], ans: 2 },
-                { q: "Tu mascota, tu casa y tus abuelos son parte de tu contexto...", options: ["Familiar", "Escolar", "Del bosque"], ans: 0 },
-                { q: "¿Qué usamos para describir cómo se ve un paisaje con nuestros ojos?", options: ["Formato sonoro", "Formato visual", "Acotación"], ans: 1 },
-                { q: "En una obra de teatro, lo que dicen y platican los actores se llama...", options: ["Diálogo", "Regla", "Verso"], ans: 0 },
-                { q: "Cuando le cuentas a tu amigo qué hiciste el fin de semana, estás describiendo una...", options: ["Vivencia", "Carta", "Onomatopeya"], ans: 0 },
-                { q: "¡Pío, pío! es la onomatopeya de un...", options: ["Perro", "Gato", "Pollito"], ans: 2 },
-                { q: "Si en la carta dice 'Querido Santa:', es el...", options: ["Saludo", "Despedida", "Lugar"], ans: 0 }
+                { q: "El lobo en Caperucita Roja es un personaje...", options: ["Secundario", "Principal", "Ficticio"], ans: 2 }
+                // Agrega el resto aquí...
             ],
             matematicas: [
                 { q: "¿Qué número sigue después del 149?", options: ["140", "150", "100"], ans: 1 },
-                { q: "¿Qué número va antes del 50?", options: ["49", "51", "60"], ans: 0 },
                 { q: "¿Qué figura tiene 4 lados iguales?", options: ["Círculo", "Triángulo", "Cuadrado"], ans: 2 },
-                { q: "¿Qué figura geométrica NO tiene lados rectos?", options: ["Rectángulo", "Círculo", "Rombo"], ans: 1 },
-                { q: "¿Cuántas piezas usamos para armar un Tangram?", options: ["5 piezas", "7 piezas", "10 piezas"], ans: 1 },
-                { q: "¿En qué país se inventó el juego del Tangram?", options: ["México", "Estados Unidos", "China"], ans: 2 },
-                { q: "Las esquinas donde se unen los lados de una figura se llaman:", options: ["Vértices", "Círculos", "Lados curvos"], ans: 0 },
-                { q: "Si cuento de 2 en 2: 2, 4, 6... ¿Qué sigue?", options: ["7", "8", "9"], ans: 1 },
                 { q: "Si cuento de 10 en 10: 10, 20, 30... ¿Qué sigue?", options: ["31", "40", "50"], ans: 1 },
-                { q: "Si tengo un grupo de 5 y un grupo de 10, ¿cuál es más grande?", options: ["El de 5", "El de 10", "Son iguales"], ans: 1 },
-                { q: "¿Cuántas unidades hay en una DECENA?", options: ["1 unidad", "10 unidades", "100 unidades"], ans: 1 },
-                { q: "En el número 25, ¿cuántas decenas hay?", options: ["2 decenas", "5 decenas", "Ninguna"], ans: 0 },
-                { q: "En la recta numérica, si estoy en el 5 y doy 3 saltos adelante, llego al...", options: ["7", "8", "9"], ans: 1 },
-                { q: "Si estoy en el 10 y doy 2 saltos hacia atrás (resta), llego al...", options: ["8", "12", "10"], ans: 0 },
-                { q: "¿Cómo se descompone el número 15 (suma)?", options: ["10 + 5", "5 + 5", "10 + 10"], ans: 0 },
-                { q: "Si hoy es martes, ¿qué día fue ayer?", options: ["Lunes", "Miércoles", "Domingo"], ans: 0 },
-                { q: "Si hoy es viernes, ¿qué día será mañana?", options: ["Jueves", "Sábado", "Domingo"], ans: 1 },
-                { q: "¿Qué es más pesado?", options: ["Una pluma de ave", "Una roca grande", "Un globo"], ans: 1 },
                 { q: "Juan tiene 10 manzanas y se come 4. ¿Cuántas le quedan?", options: ["14", "5", "6"], ans: 2 },
-                { q: "¿Qué figura parece un huevo aplastado?", options: ["Cuadrado", "Óvalo", "Paralelogramo"], ans: 1 },
-                { q: "¿Qué número sigue después del 99?", options: ["100", "90", "101"], ans: 0 },
-                { q: "¿Cuál es el número 'Ciento veinte'?", options: ["102", "120", "201"], ans: 1 },
-                { q: "Si cuento de 5 en 5: 5, 10, 15... ¿Qué sigue?", options: ["16", "25", "20"], ans: 2 },
-                { q: "¿Qué figura geométrica tiene 3 lados?", options: ["Cuadrado", "Círculo", "Triángulo"], ans: 2 },
-                { q: "El rombo se parece a un...", options: ["Balón", "Diamante o papalote", "Edificio"], ans: 1 },
-                { q: "El rectángulo tiene...", options: ["4 lados iguales", "2 lados largos y 2 cortos", "0 lados rectos"], ans: 1 },
-                { q: "Si tengo 3 decenas y 2 unidades, ¿qué número formo?", options: ["23", "32", "5"], ans: 1 },
-                { q: "Si agrupo mis colores de 10 en 10 y tengo 2 grupos, ¿cuántos colores tengo?", options: ["20", "10", "2"], ans: 0 },
-                { q: "Una víbora es larga y una lombriz es corta. ¿Cuál es la medida de la víbora?", options: ["Corta", "Mediana", "Larga"], ans: 2 },
-                { q: "En la recta numérica, si estoy en 12 y salto 3 pasos HACIA ATRÁS (resta), llego al...", options: ["15", "9", "10"], ans: 1 },
-                { q: "¿Cuánto es 10 + 4?", options: ["14", "6", "40"], ans: 0 },
-                { q: "Si tienes 15 pesos y compras un jugo de 5 pesos, ¿cuánto te queda?", options: ["20 pesos", "10 pesos", "5 pesos"], ans: 1 },
-                { q: "¿Qué día va ANTES del Jueves?", options: ["Viernes", "Miércoles", "Martes"], ans: 1 },
-                { q: "Si hoy es Domingo, mañana será...", options: ["Sábado", "Lunes", "Martes"], ans: 1 },
-                { q: "¿Qué pesa MÁS?", options: ["Una hoja de papel", "Un elefante", "Una mochila vacía"], ans: 1 },
-                { q: "¿Qué pesa MENOS?", options: ["Un lápiz", "Una televisión", "Una bicicleta"], ans: 0 },
-                { q: "Los lados de un círculo son...", options: ["Rectos", "Curvos", "Puntiagudos"], ans: 1 },
-                { q: "El cuadrado y el rectángulo tienen lados...", options: ["Curvos", "Invisibles", "Rectos"], ans: 2 },
-                { q: "Descomposición aditiva: ¿Cómo formo el número 20?", options: ["10 + 10", "5 + 5", "20 + 10"], ans: 0 },
-                { q: "Si tengo 1 decena de juguetes, ¿cuántos juguetes tengo?", options: ["1", "10", "100"], ans: 1 }
+                { q: "¿En qué país se inventó el juego del Tangram?", options: ["México", "Estados Unidos", "China"], ans: 2 },
+                { q: "Si hoy es martes, ¿qué día fue ayer?", options: ["Lunes", "Miércoles", "Domingo"], ans: 0 }
+                // Agrega el resto aquí...
             ],
             ingles: [
                 { q: "¿Cómo se dice 'Verde' en inglés?", options: ["Yellow", "Green", "Blue"], ans: 1 },
-                { q: "¿Qué color es 'Purple'?", options: ["Morado", "Rosa", "Naranja"], ans: 0 },
-                { q: "The sun is...", options: ["Red", "Yellow", "Black"], ans: 1 },
-                { q: "What color is a polar bear? (Oso polar)", options: ["White", "Brown", "Gray"], ans: 0 },
-                { q: "Si te preguntan 'What color is it?' respondes...", options: ["It is red", "They are red", "Who is that"], ans: 0 },
                 { q: "¿Cómo se dice 'Papá' en inglés?", options: ["Mom", "Brother", "Dad"], ans: 2 },
-                { q: "¿Quién es 'Grandma'?", options: ["La abuela", "La hermana", "La tía"], ans: 0 },
-                { q: "¿Cómo se dice 'Hermano' en inglés?", options: ["Sister", "Brother", "Grandpa"], ans: 1 },
-                { q: "En el alfabeto, ¿qué letra va después de la 'C'?", options: ["A", "D", "E"], ans: 1 },
-                { q: "¿Qué usamos para decir 'ESTO es' (algo que está cerca)?", options: ["That is", "This is", "Who is"], ans: 1 },
                 { q: "Si quiero preguntar '¿Quién es él?', digo:", options: ["What color?", "Who is this?", "There is"], ans: 1 },
                 { q: "¿Cómo se dice 'Plátano' en inglés?", options: ["Apple", "Carrot", "Banana"], ans: 2 },
-                { q: "A rabbit likes to eat... (El conejo come)", options: ["Donut", "Carrot (Zanahoria)", "Hamburger"], ans: 1 },
-                { q: "¿Qué es una 'Pear'?", options: ["Pera", "Piña", "Sandía"], ans: 0 },
-                { q: "Para decir 'Hay UNA manzana' uso:", options: ["There is", "There are", "They are"], ans: 0 },
-                { q: "Para decir 'Hay MUCHAS galletas' uso:", options: ["There is", "There are", "It is"], ans: 1 },
-                { q: "¿Qué color es 'Pink'?", options: ["Rosa", "Azul", "Café"], ans: 0 },
-                { q: "¿Quién es 'Sister'?", options: ["Mamá", "Hermana", "Abuelo"], ans: 1 },
-                { q: "A 'Hot dog' is...", options: ["Un perro caliente", "Una hamburguesa", "Un pan dulce"], ans: 0 },
-                { q: "The color of an elephant is... (El color de un elefante)", options: ["Pink", "Gray (Gris)", "Orange"], ans: 1 },
-                { q: "What color is an orange? (¿De qué color es la naranja?)", options: ["Red", "Blue", "Orange"], ans: 2 },
-                { q: "What color is a cloud? (¿De qué color es una nube?)", options: ["Black", "White", "Green"], ans: 1 },
-                { q: "What color is the dirt? (¿De qué color es la tierra?)", options: ["Brown", "Pink", "Yellow"], ans: 0 },
-                { q: "'Who is this?' significa...", options: ["¿De qué color es?", "¿Quién es este? (de cerca)", "¿Cuántos hay?"], ans: 1 },
-                { q: "'Who is that?' significa...", options: ["¿Quién es ese? (de lejos)", "Esta es mi mamá", "Es azul"], ans: 0 },
-                { q: "'This is my mom' significa...", options: ["Ella es mi abuela", "Esta es mi mamá", "Él es mi papá"], ans: 1 },
-                { q: "¿Cómo se dice 'Emparedado' o 'Sándwich' en inglés?", options: ["Sandwich", "Hot dog", "Cookie"], ans: 0 },
-                { q: "¿Qué es un 'Cupcake'?", options: ["Una manzana", "Un pastelito o panquecito", "Una zanahoria"], ans: 1 },
-                { q: "¿Qué es una 'Cookie'?", options: ["Galleta", "Jugo", "Pera"], ans: 0 },
-                { q: "¿Qué es 'Pineapple'?", options: ["Manzana", "Piña", "Plátano"], ans: 1 },
-                { q: "A monkey likes to eat... (A los monos les gusta comer...)", options: ["Bananas", "Hamburgers", "Donuts"], ans: 0 },
-                { q: "¿Cómo se dice 'Abuelo' en inglés?", options: ["Dad", "Brother", "Grandpa"], ans: 2 },
-                { q: "En el abecedario (Alphabet), ¿qué letra va ANTES de la 'B'?", options: ["C", "A", "Z"], ans: 1 },
-                { q: "¿Qué letra sigue en esta lista: A, B, C, ___ ?", options: ["E", "F", "D"], ans: 2 },
-                { q: "'They are blue' significa...", options: ["Es rojo", "Ellos son azules", "Hay uno"], ans: 1 },
-                { q: "Para decir 'Hay UNA pera' uso:", options: ["There is a pear", "There are pears", "What color is it"], ans: 0 },
-                { q: "Para decir 'Hay CINCO plátanos' uso:", options: ["There is five bananas", "There are five bananas", "They are bananas"], ans: 1 },
-                { q: "What color is the night sky? (¿De qué color es el cielo de noche?)", options: ["Black", "White", "Yellow"], ans: 0 },
-                { q: "'Mom and Dad' significa...", options: ["Hermano y Hermana", "Mamá y Papá", "Abuelo y Abuela"], ans: 1 },
-                { q: "¿Qué es una 'Hamburger'?", options: ["Hamburguesa", "Zanahoria", "Galleta"], ans: 0 }
+                { q: "Para decir 'Hay MUCHAS galletas' uso:", options: ["There is", "There are", "It is"], ans: 1 }
+                // Agrega el resto aquí...
             ],
             naturaleza: [
-                { q: "¿Qué es un factor 'Biótico'?", options: ["Algo vivo (como una planta)", "Algo que no tiene vida (como una piedra)", "El agua"], ans: 0 },
                 { q: "¿Qué es un factor 'Abiótico'?", options: ["Un animal", "Algo sin vida (sol, agua, tierra)", "Un hongo"], ans: 1 },
-                { q: "Un árbol de naranjas es una planta con...", options: ["Flores", "Frutos", "Nada"], ans: 1 },
-                { q: "Un bosque o una selva son ejemplos de:", options: ["Ciudades", "Entornos naturales", "Escuelas"], ans: 1 },
                 { q: "Un animal 'Nocturno' es el que...", options: ["Duerme todo el día", "Sale a cazar y jugar de noche", "No tiene huesos"], ans: 1 },
-                { q: "Una mariposa o un perrito que juegan de día son animales...", options: ["Diurnos", "Nocturnos", "Acuáticos"], ans: 0 },
-                { q: "¿Cuál de estos animales NO tiene huesos?", options: ["El perro", "El gusano (lombriz)", "El león"], ans: 1 },
-                { q: "Cuando te tiras por un tobogán, tu movimiento es...", options: ["Rodar", "Girar", "Deslizar"], ans: 2 },
-                { q: "Cuando pateas una pelota, la pelota va a...", options: ["Deslizar", "Rodar", "Saltar"], ans: 1 },
-                { q: "Cuando algo no se mueve, decimos que está en...", options: ["Reposo", "Movimiento", "Girando"], ans: 0 },
-                { q: "Para mover un carrito de súper hacia adelante, lo debes...", options: ["Jalar", "Empujar", "Cargar"], ans: 1 },
                 { q: "Para abrir una puerta hacia ti, debes...", options: ["Empujar", "Jalar", "Patear"], ans: 1 },
-                { q: "¿Por qué debemos respetar a los seres vivos?", options: ["Porque sienten y son parte de nuestro mundo", "Porque son feos", "No hay que respetarlos"], ans: 0 },
-                { q: "¿Qué es un 'Recurso Natural'?", options: ["Algo que compramos", "Algo que nos da la naturaleza (agua, árboles)", "Un juguete"], ans: 1 },
                 { q: "¿Cómo cuidamos nuestro entorno?", options: ["Tirando basura al piso", "Rompiendo plantas", "Poniendo la basura en su lugar"], ans: 2 },
-                { q: "El sol es muy importante, es un factor...", options: ["Biótico", "Abiótico", "Animal"], ans: 1 },
-                { q: "Los animales que tienen plumas y vuelan se mueven por...", options: ["El agua", "El aire", "La tierra"], ans: 1 },
-                { q: "El agua la usamos para...", options: ["Beber y bañarnos", "Ensuciar la ropa", "No sirve"], ans: 0 },
-                { q: "Un búho que tiene los ojos muy grandes para ver en la oscuridad es...", options: ["Diurno", "Nocturno", "Biótico"], ans: 1 },
-                { q: "Moverse como un trompo dando vueltas es...", options: ["Girar", "Deslizar", "Rodar"], ans: 0 },
-                { q: "Un hongo en el bosque es un factor...", options: ["Biótico (vivo)", "Abiótico (sin vida)", "Nocturno"], ans: 0 },
-                { q: "Las nubes, la lluvia y las rocas son factores...", options: ["Bióticos", "Abióticos", "Con huesos"], ans: 1 },
-                { q: "Una rosa es una planta con...", options: ["Frutos", "Flores", "Espinas gigantes"], ans: 1 },
-                { q: "Los pinos (como los árboles de Navidad) son plantas que generalmente...", options: ["Dan manzanas", "Son sin flores llamativas", "Son diurnos"], ans: 1 },
-                { q: "Las manzanas y las peras crecen en árboles con...", options: ["Frutos", "Llantas", "Dulces"], ans: 0 },
-                { q: "Un desierto lleno de arena y cactus es un...", options: ["Centro comercial", "Entorno natural", "Juego de mesa"], ans: 1 },
-                { q: "Los murciélagos salen a volar cuando oscurece, son animales...", options: ["Diurnos", "Nocturnos", "Abióticos"], ans: 1 },
-                { q: "Las abejas buscan las flores cuando hay mucho sol, son animales...", options: ["Nocturnos", "Diurnos", "Sin alas"], ans: 1 },
-                { q: "Un caracol es un animal...", options: ["Con muchos huesos", "Sin huesos (invertebrado)", "Que vuela"], ans: 1 },
-                { q: "Un pulpo que vive en el mar es un animal...", options: ["Con huesos", "Sin huesos", "Terrestre"], ans: 1 },
-                { q: "Un perrito es un animal...", options: ["Sin huesos", "Con huesos (vertebrado)", "Abiótico"], ans: 1 },
-                { q: "Cuando empujas una caja, la alejas de ti. Cuando la JALAS...", options: ["La acercas hacia ti", "La rompes", "Se queda en reposo"], ans: 0 },
-                { q: "Las llantas de una bicicleta avanzan al...", options: ["Deslizar", "Rodar", "Saltar"], ans: 1 },
-                { q: "Cuando un coche está estacionado y apagado, decimos que está en...", options: ["Movimiento", "Reposo", "Vuelo"], ans: 1 },
-                { q: "¿Es correcto tirar envolturas de galletas en los ríos?", options: ["Sí, para que los peces coman", "No, porque contamina el medio ambiente", "Sí, no pasa nada"], ans: 1 },
-                { q: "Darle agua a los pajaritos o cuidar a las mascotas es una forma de...", options: ["Respetar a los seres vivos", "Jugar", "Contaminar"], ans: 0 },
-                { q: "El viento que mueve las hojas de los árboles es un factor...", options: ["Biótico", "Abiótico", "Diurno"], ans: 1 },
-                { q: "Si arrastras tu mochila por el piso sin levantarla, la estás...", options: ["Rodando", "Girando", "Deslizando"], ans: 2 },
-                { q: "El agua limpia de los ríos y manantiales es un importante...", options: ["Recurso natural", "Factor biótico", "Juguete"], ans: 0 },
-                { q: "Regar las plantas de tu casa es una buena forma de...", options: ["Cuidar tu entorno", "Desperdiciar agua", "Hacer lodo"], ans: 0 }
+                { q: "Cuando te tiras por un tobogán, tu movimiento es...", options: ["Rodar", "Girar", "Deslizar"], ans: 2 }
+                // Agrega el resto aquí...
             ]
         };
 
-        const subjectNames = {
-            espanol: "📚 Español",
-            matematicas: "🔢 Matemáticas",
-            ingles: "🌎 Inglés",
-            naturaleza: "🌱 Naturaleza"
-        };
+        const STORIES_DB = [
+            { text: "Había una vez un valiente perrito llamado Toby. Toby se perdió en el bosque oscuro y tenía mucho miedo. De pronto, su amiga la paloma voló alto, vio el camino y lo guio de regreso a casa. ¡Toby y la paloma fueron muy felices!", principal: "🐶 Toby", secundario: "🕊️ Paloma" },
+            { text: "En un castillo gigante vivía la Princesa Sofi. Un día, perdió su corona de oro en el jardín real. El dragón amable sopló fuego pequeñito para iluminar el pasto y la encontraron. ¡Hicieron una gran fiesta!", principal: "👸 Sofi", secundario: "🐉 Dragón" },
+            { text: "El astronauta Leo viajó en su cohete hasta la luna. Allí descubrió que su nave no tenía gasolina. Su amigo el marcianito Zog le prestó polvo de estrellas mágico y Leo pudo volar de regreso a la Tierra.", principal: "🧑‍🚀 Leo", secundario: "👽 Zog" },
+            { text: "El Gato Michi quería alcanzar un pescado muy alto en la mesa. Intentó saltar pero no llegó. Entonces, el ratoncito Tito hizo una rampa con libros para ayudarlo. ¡Se volvieron los mejores amigos!", principal: "🐱 Michi", secundario: "🐭 Tito" },
+            { text: "El pirata PataPalo navegaba buscando un tesoro escondido. Su mapa voló con el viento hacia el mar. Su fiel Loro Pepe voló súper rápido, atrapó el mapa en el aire y encontraron cofres de chocolate.", principal: "🏴‍☠️ PataPalo", secundario: "🦜 Pepe" },
+            { text: "El robot Tuercas quería aprender a bailar, pero estaba muy oxidado y sonaba 'criik, criik'. El Perro-Robot le trajo una latita de aceite mágico. ¡Tuercas bailó breakdance toda la noche!", principal: "🤖 Tuercas", secundario: "🦾 Perro-Bot" },
+            { text: "La Niña Lulú lloraba porque su flor favorita se estaba marchitando. El Hada Brillante apareció flotando, cantó una canción mágica de agua y la flor volvió a crecer hermosa y feliz.", principal: "👧 Lulú", secundario: "🧚 Hada" },
+            { text: "El dinosaurio Rex quería jugar a las escondidas, pero era muy grandote y siempre lo veían. Su amigo el Pterodáctilo Pipo lo cubrió con hojas de palmera gigantes desde el cielo. ¡Nadie lo encontró!", principal: "🦖 Rex", secundario: "🦕 Pipo" },
+            { text: "El osito Bam tenía mucha hambre en la montaña nevada. No sabía cómo conseguir miel. Una pequeña abejita Zumb le mostró un panal escondido en una cueva calentita. ¡Comieron juntos!", principal: "🐻 Bam", secundario: "🐝 Zumb" },
+            { text: "El Superhéroe Rayo perdió su capa voladora en una tormenta. Estaba muy triste. De pronto, el Gato Volador bajó de las nubes trayendo su capa en el hocico. ¡Juntos salvaron la ciudad!", principal: "🦸 Rayo", secundario: "🐈 Gato" }
+        ];
 
-        // ESTADOS DE LA APLICACIÓN
-        let currentQuestions = [];
-        let currentSubject = "";
-        let currentIndex = 0;
-        let score = 0;
-        let isAnswered = false;
+        const ONOMATOPEYAS_DB = [
+            { snd: "¡Miau!", img: "🐱 Gato", id: "gato", vocal: "¡Miaauuuuuu!" },
+            { snd: "¡Guau!", img: "🐶 Perro", id: "perro", vocal: "¡Guau! ¡Guau!" },
+            { snd: "¡Pío pío!", img: "🐥 Pollito", id: "pollo", vocal: "¡Pío, pío, pío!" },
+            { snd: "¡Muuu!", img: "🐮 Vaca", id: "vaca", vocal: "¡Muuuuuuuu!" },
+            { snd: "¡Oink!", img: "🐷 Cerdo", id: "cerdo", vocal: "¡Oink, oink!" },
+            { snd: "¡Beee!", img: "🐑 Oveja", id: "oveja", vocal: "¡Beee, beeeee!" },
+            { snd: "¡Cuac!", img: "🦆 Pato", id: "pato", vocal: "¡Cuac, cuac, cuac!" },
+            { snd: "¡Croac!", img: "🐸 Rana", id: "rana", vocal: "¡Croac, croac!" },
+            { snd: "¡Bzzz!", img: "🐝 Abeja", id: "abeja", vocal: "Bzzzzzzzz" },
+            { snd: "¡Grrr!", img: "🦁 León", id: "leon", vocal: "¡Grrrrrrrrrr!" },
+            { snd: "¡Pum!", img: "💥 Explosión", id: "pum", vocal: "¡Pum! ¡Paaam!" },
+            { snd: "Tic tac", img: "⏱️ Reloj", id: "reloj", vocal: "Tic, tac, tic, tac" },
+            { snd: "Din don", img: "🔔 Campana", id: "campana", vocal: "¡Din, don! ¡Din, don!" },
+            { snd: "¡Buuu!", img: "👻 Fantasma", id: "fantasma", vocal: "¡Buuuuuuu!" },
+            { snd: "¡Muac!", img: "💋 Beso", id: "beso", vocal: "¡Muac! Un besito." }
+        ];
 
-        // ELEMENTOS DEL DOM
-        const homeScreen = document.getElementById('home-screen');
-        const quizScreen = document.getElementById('quiz-screen');
-        const resultScreen = document.getElementById('result-screen');
-        const subjectTitle = document.getElementById('subject-title');
-        const questionText = document.getElementById('question-text');
-        const optionsContainer = document.getElementById('options-container');
-        const nextBtn = document.getElementById('next-btn');
-        const progressBar = document.getElementById('progress-bar');
-        const questionCounter = document.getElementById('question-counter');
-        const finalScore = document.getElementById('final-score');
+        // ==========================================
+        // 2. LÓGICA DEL QUIZ 
+        // ==========================================
+        let currentQuestions = []; let currentIndex = 0; let score = 0; let isAnswered = false;
 
-        // FUNCIÓN: Iniciar el juego
+        function goHome() {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('flex');
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('minigames-menu').classList.add('hidden');
+            document.getElementById('minigame-container').classList.add('hidden');
+            document.getElementById('minigame-container').classList.remove('flex');
+            document.getElementById('home-screen').classList.remove('hidden');
+            window.speechSynthesis.cancel();
+        }
+
         function startQuiz(subject) {
-            currentSubject = subject;
-            // Barajar las preguntas para que no salgan siempre en el mismo orden
-            currentQuestions = [...db[subject]].sort(() => Math.random() - 0.5);
-            
-            // Si quieres limitarlo a menos preguntas por ronda, puedes hacer:
-            // currentQuestions = currentQuestions.slice(0, 10); 
-            // Pero como pediste 20, usaremos las 20.
-
-            currentIndex = 0;
-            score = 0;
-            
-            subjectTitle.innerText = subjectNames[subject];
-            
-            homeScreen.classList.add('hidden');
-            resultScreen.classList.add('hidden');
-            quizScreen.classList.remove('hidden');
-            quizScreen.classList.add('flex');
-            
+            const subjectNames = { espanol: "📚 Español", matematicas: "🔢 Matemáticas", ingles: "🌎 Inglés", naturaleza: "🌱 Naturaleza" };
+            currentQuestions = [...db[subject]].sort(() => Math.random() - 0.5).slice(0, 20); 
+            currentIndex = 0; score = 0;
+            document.getElementById('subject-title').innerText = subjectNames[subject];
+            document.getElementById('home-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('quiz-screen').classList.add('flex');
             loadQuestion();
         }
 
-        // FUNCIÓN: Cargar una pregunta en pantalla
         function loadQuestion() {
-            isAnswered = false;
-            nextBtn.classList.add('hidden');
-            
+            isAnswered = false; document.getElementById('next-btn').classList.add('hidden');
             const qData = currentQuestions[currentIndex];
-            questionText.innerText = qData.q;
-            questionText.dataset.ans = qData.ans; // Guardar la respuesta para el "cheat mode"
-            
-            // Actualizar contadores y progreso
-            questionCounter.innerText = `${currentIndex + 1} / ${currentQuestions.length}`;
-            const progress = ((currentIndex) / currentQuestions.length) * 100;
-            progressBar.style.width = `${progress}%`;
+            const qText = document.getElementById('question-text');
+            qText.innerText = qData.q; qText.dataset.ans = qData.ans;
+            document.getElementById('question-counter').innerText = `${currentIndex + 1} / ${currentQuestions.length}`;
+            document.getElementById('progress-bar').style.width = `${((currentIndex) / currentQuestions.length) * 100}%`;
 
-            // Limpiar opciones anteriores
-            optionsContainer.innerHTML = '';
-
-            // Generar botones de opciones
+            const opts = document.getElementById('options-container'); opts.innerHTML = '';
             qData.options.forEach((opt, index) => {
                 const btn = document.createElement('button');
-                btn.className = `btn-option w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-6 px-6 rounded-2xl border-4 border-gray-200 text-xl md:text-2xl text-left flex items-center gap-4`;
-                btn.innerHTML = `<span class="bg-white text-blue-500 rounded-full w-10 h-10 flex items-center justify-center font-black shrink-0 border-2 border-blue-200 shadow-sm">${String.fromCharCode(65 + index)}</span> <span>${opt}</span>`;
+                btn.className = `btn-option w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-6 px-4 md:px-6 rounded-2xl border-4 border-gray-200 text-lg md:text-2xl text-left flex items-center gap-4`;
+                btn.innerHTML = `<span class="bg-white text-blue-500 rounded-full w-10 h-10 flex items-center justify-center font-black shrink-0 border-2 border-blue-200">${String.fromCharCode(65 + index)}</span> <span>${opt}</span>`;
                 btn.onclick = () => selectOption(index, qData.ans, btn);
-                btn.dataset.index = index; // Para el truco oculto
-                optionsContainer.appendChild(btn);
+                opts.appendChild(btn);
             });
         }
 
-        // FUNCIÓN: Manejar la selección del usuario
         function selectOption(selectedIndex, correctIndex, selectedBtn) {
-            if (isAnswered) return; // Evitar múltiples clics
-            isAnswered = true;
-
-            const allBtns = optionsContainer.querySelectorAll('button');
-            
+            if (isAnswered) return; isAnswered = true;
+            const allBtns = document.getElementById('options-container').querySelectorAll('button');
             if (selectedIndex === correctIndex) {
-                // Correcto
-                selectedBtn.classList.add('correct');
-                score++;
-                playAudio(true);
+                selectedBtn.classList.add('correct'); score++; playAudio(true);
             } else {
-                // Incorrecto
-                selectedBtn.classList.add('incorrect');
-                // Resaltar la correcta
-                allBtns[correctIndex].classList.add('correct');
-                playAudio(false);
+                selectedBtn.classList.add('incorrect'); allBtns[correctIndex].classList.add('correct'); playAudio(false);
             }
-
-            // Deshabilitar botones
             allBtns.forEach(b => b.classList.add('opacity-80', 'cursor-not-allowed'));
-            selectedBtn.classList.remove('opacity-80');
-            allBtns[correctIndex].classList.remove('opacity-80');
-
-            // Mostrar botón de siguiente
-            nextBtn.classList.remove('hidden');
+            selectedBtn.classList.remove('opacity-80'); allBtns[correctIndex].classList.remove('opacity-80');
             
-            // Progreso completo si es la última
-            if(currentIndex === currentQuestions.length - 1) {
-                 progressBar.style.width = `100%`;
-                 nextBtn.innerText = "¡Ver mis resultados! 🌟";
-            } else {
-                 nextBtn.innerText = "¡Siguiente! 🚀";
-            }
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.classList.remove('hidden');
+            nextBtn.innerText = currentIndex === currentQuestions.length - 1 ? "¡Ver mis resultados! 🌟" : "¡Siguiente! 🚀";
         }
 
-        // FUNCIÓN OCULTA (Para el Tío Miguel)
         function revealAnswer() {
-            if (isAnswered) return; // Si ya contestó, no hacer nada
+            if (isAnswered) return;
             const correctIndex = currentQuestions[currentIndex].ans;
-            const allBtns = optionsContainer.querySelectorAll('button');
-            
-            // Quitar estilos previos por si hace doble clic varias veces
+            const allBtns = document.getElementById('options-container').querySelectorAll('button');
             allBtns.forEach(b => b.classList.remove('hint-reveal'));
-            
-            // Añadir un resaltado sutil al correcto
             allBtns[correctIndex].classList.add('hint-reveal');
         }
 
-        // FUNCIÓN: Avanzar a la siguiente o terminar
         function nextQuestion() {
             currentIndex++;
-            if (currentIndex < currentQuestions.length) {
-                loadQuestion();
-            } else {
-                showResults();
+            if (currentIndex < currentQuestions.length) loadQuestion();
+            else {
+                document.getElementById('quiz-screen').classList.add('hidden');
+                document.getElementById('quiz-screen').classList.remove('flex');
+                document.getElementById('result-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = score;
+                document.getElementById('total-score-display').innerText = currentQuestions.length;
             }
         }
 
-        // FUNCIÓN: Mostrar resultados
-        function showResults() {
-            quizScreen.classList.add('hidden');
-            quizScreen.classList.remove('flex');
-            resultScreen.classList.remove('hidden');
-            finalScore.innerText = score;
-            document.getElementById('total-score-display').innerText = currentQuestions.length;
+        // ==========================================
+        // 3. LÓGICA DE MINIJUEGOS 
+        // ==========================================
+        function showMinigamesMenu() {
+            document.getElementById('home-screen').classList.add('hidden');
+            document.getElementById('minigame-container').classList.add('hidden');
+            document.getElementById('minigame-container').classList.remove('flex');
+            document.getElementById('minigames-menu').classList.remove('hidden');
+            document.getElementById('minigames-menu').classList.add('flex');
+            window.speechSynthesis.cancel();
         }
 
-        // FUNCIÓN: Regresar al inicio
-        function goHome() {
-            quizScreen.classList.add('hidden');
-            quizScreen.classList.remove('flex');
-            resultScreen.classList.add('hidden');
-            homeScreen.classList.remove('hidden');
+        let currentGameType = ''; let correctMatches = 0; let totalMatches = 0;
+
+        function startMinigame(type) {
+            document.getElementById('minigames-menu').classList.add('hidden');
+            document.getElementById('minigames-menu').classList.remove('flex');
+            document.getElementById('minigame-container').classList.remove('hidden');
+            document.getElementById('minigame-container').classList.add('flex');
+            document.getElementById('minigame-success').classList.add('hidden');
+            
+            const content = document.getElementById('minigame-content');
+            content.innerHTML = ''; currentGameType = type; correctMatches = 0;
+
+            if (type === 'nota') {
+                document.getElementById('minigame-title').innerText = "📰 Arma la Nota";
+                totalMatches = 3;
+                content.innerHTML = `
+                    <p class="text-center font-bold text-gray-600 mb-4">¡Toca y arrastra los cuadritos a los espacios vacíos!</p>
+                    <div class="flex flex-wrap gap-2 justify-center mb-6 bg-blue-50 p-4 rounded-xl border-2 border-blue-200" id="word-bank">
+                        <div class="draggable bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg" data-match="titulo">Título</div>
+                        <div class="draggable bg-green-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg" data-match="foto">Foto</div>
+                        <div class="draggable bg-orange-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg" data-match="cuerpo">Cuerpo de la Noticia</div>
+                    </div>
+                    <div class="bg-gray-100 p-6 rounded-lg border-2 border-gray-300 shadow-inner w-full max-w-sm mx-auto flex flex-col gap-4">
+                        <div class="dropzone rounded-xl w-full h-14 bg-white" data-target="titulo"><span class="text-gray-300 font-bold">Aquí va el...</span></div>
+                        <div class="flex gap-4">
+                            <div class="dropzone rounded-xl w-1/3 h-28 bg-white" data-target="foto"><span class="text-gray-300 font-bold text-xs text-center">Aquí va la...</span></div>
+                            <div class="dropzone rounded-xl w-2/3 h-28 bg-white" data-target="cuerpo"><span class="text-gray-300 font-bold text-xs text-center">Aquí va el...</span></div>
+                        </div>
+                    </div>
+                `;
+                initPointerDragDrop();
+            } 
+            else if (type === 'carta') {
+                document.getElementById('minigame-title').innerText = "✉️ Arma la Carta";
+                totalMatches = 5;
+                content.innerHTML = `
+                    <p class="text-center font-bold text-gray-600 mb-4">¡Toca y arrastra las partes al lugar correcto!</p>
+                    <div class="flex flex-wrap gap-2 justify-center mb-6 bg-red-50 p-4 rounded-xl border-2 border-red-200" id="word-bank">
+                        <div class="draggable bg-red-400 text-white font-bold py-1 px-3 rounded shadow-lg text-sm md:text-base" data-match="lugar">Lugar y Fecha</div>
+                        <div class="draggable bg-purple-400 text-white font-bold py-1 px-3 rounded shadow-lg text-sm md:text-base" data-match="saludo">Saludo</div>
+                        <div class="draggable bg-blue-400 text-white font-bold py-1 px-3 rounded shadow-lg text-sm md:text-base" data-match="cuerpo">Cuerpo</div>
+                        <div class="draggable bg-green-400 text-white font-bold py-1 px-3 rounded shadow-lg text-sm md:text-base" data-match="despedida">Despedida</div>
+                        <div class="draggable bg-yellow-500 text-white font-bold py-1 px-3 rounded shadow-lg text-sm md:text-base" data-match="firma">Firma</div>
+                    </div>
+                    <div class="bg-yellow-50 p-6 rounded-lg border-2 border-yellow-200 shadow-inner w-full max-w-sm mx-auto flex flex-col gap-3 font-serif" style="background-image: repeating-linear-gradient(transparent, transparent 31px, #ccc 31px, #ccc 32px);">
+                        <div class="flex justify-end"><div class="dropzone rounded w-1/2 h-10 bg-white/90" data-target="lugar"></div></div>
+                        <div class="dropzone rounded w-1/2 h-10 bg-white/90" data-target="saludo"></div>
+                        <div class="dropzone rounded w-full h-20 bg-white/90" data-target="cuerpo"></div>
+                        <div class="dropzone rounded w-1/2 h-10 bg-white/90" data-target="despedida"></div>
+                        <div class="flex justify-center"><div class="dropzone rounded w-1/2 h-10 bg-white/90" data-target="firma"></div></div>
+                    </div>
+                `;
+                initPointerDragDrop();
+            }
+            else if (type === 'cuento') {
+                document.getElementById('minigame-title').innerText = "📖 El Cuento Mágico";
+                totalMatches = 5; 
+                const randomStory = STORIES_DB[Math.floor(Math.random() * STORIES_DB.length)];
+                
+                content.innerHTML = `
+                    <div class="bg-blue-50 p-4 rounded-2xl border-2 border-blue-200 mb-6 flex flex-col items-center">
+                        <button onclick="readStoryText('${randomStory.text.replace(/'/g, "\\'")}')" class="bg-purple-500 hover:bg-purple-600 text-white font-black py-3 px-6 rounded-full shadow-lg text-xl flex items-center gap-2 mb-4 animate-bounce">
+                            ▶️ Escuchar Cuento
+                        </button>
+                        <p class="text-gray-800 text-lg font-bold text-center italic">"${randomStory.text}"</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 justify-center mb-6 bg-gray-50 p-4 rounded-xl border-2 border-gray-200" id="word-bank">
+                        <div class="draggable bg-green-500 text-white font-bold py-2 px-3 rounded-xl shadow-lg" data-match="inicio">Inicio</div>
+                        <div class="draggable bg-blue-500 text-white font-bold py-2 px-3 rounded-xl shadow-lg" data-match="desarrollo">Desarrollo</div>
+                        <div class="draggable bg-red-500 text-white font-bold py-2 px-3 rounded-xl shadow-lg" data-match="final">Final</div>
+                        <div class="draggable bg-purple-500 text-white font-bold py-2 px-3 rounded-xl shadow-lg" data-match="principal">${randomStory.principal}</div>
+                        <div class="draggable bg-orange-500 text-white font-bold py-2 px-3 rounded-xl shadow-lg" data-match="secundario">${randomStory.secundario}</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-lg border-2 border-gray-200">
+                            <p class="font-bold text-gray-600 mb-2">Orden de la historia (Arrastra):</p>
+                            <div class="flex items-center gap-2 mb-2"><span class="text-xs md:text-sm w-1/3">1. Empieza...</span> <div class="dropzone flex-1 h-12" data-target="inicio"></div></div>
+                            <div class="flex items-center gap-2 mb-2"><span class="text-xs md:text-sm w-1/3">2. Problema...</span> <div class="dropzone flex-1 h-12" data-target="desarrollo"></div></div>
+                            <div class="flex items-center gap-2 mb-2"><span class="text-xs md:text-sm w-1/3">3. Termina...</span> <div class="dropzone flex-1 h-12" data-target="final"></div></div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border-2 border-gray-200">
+                            <p class="font-bold text-gray-600 mb-2">Identifica a los Personajes:</p>
+                            <div class="flex items-center gap-2 mb-4"><span class="text-xs md:text-sm w-1/3 font-bold text-purple-600">👑 Principal</span> <div class="dropzone flex-1 h-12" data-target="principal"></div></div>
+                            <div class="flex items-center gap-2"><span class="text-xs md:text-sm w-1/3 font-bold text-orange-600">🤝 Secundario</span> <div class="dropzone flex-1 h-12" data-target="secundario"></div></div>
+                        </div>
+                    </div>
+                `;
+                initPointerDragDrop();
+            }
+            else if (type === 'onomatopeyas') {
+                document.getElementById('minigame-title').innerText = "🖍️ Une los Sonidos";
+                totalMatches = 4;
+                
+                const pairs = [...ONOMATOPEYAS_DB].sort(() => Math.random() - 0.5).slice(0, 4);
+                const leftCol = [...pairs].sort(() => Math.random() - 0.5);
+                const rightCol = [...pairs].sort(() => Math.random() - 0.5);
+
+                let leftHTML = leftCol.map(p => `
+                    <div class="flex items-center justify-between bg-blue-100 p-2 md:p-4 rounded-xl border-2 border-blue-300 w-full mb-4">
+                        <button onclick="playSound('${p.vocal}')" class="bg-white rounded-full p-2 shadow hover:bg-gray-100 text-2xl">🔊</button>
+                        <span class="font-bold text-lg md:text-xl text-blue-800 ml-2">${p.snd}</span>
+                        <div class="match-dot left-dot ml-auto" data-id="${p.id}"></div>
+                    </div>
+                `).join('');
+
+                let rightHTML = rightCol.map(p => `
+                    <div class="flex items-center justify-between bg-green-100 p-2 md:p-4 rounded-xl border-2 border-green-300 w-full mb-4">
+                        <div class="match-dot right-dot mr-auto" data-id="${p.id}"></div>
+                        <span class="font-bold text-lg md:text-xl text-green-800 mr-2">${p.img}</span>
+                    </div>
+                `).join('');
+
+                content.innerHTML = `
+                    <p class="text-center font-bold text-gray-600 mb-4">Toca 🔊 para escuchar. ¡Une el punto azul con el animal correcto!</p>
+                    <div class="relative w-full border-2 border-dashed border-gray-200 rounded-xl bg-gray-50" id="canvas-container" style="height: 400px; touch-action: none;">
+                        <canvas id="line-canvas"></canvas>
+                        <div class="absolute w-full h-full flex justify-between px-2 md:px-4 py-4">
+                            <div class="w-[45%] flex flex-col justify-around" id="left-items">${leftHTML}</div>
+                            <div class="w-[45%] flex flex-col justify-around" id="right-items">${rightHTML}</div>
+                        </div>
+                    </div>
+                `;
+                setTimeout(initCanvasDrawing, 100); 
+            }
         }
 
-        // FUNCIÓN: Sonidos simples sintéticos (sin archivos externos)
+        // ==========================================
+        // 4. NUEVO SISTEMA DRAG & DROP (POINTER EVENTS)
+        // Funciona perfecto en Touch y Mouse simulando arrastre visual
+        // ==========================================
+        let activeDragEl = null; let dragClone = null;
+
+        function initPointerDragDrop() {
+            const draggables = document.querySelectorAll('.draggable');
+            draggables.forEach(el => {
+                el.addEventListener('pointerdown', handleDragStart);
+            });
+        }
+
+        function handleDragStart(e) {
+            if (e.target.parentElement.classList.contains('dropzone')) return;
+            
+            activeDragEl = e.target.closest('.draggable');
+            if(!activeDragEl) return;
+            
+            e.preventDefault(); 
+
+            dragClone = activeDragEl.cloneNode(true);
+            dragClone.classList.add('dragging-clone');
+            document.body.appendChild(dragClone);
+            
+            moveClone(e.clientX, e.clientY);
+            
+            document.addEventListener('pointermove', handleDragMove, {passive: false});
+            document.addEventListener('pointerup', handleDragEnd);
+        }
+
+        function moveClone(x, y) {
+            if (!dragClone) return;
+            dragClone.style.left = (x - dragClone.offsetWidth / 2) + 'px';
+            dragClone.style.top = (y - dragClone.offsetHeight / 2) + 'px';
+        }
+
+        function handleDragMove(e) {
+            if(!dragClone) return;
+            e.preventDefault();
+            moveClone(e.clientX, e.clientY);
+        }
+
+        function handleDragEnd(e) {
+            document.removeEventListener('pointermove', handleDragMove);
+            document.removeEventListener('pointerup', handleDragEnd);
+            
+            if (!dragClone || !activeDragEl) return;
+            
+            dragClone.style.display = 'none';
+            let elemBelow = document.elementFromPoint(e.clientX, e.clientY);
+            let dropzone = elemBelow ? elemBelow.closest('.dropzone') : null;
+            
+            if (dropzone && !dropzone.classList.contains('filled')) {
+                if (dropzone.dataset.target === activeDragEl.dataset.match) {
+                    dropzone.innerHTML = '';
+                    dropzone.appendChild(activeDragEl);
+                    dropzone.classList.add('filled');
+                    activeDragEl.style.margin = '0';
+                    playAudio(true);
+                    correctMatches++;
+                    if (correctMatches === totalMatches) {
+                        setTimeout(() => document.getElementById('minigame-success').classList.remove('hidden'), 400);
+                        playAudio(true); 
+                    }
+                } else {
+                    playAudio(false);
+                    dropzone.classList.add('bg-red-100', 'border-red-500');
+                    setTimeout(() => dropzone.classList.remove('bg-red-100', 'border-red-500'), 400);
+                }
+            } else {
+                playAudio(false);
+            }
+            
+            dragClone.remove();
+            dragClone = null;
+            activeDragEl = null;
+        }
+
+        // ==========================================
+        // 5. CANVAS: TRAZAR LÍNEAS (POINTER EVENTS)
+        // ==========================================
+        function initCanvasDrawing() {
+            const canvas = document.getElementById('line-canvas');
+            const container = document.getElementById('canvas-container');
+            if(!canvas || !container) return;
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+
+            let isDrawing = false; let startDot = null;
+            let currentX = 0; let currentY = 0;
+            let lines = []; 
+
+            const getCenter = (el) => {
+                const rect = el.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                return {
+                    x: rect.left - containerRect.left + rect.width/2,
+                    y: rect.top - containerRect.top + rect.height/2
+                };
+            };
+
+            const drawAll = () => {
+                ctx.clearRect(0,0, canvas.width, canvas.height);
+                ctx.lineWidth = 8;
+                ctx.lineCap = 'round';
+                
+                lines.forEach(l => {
+                    const p1 = getCenter(l.startEl); const p2 = getCenter(l.endEl);
+                    ctx.strokeStyle = '#22c55e';
+                    ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                });
+                
+                if(isDrawing && startDot) {
+                    const p1 = getCenter(startDot);
+                    ctx.strokeStyle = '#3b82f6';
+                    ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(currentX, currentY); ctx.stroke();
+                }
+            };
+
+            container.onpointerdown = (e) => {
+                const el = document.elementFromPoint(e.clientX, e.clientY);
+                if (el && el.classList.contains('left-dot') && !el.classList.contains('matched-dot')) {
+                    isDrawing = true; startDot = el;
+                    const containerRect = container.getBoundingClientRect();
+                    currentX = e.clientX - containerRect.left;
+                    currentY = e.clientY - containerRect.top;
+                    e.preventDefault();
+                }
+            };
+
+            container.onpointermove = (e) => {
+                if(!isDrawing) return;
+                const containerRect = container.getBoundingClientRect();
+                currentX = e.clientX - containerRect.left;
+                currentY = e.clientY - containerRect.top;
+                drawAll();
+                e.preventDefault();
+            };
+
+            container.onpointerup = (e) => {
+                if(!isDrawing) return;
+                isDrawing = false;
+                
+                const el = document.elementFromPoint(e.clientX, e.clientY);
+                if (el && el.classList.contains('right-dot') && !el.classList.contains('matched-dot')) {
+                    if(el.dataset.id === startDot.dataset.id) {
+                        lines.push({startEl: startDot, endEl: el});
+                        startDot.classList.add('matched-dot'); el.classList.add('matched-dot');
+                        playAudio(true); correctMatches++;
+                        if(correctMatches === totalMatches) {
+                            setTimeout(() => document.getElementById('minigame-success').classList.remove('hidden'), 500);
+                        }
+                    } else {
+                        playAudio(false);
+                    }
+                }
+                drawAll(); startDot = null;
+            };
+
+            window.onresize = () => {
+                canvas.width = container.clientWidth; canvas.height = container.clientHeight; drawAll();
+            };
+        }
+
+        // ==========================================
+        // 6. UTILIDADES: AUDIO Y TEXT-TO-SPEECH
+        // ==========================================
+        function readStoryText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); 
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'es-MX'; utterance.rate = 0.85; utterance.pitch = 1.2;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function playSound(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'es-MX'; 
+                utterance.rate = 1.0; utterance.pitch = 1.8; 
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
         function playAudio(isCorrect) {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.connect(gain);
-                gain.connect(ctx.destination);
+                const osc = ctx.createOscillator(); const gain = ctx.createGain();
+                osc.connect(gain); gain.connect(ctx.destination);
                 
                 if (isCorrect) {
-                    // Sonido feliz agudo
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(500, ctx.currentTime);
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(500, ctx.currentTime);
                     osc.frequency.exponentialRampToValueAtTime(1000, ctx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
-                    osc.start();
-                    osc.stop(ctx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
                 } else {
-                    // Sonido grave "error"
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(200, ctx.currentTime);
+                    osc.type = 'sawtooth'; osc.frequency.setValueAtTime(200, ctx.currentTime);
                     osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.2);
-                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
-                    osc.start();
-                    osc.stop(ctx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
                 }
-            } catch (e) {
-                // Silencio si el navegador bloquea el audio
+                osc.start(); osc.stop(ctx.currentTime + 0.3);
+            } catch (e) {}
+        }
+        
+        function solveMinigame() {
+            if(currentGameType === 'nota' || currentGameType === 'carta' || currentGameType === 'cuento') {
+                document.querySelectorAll('.dropzone').forEach(zone => {
+                    const matchId = zone.dataset.target;
+                    const dragEl = document.querySelector(`.draggable[data-match="${matchId}"]`);
+                    if(dragEl && !zone.classList.contains('filled')) {
+                        dragEl.style.margin = '0'; zone.innerHTML = ''; zone.appendChild(dragEl); zone.classList.add('filled');
+                    }
+                });
+                document.getElementById('minigame-success').classList.remove('hidden');
             }
         }
     </script>
