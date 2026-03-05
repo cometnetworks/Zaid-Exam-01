@@ -568,10 +568,10 @@
         function startQuiz(subject) {
             goHome(); // Ensure all other screens are hidden
             const subjectNames = { espanol: "📚 Español", matematicas: "🔢 Matemáticas", ingles: "🌎 Inglés", naturaleza: "🌱 Naturaleza" };
-            currentQuestions = [...db[subject]].sort(() => Math.random() - 0.5).slice(0, 20);
+            currentQuestions = [...db[subject]].sort(() => Math.random() - 0.5).slice(0, 40);
             currentIndex = 0; score = 0;
             document.getElementById('subject-title').innerText = subjectNames[subject];
-            document.getElementById('home-screen').classList.add('hidden');
+            document.getElementById('home-screen').classList.add('hidden'); // Fix overlap
             document.getElementById('quiz-screen').classList.remove('hidden');
             document.getElementById('quiz-screen').classList.add('flex');
             loadQuestion();
@@ -645,6 +645,7 @@
 
         function startMinigame(type) {
             goHome(); // Ensure all other screens are hidden
+            document.getElementById('home-screen').classList.add('hidden'); // Faltaba ocultar el home
             document.getElementById('minigames-menu').classList.add('hidden');
             document.getElementById('minigames-menu').classList.remove('flex');
             document.getElementById('minigame-container').classList.remove('hidden');
@@ -1040,11 +1041,12 @@
         function startFlashcards(subject) {
             goHome(); // Ensure all other screens are hidden
             const subjectNames = { espanol: "📚 Español", matematicas: "🔢 Matemáticas", ingles: "🌎 Inglés", naturaleza: "🌱 Naturaleza" };
-            // Toma 20 aleatorias para que no sea tan largo de un jalón, o las 40 según prefieras. Aquí tomamos 20.
-            fcQuestions = [...db[subject]].sort(() => Math.random() - 0.5).slice(0, 20);
+            // Tomas las 40 preguntas correspondientes a la materia
+            fcQuestions = [...db[subject]].sort(() => Math.random() - 0.5).slice(0, 40);
             fcIndex = 0;
 
             document.getElementById('fc-subject-title').innerText = subjectNames[subject];
+            document.getElementById('home-screen').classList.add('hidden'); // Faltaba ocultar el home
             document.getElementById('flashcards-subject-menu').classList.add('hidden');
             document.getElementById('flashcards-subject-menu').classList.remove('flex');
             document.getElementById('flashcards-screen').classList.remove('hidden');
