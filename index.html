@@ -566,6 +566,7 @@
         }
 
         function startQuiz(subject) {
+            goHome(); // Ensure all other screens are hidden
             const subjectNames = { espanol: "📚 Español", matematicas: "🔢 Matemáticas", ingles: "🌎 Inglés", naturaleza: "🌱 Naturaleza" };
             currentQuestions = [...db[subject]].sort(() => Math.random() - 0.5).slice(0, 20);
             currentIndex = 0; score = 0;
@@ -643,6 +644,7 @@
         let currentGameType = ''; let correctMatches = 0; let totalMatches = 0;
 
         function startMinigame(type) {
+            goHome(); // Ensure all other screens are hidden
             document.getElementById('minigames-menu').classList.add('hidden');
             document.getElementById('minigames-menu').classList.remove('flex');
             document.getElementById('minigame-container').classList.remove('hidden');
@@ -945,20 +947,20 @@
         // 6. UTILIDADES: AUDIO Y TEXT-TO-SPEECH
         // ==========================================
         let preferredVoice = null;
-        
+
         window.speechSynthesis.onvoiceschanged = () => {
-             const voices = window.speechSynthesis.getVoices();
-             preferredVoice = voices.find(v => v.lang.includes('es-MX') || v.lang.includes('es-ES') || v.lang.includes('es_US'));
+            const voices = window.speechSynthesis.getVoices();
+            preferredVoice = voices.find(v => v.lang.includes('es-MX') || v.lang.includes('es-ES') || v.lang.includes('es_US'));
         };
 
         function readStoryText(text) {
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); 
+                window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'es-MX'; 
-                utterance.rate = 0.85; 
+                utterance.lang = 'es-MX';
+                utterance.rate = 0.85;
                 utterance.pitch = 1.2;
-                if(preferredVoice) utterance.voice = preferredVoice;
+                if (preferredVoice) utterance.voice = preferredVoice;
                 window.speechSynthesis.speak(utterance);
             }
         }
@@ -971,30 +973,18 @@
                     fallbackToTTS(text_or_path);
                 });
             } else {
-                 fallbackToTTS(text_or_path);
+                fallbackToTTS(text_or_path);
             }
         }
-        
+
         function fallbackToTTS(text) {
-             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'es-MX'; 
-                utterance.rate = 1.0; 
-                utterance.pitch = 1.8; 
-                if(preferredVoice) utterance.voice = preferredVoice;
-                window.speechSynthesis.speak(utterance);
-            }
-        }
-
-        }
-
-        function playSound(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'es-MX';
-                utterance.rate = 1.0; utterance.pitch = 1.8;
+                utterance.rate = 1.0;
+                utterance.pitch = 1.8;
+                if (preferredVoice) utterance.voice = preferredVoice;
                 window.speechSynthesis.speak(utterance);
             }
         }
@@ -1033,14 +1023,7 @@
                 setTimeout(() => document.getElementById('minigame-success').classList.remove('hidden'), 500);
             }
         }
-        "]`);
-        if (dragEl && !zone.classList.contains('filled')) {
-            dragEl.style.margin = '0'; zone.innerHTML = ''; zone.appendChild(dragEl); zone.classList.add('filled');
-        }
-                });
-        document.getElementById('minigame-success').classList.remove('hidden');
-            }
-        }
+
 
         // ==========================================
         // 7. LÓGICA TARJETAS DE REPASO (FLASHCARDS)
@@ -1055,6 +1038,7 @@
         }
 
         function startFlashcards(subject) {
+            goHome(); // Ensure all other screens are hidden
             const subjectNames = { espanol: "📚 Español", matematicas: "🔢 Matemáticas", ingles: "🌎 Inglés", naturaleza: "🌱 Naturaleza" };
             // Toma 20 aleatorias para que no sea tan largo de un jalón, o las 40 según prefieras. Aquí tomamos 20.
             fcQuestions = [...db[subject]].sort(() => Math.random() - 0.5).slice(0, 20);
