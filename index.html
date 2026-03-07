@@ -2623,10 +2623,12 @@
         // ==========================================
         let preferredVoice = null;
 
-        window.speechSynthesis.onvoiceschanged = () => {
-            const voices = window.speechSynthesis.getVoices();
-            preferredVoice = voices.find(v => v.lang.includes('es-MX') || v.lang.includes('es-ES') || v.lang.includes('es_US'));
-        };
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                const voices = window.speechSynthesis.getVoices();
+                preferredVoice = voices.find(v => v.lang.includes('es-MX') || v.lang.includes('es-ES') || v.lang.includes('es_US'));
+            };
+        }
 
         function readStoryText(text) {
             if ('speechSynthesis' in window) {
@@ -2642,7 +2644,7 @@
 
         function playSound(text_or_path, id_for_audio = null) {
             if (id_for_audio) {
-                const audioFile = new Audio(`sounds / ${id_for_audio}.mp3`);
+                const audioFile = new Audio(`sounds/${id_for_audio}.mp3`);
                 audioFile.play().catch(e => {
                     console.log("No audio file found, falling back to TTS for: ", text_or_path);
                     fallbackToTTS(text_or_path);
@@ -2687,7 +2689,7 @@
             if (currentGameType === 'nota' || currentGameType === 'carta' || currentGameType === 'cuento') {
                 document.querySelectorAll('.dropzone').forEach(zone => {
                     const matchId = zone.dataset.target;
-                    const dragEl = document.querySelector(`.draggable[data - match= "${matchId}"]`);
+                    const dragEl = document.querySelector(`.draggable[data-match="${matchId}"]`);
                     if (dragEl && !zone.classList.contains('filled')) {
                         dragEl.style.margin = '0'; zone.innerHTML = ''; zone.appendChild(dragEl); zone.classList.add('filled');
                     }
