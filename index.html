@@ -2320,12 +2320,77 @@
 
                 content.innerHTML = `
                     <p class="text-center font-bold text-gray-600 mb-4">Toca 🔊 para escuchar. ¡Une el punto azul con el animal correcto!</p>
-                    <div class="relative w-full border-2 border-dashed border-gray-200 rounded-xl bg-gray-50" id="canvas-container" style="height: 400px; touch-action: none;">
-                        <canvas id="line-canvas"></canvas>
-                        <div class="absolute w-full h-full flex justify-between px-2 md:px-4 py-4">
-                            <div class="w-[45%] flex flex-col justify-around" id="left-items">${leftHTML}</div>
-                            <div class="w-[45%] flex flex-col justify-around" id="right-items">${rightHTML}</div>
+                    <div class="relative w-full border-2 border-dashed border-gray-200 rounded-xl bg-gray-50 overflow-hidden" id="canvas-container" style="height: 400px;">
+                        <canvas id="line-canvas" class="absolute inset-0 w-full h-full z-10" style="touch-action: none;"></canvas>
+                        <div class="absolute inset-0 w-full h-full flex justify-between px-2 md:px-4 py-4 z-20 pointer-events-none">
+                            <div class="w-[45%] flex flex-col justify-around pointer-events-auto" id="left-items">${leftHTML}</div>
+                            <div class="w-[45%] flex flex-col justify-around pointer-events-auto" id="right-items">${rightHTML}</div>
                         </div>
+                    </div>
+                `;
+                setTimeout(initCanvasDrawing, 100);
+            }
+            else if (type === 'agrupaciones') {
+                document.getElementById('minigame-title').innerText = "🍎 Agrupando Decenas";
+                const totalApples = Math.floor(Math.random() * 80) + 11; // 11 to 90
+                const tens = Math.floor(totalApples / 10);
+                const units = totalApples % 10;
+
+                let emojis = Array(totalApples).fill('🍎').join('');
+
+                content.innerHTML = `
+                    <p class="text-center font-bold text-gray-600 mb-4 text-lg">Cuenta las manzanas. Escribe cuántas decenas y unidades hay.</p>
+                    <div class="bg-red-50 p-6 rounded-2xl border-4 border-red-200 mb-6 flex flex-wrap gap-2 text-3xl justify-center leading-loose">
+                        ${emojis}
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-6 justify-center max-w-lg mx-auto mb-8">
+                        <div class="bg-blue-100 p-6 rounded-2xl border-4 border-blue-300 flex-1 text-center shadow-inner">
+                            <label class="block font-black text-blue-800 text-xl mb-2">Decenas</label>
+                            <input type="number" id="input-tens" class="w-full text-center text-4xl font-bold p-2 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-400" min="0" max="9">
+                        </div>
+                        <div class="text-4xl font-black text-gray-400 self-center hidden md:block">+</div>
+                        <div class="bg-green-100 p-6 rounded-2xl border-4 border-green-300 flex-1 text-center shadow-inner">
+                            <label class="block font-black text-green-800 text-xl mb-2">Unidades</label>
+                            <input type="number" id="input-units" class="w-full text-center text-4xl font-bold p-2 rounded-xl focus:outline-none focus:ring-4 focus:ring-green-400" min="0" max="9">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button onclick="checkAgrupaciones(${tens}, ${units})" class="bg-green-500 hover:bg-green-600 text-white font-black py-4 px-10 rounded-2xl shadow-lg border-b-8 border-green-700 text-2xl active:border-b-0 active:translate-y-2">VERIFICAR</button>
+                    </div>
+                `;
+            }
+            else if (type === 'recta_numerica') {
+                document.getElementById('minigame-title').innerText = "🐸 Saltos Numéricos";
+                const start = Math.floor(Math.random() * 6) + 1; // 1 to 6
+                const jumps = Math.floor(Math.random() * 8) + 2; // 2 to 9
+                const target = start + jumps;
+
+                let markers = '';
+                let numbers = '';
+                for (let i = 0; i <= 20; i++) {
+                    markers += `<span class="${i === start ? 'text-pink-500 text-2xl font-black' : 'text-gray-400'}">|</span>`;
+                    numbers += `<span class="w-6 text-center ${i === start ? 'text-pink-600 text-xl font-black' : 'text-blue-800'}">${i}</span>`;
+                }
+
+                content.innerHTML = `
+                    <p class="text-center font-bold text-gray-600 mb-4 text-lg md:text-xl">La rana empieza en el <span class="bg-pink-200 px-2 rounded">${start}</span> y da <span class="bg-green-200 px-2 rounded">${jumps}</span> saltos. <br>Dibuja los saltos y escribe a qué número llegó.</p>
+                    <div class="relative w-full overflow-hidden bg-blue-50 border-4 border-blue-200 rounded-2xl mb-8" style="height: 250px;">
+                        <canvas id="saltos-canvas" class="absolute inset-0 w-full h-full cursor-crosshair z-10" style="touch-action: none;"></canvas>
+                        
+                        <!-- Base labels -->
+                        <div class="absolute bottom-8 w-full flex justify-between px-4 pb-2 text-xl font-bold pointer-events-none z-0">
+                            ${markers}
+                        </div>
+                        <div class="absolute bottom-2 w-full flex justify-between px-2 text-lg font-black pointer-events-none z-0">
+                            ${numbers}
+                        </div>
+                        <div class="absolute bottom-10 w-full h-1 bg-blue-400 pointer-events-none z-0"></div>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row justify-center items-center gap-4 bg-gray-100 p-4 rounded-xl border-2 border-gray-200">
+                        <span class="text-xl md:text-2xl font-bold text-gray-700">Llegó al número:</span>
+                        <input type="number" id="input-saltos" class="w-24 text-center text-4xl font-black p-2 rounded-xl border-4 text-blue-600 border-blue-300 focus:outline-none focus:ring-4 focus:ring-blue-400" min="0" max="20">
+                        <button onclick="checkSaltos(${target})" class="bg-blue-500 hover:bg-blue-600 text-white font-black py-3 px-8 rounded-xl shadow-lg border-b-4 border-blue-700 text-xl active:border-b-0 active:translate-y-1 md:ml-4 w-full md:w-auto">VERIFICAR</button>
                     </div>
                 `;
                 setTimeout(initSaltosCanvas, 100);
@@ -2369,6 +2434,99 @@
                 `;
                 initMemorama();
             }
+        }
+
+        // ==========================================
+        // 3.0 JUEGOS MATEMÁTICOS LOGIC
+        // ==========================================
+        function checkAgrupaciones(correctTens, correctUnits) {
+            const userTens = parseInt(document.getElementById('input-tens').value) || 0;
+            const userUnits = parseInt(document.getElementById('input-units').value) || 0;
+
+            if (userTens === correctTens && userUnits === correctUnits) {
+                playAudio(true);
+                document.getElementById('minigame-success').classList.remove('hidden');
+                confetti();
+            } else {
+                playAudio(false);
+                if ('vibrate' in navigator) navigator.vibrate(200);
+                document.getElementById('input-tens').classList.add('animate-shake', 'border-red-500');
+                document.getElementById('input-units').classList.add('animate-shake', 'border-red-500');
+                setTimeout(() => {
+                    document.getElementById('input-tens').classList.remove('animate-shake', 'border-red-500');
+                    document.getElementById('input-units').classList.remove('animate-shake', 'border-red-500');
+                }, 500);
+            }
+        }
+
+        function checkSaltos(correctTarget) {
+            const userTarget = parseInt(document.getElementById('input-saltos').value);
+            if (userTarget === correctTarget) {
+                playAudio(true);
+                document.getElementById('minigame-success').classList.remove('hidden');
+                confetti();
+            } else {
+                playAudio(false);
+                if ('vibrate' in navigator) navigator.vibrate(200);
+                document.getElementById('input-saltos').classList.add('animate-shake', 'border-red-500');
+                setTimeout(() => document.getElementById('input-saltos').classList.remove('animate-shake', 'border-red-500'), 500);
+            }
+        }
+
+        function initSaltosCanvas() {
+            const canvas = document.getElementById('saltos-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+
+            ctx.strokeStyle = '#ec4899'; // pink-500
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            let isDrawing = false;
+            let lastX = 0; let lastY = 0;
+
+            function getPos(e) {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return { x: clientX - rect.left, y: clientY - rect.top };
+            }
+
+            function start(e) {
+                isDrawing = true;
+                const pos = getPos(e);
+                lastX = pos.x; lastY = pos.y;
+                if (e.type !== 'mousedown') e.preventDefault();
+            }
+
+            function move(e) {
+                if (!isDrawing) return;
+                const pos = getPos(e);
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
+                lastX = pos.x; lastY = pos.y;
+                if (e.type !== 'mousemove') e.preventDefault();
+            }
+
+            function end() { isDrawing = false; }
+
+            canvas.addEventListener('mousedown', start, { passive: true });
+            canvas.addEventListener('mousemove', move, { passive: true });
+            canvas.addEventListener('mouseup', end);
+            canvas.addEventListener('mouseout', end);
+
+            canvas.addEventListener('touchstart', start, { passive: false });
+            canvas.addEventListener('touchmove', move, { passive: false });
+            canvas.addEventListener('touchend', end);
         }
 
         // ==========================================
