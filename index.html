@@ -179,6 +179,11 @@
             🎴 ¡Tarjetas de Repaso!
         </button>
 
+        <button onclick="showDashboard()"
+            class="w-full bg-indigo-500 hover:bg-indigo-600 text-white p-4 rounded-3xl shadow-xl border-b-8 border-indigo-700 transform transition hover:-translate-y-1 text-2xl font-bold flex items-center justify-center gap-3">
+            🌟 Mi Progreso
+        </button>
+
         <button onclick="showMinigamesMenu()"
             class="w-full bg-purple-500 hover:bg-purple-600 text-white p-6 rounded-3xl shadow-xl border-b-8 border-purple-700 transform transition hover:-translate-y-1 text-3xl font-black flex items-center justify-center gap-4 animate-pulse">
             🧩 ¡Minijuegos Mágicos! ✨
@@ -303,12 +308,18 @@
 
     <!-- PANTALLA QUIZ NORMAL -->
     <div id="quiz-screen" class="w-full max-w-2xl hidden flex-col">
-        <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-2xl shadow-sm border-2 border-gray-100">
+        <div
+            class="flex justify-between items-center mb-6 bg-white p-4 rounded-2xl shadow-sm border-2 border-gray-100 flex-wrap gap-2">
             <button onclick="goHome()"
-                class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-xl">⬅️ Salir</button>
-            <h2 id="subject-title" class="text-xl md:text-2xl font-black uppercase text-gray-700">Materia</h2>
-            <div class="text-xl font-bold text-blue-600 bg-blue-100 px-4 py-1 rounded-full"><span
+                class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-3 md:px-4 rounded-xl text-sm md:text-base">⬅️
+                Salir</button>
+            <h2 id="subject-title" class="text-xl md:text-2xl font-black uppercase text-gray-700 flex-1 text-center">
+                Materia</h2>
+            <div class="text-lg md:text-xl font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded-full"><span
                     id="question-counter">1/40</span></div>
+            <button onclick="restartQuiz()"
+                class="w-full mt-2 bg-red-100 hover:bg-red-200 text-red-600 font-bold py-2 px-4 rounded-xl text-sm border-2 border-red-200">🔄
+                Reiniciar Examen</button>
         </div>
         <div class="w-full bg-gray-200 rounded-full h-4 mb-6">
             <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all duration-500" style="width: 0%">
@@ -344,1454 +355,1454 @@
         // ==========================================
         const db = {
             "espanol": [
-                        {
-                                    "q": "¿Cuáles son TODAS las partes de una nota informativa?",
-                                    "options": [
-                                                "Saludo, Firma y Fecha.",
-                                                "Título, Cuerpo de la noticia y Foto.",
-                                                "Verso, Rima y Estrofa."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Cuáles son TODAS las partes de una carta?",
-                                    "options": [
-                                                "Lugar, fecha, saludo, cuerpo, despedida y firma.",
-                                                "Título, Inicio, Desarrollo y Final.",
-                                                "Reglas, Instrucciones y Fichas."
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Cuáles son las partes de un cuento (en orden)?",
-                                    "options": [
-                                                "Lugar y fecha.",
-                                                "Versos y rimas.",
-                                                "Inicio, Desarrollo y Final."
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "¿Quiénes son los tipos de personajes en un cuento o teatro?",
-                                    "options": [
-                                                "Bióticos y Abióticos.",
-                                                "Personajes Principales y Secundarios.",
-                                                "Remitente y Destinatario."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué parte de la nota informativa nos dice qué pasó?",
-                                    "options": [
-                                                "El título.",
-                                                "El cuerpo de la noticia.",
-                                                "La foto."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Cómo se llama cada línea de un poema?",
-                                    "options": [
-                                                "Verso.",
-                                                "Estrofa.",
-                                                "Cuento."
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¡Guau, guau! y ¡Pum! son ejemplos de...",
-                                    "options": [
-                                                "Rimas.",
-                                                "Onomatopeyas.",
-                                                "Reglas."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Para qué sirven las reglas en un juego de mesa?",
-                                    "options": [
-                                                "Para pelear.",
-                                                "Para saber cómo jugar bien y en orden.",
-                                                "Para aburrirse."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "En una carta, ¿quién es el 'Remitente'?",
-                                    "options": [
-                                                "El que la recibe.",
-                                                "El que la escribe y envía.",
-                                                "El cartero."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿En qué parte de la carta ponemos el lugar y el día?",
-                                    "options": [
-                                                "Firma.",
-                                                "Despedida.",
-                                                "Fecha."
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "Platicar con mis papás y hermanos es parte de mi contexto...",
-                                    "options": [
-                                                "Familiar.",
-                                                "Escolar.",
-                                                "Deportivo."
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "La palabra 'Chocolate' viene de un idioma antiguo llamado:",
-                                    "options": [
-                                                "Inglés.",
-                                                "Náhuatl.",
-                                                "Francés."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "El personaje más importante de un cuento es el personaje...",
-                                    "options": [
-                                                "Secundario.",
-                                                "Principal.",
-                                                "Malo."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "En una obra de teatro, las instrucciones entre paréntesis se llaman:",
-                                    "options": [
-                                                "Acotaciones.",
-                                                "Diálogos.",
-                                                "Títulos."
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Qué signos usamos para hacer una PREGUNTA?",
-                                    "options": [
-                                                "¡ !",
-                                                "¿ ?",
-                                                "( )"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué signos usamos para gritar o mostrar sorpresa?",
-                                    "options": [
-                                                "¿ ?",
-                                                "! !",
-                                                "¡ !"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "Un dragón que escupe fuego es un personaje...",
-                                    "options": [
-                                                "Real.",
-                                                "Ficticio (de fantasía).",
-                                                "Aburrido."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué usamos para describir algo con sonidos?",
-                                    "options": [
-                                                "Formato visual.",
-                                                "Formato sonoro.",
-                                                "Formato escrito."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Cuando leo 'Estimado abuelo:' en una carta, es un...",
-                                    "options": [
-                                                "Saludo.",
-                                                "Despedida.",
-                                                "Lugar."
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "El grupo de versos en un poema se llama...",
-                                    "options": [
-                                                "Estrofa.",
-                                                "Oración.",
-                                                "Párrafo."
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Una nota informativa sirve para...",
-                                    "options": [
-                                                "Contar un chiste.",
-                                                "Informar de algo que pasó.",
-                                                "Cantar."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "El lobo en Caperucita Roja es un personaje...",
-                                    "options": [
-                                                "Secundario.",
-                                                "Principal.",
-                                                "Ficticio."
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "Al final de la carta, escribo mi nombre. Eso es la...",
-                                    "options": [
-                                                "Fecha.",
-                                                "Firma.",
-                                                "Saludo."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "En un poema, las palabras que suenan igual al final (como 'gato' y 'pato') forman una...",
-                                    "options": [
-                                                "Pregunta.",
-                                                "Rima.",
-                                                "Noticia."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Si un texto dice '1. Tira el dado, 2. Avanza casillas', es una...",
-                                    "options": [
-                                                "Regla / Instrucción.",
-                                                "Carta.",
-                                                "Poema."
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "El lugar donde aprendes con tu maestra y compañeros es el contexto...",
-                                    "options": [
-                                                "Familiar.",
-                                                "Deportivo.",
-                                                "Escolar."
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "La palabra 'Papalote' viene del idioma...",
-                                    "options": [
-                                                "Náhuatl.",
-                                                "Inglés.",
-                                                "Maya."
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿A quién se le envía una carta?",
-                                    "options": [
-                                                "Al cartero.",
-                                                "Al Destinatario.",
-                                                "Al Remitente."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué parte del cuento dice 'Había una vez...'?",
-                                    "options": [
-                                                "El final.",
-                                                "El desarrollo.",
-                                                "El inicio."
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "¿Qué parte del cuento cuenta el problema o aventura más emocionante?",
-                                    "options": [
-                                                "El inicio.",
-                                                "El desarrollo.",
-                                                "El final."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué parte del cuento dice '...y vivieron felices para siempre'?",
-                                    "options": [
-                                                "El final.",
-                                                "El inicio.",
-                                                "El saludo."
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Qué signo se usa en una obra de teatro antes de que hable un personaje?",
-                                    "options": [
-                                                "Punto final (.)",
-                                                "Dos puntos (:)",
-                                                "Coma (,)"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Las onomatopeyas son palabras que imitan...",
-                                    "options": [
-                                                "Colores.",
-                                                "Sonidos.",
-                                                "Sabores."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "La palabra 'Tomate' es de origen...",
-                                    "options": [
-                                                "Francés.",
-                                                "Náhuatl.",
-                                                "Español."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "En una carta, lo que queremos decir o platicar es el...",
-                                    "options": [
-                                                "Cuerpo de la carta.",
-                                                "Firma.",
-                                                "Fecha."
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Un personaje que ayuda al héroe, pero sale menos en la historia es...",
-                                    "options": [
-                                                "Principal.",
-                                                "Secundario.",
-                                                "Aburrido."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Un niño que va a la escuela en un cuento es un personaje...",
-                                    "options": [
-                                                "Mágico.",
-                                                "Ficticio.",
-                                                "Real."
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "Tu mascota, tu casa y tus abuelos son parte de tu contexto...",
-                                    "options": [
-                                                "Familiar.",
-                                                "Escolar.",
-                                                "Del bosque."
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Qué usamos para describir cómo se ve un paisaje con nuestros ojos?",
-                                    "options": [
-                                                "Formato sonoro.",
-                                                "Formato visual.",
-                                                "Acotación."
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "En una obra de teatro, lo que dicen y platican los actores se llama...",
-                                    "options": [
-                                                "Diálogo.",
-                                                "Regla.",
-                                                "Verso."
-                                    ],
-                                    "ans": 0
-                        }
+                {
+                    "q": "¿Cuáles son TODAS las partes de una nota informativa?",
+                    "options": [
+                        "Saludo, Firma y Fecha.",
+                        "Título, Cuerpo de la noticia y Foto.",
+                        "Verso, Rima y Estrofa."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Cuáles son TODAS las partes de una carta?",
+                    "options": [
+                        "Lugar, fecha, saludo, cuerpo, despedida y firma.",
+                        "Título, Inicio, Desarrollo y Final.",
+                        "Reglas, Instrucciones y Fichas."
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Cuáles son las partes de un cuento (en orden)?",
+                    "options": [
+                        "Lugar y fecha.",
+                        "Versos y rimas.",
+                        "Inicio, Desarrollo y Final."
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "¿Quiénes son los tipos de personajes en un cuento o teatro?",
+                    "options": [
+                        "Bióticos y Abióticos.",
+                        "Personajes Principales y Secundarios.",
+                        "Remitente y Destinatario."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué parte de la nota informativa nos dice qué pasó?",
+                    "options": [
+                        "El título.",
+                        "El cuerpo de la noticia.",
+                        "La foto."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Cómo se llama cada línea de un poema?",
+                    "options": [
+                        "Verso.",
+                        "Estrofa.",
+                        "Cuento."
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¡Guau, guau! y ¡Pum! son ejemplos de...",
+                    "options": [
+                        "Rimas.",
+                        "Onomatopeyas.",
+                        "Reglas."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Para qué sirven las reglas en un juego de mesa?",
+                    "options": [
+                        "Para pelear.",
+                        "Para saber cómo jugar bien y en orden.",
+                        "Para aburrirse."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "En una carta, ¿quién es el 'Remitente'?",
+                    "options": [
+                        "El que la recibe.",
+                        "El que la escribe y envía.",
+                        "El cartero."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿En qué parte de la carta ponemos el lugar y el día?",
+                    "options": [
+                        "Firma.",
+                        "Despedida.",
+                        "Fecha."
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "Platicar con mis papás y hermanos es parte de mi contexto...",
+                    "options": [
+                        "Familiar.",
+                        "Escolar.",
+                        "Deportivo."
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "La palabra 'Chocolate' viene de un idioma antiguo llamado:",
+                    "options": [
+                        "Inglés.",
+                        "Náhuatl.",
+                        "Francés."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "El personaje más importante de un cuento es el personaje...",
+                    "options": [
+                        "Secundario.",
+                        "Principal.",
+                        "Malo."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "En una obra de teatro, las instrucciones entre paréntesis se llaman:",
+                    "options": [
+                        "Acotaciones.",
+                        "Diálogos.",
+                        "Títulos."
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Qué signos usamos para hacer una PREGUNTA?",
+                    "options": [
+                        "¡ !",
+                        "¿ ?",
+                        "( )"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué signos usamos para gritar o mostrar sorpresa?",
+                    "options": [
+                        "¿ ?",
+                        "! !",
+                        "¡ !"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "Un dragón que escupe fuego es un personaje...",
+                    "options": [
+                        "Real.",
+                        "Ficticio (de fantasía).",
+                        "Aburrido."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué usamos para describir algo con sonidos?",
+                    "options": [
+                        "Formato visual.",
+                        "Formato sonoro.",
+                        "Formato escrito."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Cuando leo 'Estimado abuelo:' en una carta, es un...",
+                    "options": [
+                        "Saludo.",
+                        "Despedida.",
+                        "Lugar."
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "El grupo de versos en un poema se llama...",
+                    "options": [
+                        "Estrofa.",
+                        "Oración.",
+                        "Párrafo."
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Una nota informativa sirve para...",
+                    "options": [
+                        "Contar un chiste.",
+                        "Informar de algo que pasó.",
+                        "Cantar."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "El lobo en Caperucita Roja es un personaje...",
+                    "options": [
+                        "Secundario.",
+                        "Principal.",
+                        "Ficticio."
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "Al final de la carta, escribo mi nombre. Eso es la...",
+                    "options": [
+                        "Fecha.",
+                        "Firma.",
+                        "Saludo."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "En un poema, las palabras que suenan igual al final (como 'gato' y 'pato') forman una...",
+                    "options": [
+                        "Pregunta.",
+                        "Rima.",
+                        "Noticia."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Si un texto dice '1. Tira el dado, 2. Avanza casillas', es una...",
+                    "options": [
+                        "Regla / Instrucción.",
+                        "Carta.",
+                        "Poema."
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "El lugar donde aprendes con tu maestra y compañeros es el contexto...",
+                    "options": [
+                        "Familiar.",
+                        "Deportivo.",
+                        "Escolar."
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "La palabra 'Papalote' viene del idioma...",
+                    "options": [
+                        "Náhuatl.",
+                        "Inglés.",
+                        "Maya."
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿A quién se le envía una carta?",
+                    "options": [
+                        "Al cartero.",
+                        "Al Destinatario.",
+                        "Al Remitente."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué parte del cuento dice 'Había una vez...'?",
+                    "options": [
+                        "El final.",
+                        "El desarrollo.",
+                        "El inicio."
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "¿Qué parte del cuento cuenta el problema o aventura más emocionante?",
+                    "options": [
+                        "El inicio.",
+                        "El desarrollo.",
+                        "El final."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué parte del cuento dice '...y vivieron felices para siempre'?",
+                    "options": [
+                        "El final.",
+                        "El inicio.",
+                        "El saludo."
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Qué signo se usa en una obra de teatro antes de que hable un personaje?",
+                    "options": [
+                        "Punto final (.)",
+                        "Dos puntos (:)",
+                        "Coma (,)"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Las onomatopeyas son palabras que imitan...",
+                    "options": [
+                        "Colores.",
+                        "Sonidos.",
+                        "Sabores."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "La palabra 'Tomate' es de origen...",
+                    "options": [
+                        "Francés.",
+                        "Náhuatl.",
+                        "Español."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "En una carta, lo que queremos decir o platicar es el...",
+                    "options": [
+                        "Cuerpo de la carta.",
+                        "Firma.",
+                        "Fecha."
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Un personaje que ayuda al héroe, pero sale menos en la historia es...",
+                    "options": [
+                        "Principal.",
+                        "Secundario.",
+                        "Aburrido."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Un niño que va a la escuela en un cuento es un personaje...",
+                    "options": [
+                        "Mágico.",
+                        "Ficticio.",
+                        "Real."
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "Tu mascota, tu casa y tus abuelos son parte de tu contexto...",
+                    "options": [
+                        "Familiar.",
+                        "Escolar.",
+                        "Del bosque."
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Qué usamos para describir cómo se ve un paisaje con nuestros ojos?",
+                    "options": [
+                        "Formato sonoro.",
+                        "Formato visual.",
+                        "Acotación."
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "En una obra de teatro, lo que dicen y platican los actores se llama...",
+                    "options": [
+                        "Diálogo.",
+                        "Regla.",
+                        "Verso."
+                    ],
+                    "ans": 0
+                }
             ],
             "matematicas": [
-                        {
-                                    "q": "¿Qué número sigue después del 149?",
-                                    "options": [
-                                                "140",
-                                                "150",
-                                                "100"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué número va antes del 50?",
-                                    "options": [
-                                                "49",
-                                                "51",
-                                                "60"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Qué figura tiene 4 lados iguales?",
-                                    "options": [
-                                                "Círculo",
-                                                "Triángulo",
-                                                "Cuadrado"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "¿Qué figura geométrica NO tiene lados rectos?",
-                                    "options": [
-                                                "Rectángulo",
-                                                "Círculo",
-                                                "Rombo"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Cuántas piezas usamos para armar un Tangram?",
-                                    "options": [
-                                                "5 piezas",
-                                                "7 piezas",
-                                                "10 piezas"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿En qué país se inventó el juego del Tangram?",
-                                    "options": [
-                                                "México",
-                                                "Estados Unidos",
-                                                "China"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "Las esquinas donde se unen los lados de una figura se llaman:",
-                                    "options": [
-                                                "Vértices",
-                                                "Círculos",
-                                                "Lados curvos"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Si cuento de 2 en 2: 2, 4, 6... ¿Qué sigue?",
-                                    "options": [
-                                                "7",
-                                                "8",
-                                                "9"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Si cuento de 10 en 10: 10, 20, 30... ¿Qué sigue?",
-                                    "options": [
-                                                "31",
-                                                "40",
-                                                "50"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Si tengo un grupo de 5 y un grupo de 10, ¿cuál es más grande?",
-                                    "options": [
-                                                "El de 5",
-                                                "El de 10",
-                                                "Son iguales"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Cuántas unidades hay en una DECENA?",
-                                    "options": [
-                                                "1 unidad",
-                                                "10 unidades",
-                                                "100 unidades"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "En el número 25, ¿cuántas decenas hay?",
-                                    "options": [
-                                                "2 decenas",
-                                                "5 decenas",
-                                                "Ninguna"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "En la recta numérica, si estoy en el 5 y doy 3 saltos adelante, llego al...",
-                                    "options": [
-                                                "7",
-                                                "8",
-                                                "9"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Si estoy en el 10 y doy 2 saltos hacia atrás (resta), llego al...",
-                                    "options": [
-                                                "8",
-                                                "12",
-                                                "10"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Cómo se descompone el número 15 (suma)?",
-                                    "options": [
-                                                "10 + 5",
-                                                "5 + 5",
-                                                "10 + 10"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Si hoy es martes, ¿qué día fue ayer?",
-                                    "options": [
-                                                "Lunes",
-                                                "Miércoles",
-                                                "Domingo"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Si hoy es viernes, ¿qué día será mañana?",
-                                    "options": [
-                                                "Jueves",
-                                                "Sábado",
-                                                "Domingo"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué es más pesado?",
-                                    "options": [
-                                                "Una pluma de ave",
-                                                "Una roca grande",
-                                                "Un globo"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Juan tiene 10 manzanas y se come 4. ¿Cuántas le quedan?",
-                                    "options": [
-                                                "14",
-                                                "5",
-                                                "6"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "¿Qué figura parece un huevo aplastado?",
-                                    "options": [
-                                                "Cuadrado",
-                                                "Óvalo",
-                                                "Paralelogramo"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué número sigue después del 99?",
-                                    "options": [
-                                                "100",
-                                                "90",
-                                                "101"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Cuál es el número 'Ciento veinte'?",
-                                    "options": [
-                                                "102",
-                                                "120",
-                                                "201"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Si cuento de 5 en 5: 5, 10, 15... ¿Qué sigue?",
-                                    "options": [
-                                                "16",
-                                                "25",
-                                                "20"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "¿Qué figura geométrica tiene 3 lados?",
-                                    "options": [
-                                                "Cuadrado",
-                                                "Círculo",
-                                                "Triángulo"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "El rombo se parece a un...",
-                                    "options": [
-                                                "Balón",
-                                                "Diamante o papalote",
-                                                "Edificio"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "El rectángulo tiene...",
-                                    "options": [
-                                                "4 lados iguales",
-                                                "2 lados largos y 2 cortos",
-                                                "0 lados rectos"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Si tengo 3 decenas y 2 unidades, ¿qué número formo?",
-                                    "options": [
-                                                "23",
-                                                "32",
-                                                "5"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Si agrupo mis colores de 10 en 10 y tengo 2 grupos, ¿cuántos colores tengo?",
-                                    "options": [
-                                                "20",
-                                                "10",
-                                                "2"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Una víbora es larga y una lombriz es corta. ¿Cuál es la medida de la víbora?",
-                                    "options": [
-                                                "Corta",
-                                                "Mediana",
-                                                "Larga"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "En la recta numérica, si estoy en 12 y salto 3 pasos HACIA ATRÁS (resta), llego al...",
-                                    "options": [
-                                                "15",
-                                                "9",
-                                                "10"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Cuánto es 10 + 4?",
-                                    "options": [
-                                                "14",
-                                                "6",
-                                                "40"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Si tienes 15 pesos y compras un jugo de 5 pesos, ¿cuánto te queda?",
-                                    "options": [
-                                                "20 pesos",
-                                                "10 pesos",
-                                                "5 pesos"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué día va ANTES del Jueves?",
-                                    "options": [
-                                                "Viernes",
-                                                "Miércoles",
-                                                "Martes"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Si hoy es Domingo, mañana será...",
-                                    "options": [
-                                                "Sábado",
-                                                "Lunes",
-                                                "Martes"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué pesa MÁS?",
-                                    "options": [
-                                                "Una hoja de papel",
-                                                "Un elefante",
-                                                "Una mochila vacía"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué pesa MENOS?",
-                                    "options": [
-                                                "Un lápiz",
-                                                "Una televisión",
-                                                "Una bicicleta"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Los lados de un círculo son...",
-                                    "options": [
-                                                "Rectos",
-                                                "Curvos",
-                                                "Puntiagudos"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "El cuadrado y el rectángulo tienen lados...",
-                                    "options": [
-                                                "Curvos",
-                                                "Invisibles",
-                                                "Rectos"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "Descomposición aditiva: ¿Cómo formo el número 20?",
-                                    "options": [
-                                                "10 + 10",
-                                                "5 + 5",
-                                                "20 + 10"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Si tengo 1 decena de juguetes, ¿cuántos juguetes tengo?",
-                                    "options": [
-                                                "1",
-                                                "10",
-                                                "100"
-                                    ],
-                                    "ans": 1
-                        }
+                {
+                    "q": "¿Qué número sigue después del 149?",
+                    "options": [
+                        "140",
+                        "150",
+                        "100"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué número va antes del 50?",
+                    "options": [
+                        "49",
+                        "51",
+                        "60"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Qué figura tiene 4 lados iguales?",
+                    "options": [
+                        "Círculo",
+                        "Triángulo",
+                        "Cuadrado"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "¿Qué figura geométrica NO tiene lados rectos?",
+                    "options": [
+                        "Rectángulo",
+                        "Círculo",
+                        "Rombo"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Cuántas piezas usamos para armar un Tangram?",
+                    "options": [
+                        "5 piezas",
+                        "7 piezas",
+                        "10 piezas"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿En qué país se inventó el juego del Tangram?",
+                    "options": [
+                        "México",
+                        "Estados Unidos",
+                        "China"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "Las esquinas donde se unen los lados de una figura se llaman:",
+                    "options": [
+                        "Vértices",
+                        "Círculos",
+                        "Lados curvos"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Si cuento de 2 en 2: 2, 4, 6... ¿Qué sigue?",
+                    "options": [
+                        "7",
+                        "8",
+                        "9"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Si cuento de 10 en 10: 10, 20, 30... ¿Qué sigue?",
+                    "options": [
+                        "31",
+                        "40",
+                        "50"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Si tengo un grupo de 5 y un grupo de 10, ¿cuál es más grande?",
+                    "options": [
+                        "El de 5",
+                        "El de 10",
+                        "Son iguales"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Cuántas unidades hay en una DECENA?",
+                    "options": [
+                        "1 unidad",
+                        "10 unidades",
+                        "100 unidades"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "En el número 25, ¿cuántas decenas hay?",
+                    "options": [
+                        "2 decenas",
+                        "5 decenas",
+                        "Ninguna"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "En la recta numérica, si estoy en el 5 y doy 3 saltos adelante, llego al...",
+                    "options": [
+                        "7",
+                        "8",
+                        "9"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Si estoy en el 10 y doy 2 saltos hacia atrás (resta), llego al...",
+                    "options": [
+                        "8",
+                        "12",
+                        "10"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Cómo se descompone el número 15 (suma)?",
+                    "options": [
+                        "10 + 5",
+                        "5 + 5",
+                        "10 + 10"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Si hoy es martes, ¿qué día fue ayer?",
+                    "options": [
+                        "Lunes",
+                        "Miércoles",
+                        "Domingo"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Si hoy es viernes, ¿qué día será mañana?",
+                    "options": [
+                        "Jueves",
+                        "Sábado",
+                        "Domingo"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué es más pesado?",
+                    "options": [
+                        "Una pluma de ave",
+                        "Una roca grande",
+                        "Un globo"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Juan tiene 10 manzanas y se come 4. ¿Cuántas le quedan?",
+                    "options": [
+                        "14",
+                        "5",
+                        "6"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "¿Qué figura parece un huevo aplastado?",
+                    "options": [
+                        "Cuadrado",
+                        "Óvalo",
+                        "Paralelogramo"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué número sigue después del 99?",
+                    "options": [
+                        "100",
+                        "90",
+                        "101"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Cuál es el número 'Ciento veinte'?",
+                    "options": [
+                        "102",
+                        "120",
+                        "201"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Si cuento de 5 en 5: 5, 10, 15... ¿Qué sigue?",
+                    "options": [
+                        "16",
+                        "25",
+                        "20"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "¿Qué figura geométrica tiene 3 lados?",
+                    "options": [
+                        "Cuadrado",
+                        "Círculo",
+                        "Triángulo"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "El rombo se parece a un...",
+                    "options": [
+                        "Balón",
+                        "Diamante o papalote",
+                        "Edificio"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "El rectángulo tiene...",
+                    "options": [
+                        "4 lados iguales",
+                        "2 lados largos y 2 cortos",
+                        "0 lados rectos"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Si tengo 3 decenas y 2 unidades, ¿qué número formo?",
+                    "options": [
+                        "23",
+                        "32",
+                        "5"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Si agrupo mis colores de 10 en 10 y tengo 2 grupos, ¿cuántos colores tengo?",
+                    "options": [
+                        "20",
+                        "10",
+                        "2"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Una víbora es larga y una lombriz es corta. ¿Cuál es la medida de la víbora?",
+                    "options": [
+                        "Corta",
+                        "Mediana",
+                        "Larga"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "En la recta numérica, si estoy en 12 y salto 3 pasos HACIA ATRÁS (resta), llego al...",
+                    "options": [
+                        "15",
+                        "9",
+                        "10"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Cuánto es 10 + 4?",
+                    "options": [
+                        "14",
+                        "6",
+                        "40"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Si tienes 15 pesos y compras un jugo de 5 pesos, ¿cuánto te queda?",
+                    "options": [
+                        "20 pesos",
+                        "10 pesos",
+                        "5 pesos"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué día va ANTES del Jueves?",
+                    "options": [
+                        "Viernes",
+                        "Miércoles",
+                        "Martes"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Si hoy es Domingo, mañana será...",
+                    "options": [
+                        "Sábado",
+                        "Lunes",
+                        "Martes"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué pesa MÁS?",
+                    "options": [
+                        "Una hoja de papel",
+                        "Un elefante",
+                        "Una mochila vacía"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué pesa MENOS?",
+                    "options": [
+                        "Un lápiz",
+                        "Una televisión",
+                        "Una bicicleta"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Los lados de un círculo son...",
+                    "options": [
+                        "Rectos",
+                        "Curvos",
+                        "Puntiagudos"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "El cuadrado y el rectángulo tienen lados...",
+                    "options": [
+                        "Curvos",
+                        "Invisibles",
+                        "Rectos"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "Descomposición aditiva: ¿Cómo formo el número 20?",
+                    "options": [
+                        "10 + 10",
+                        "5 + 5",
+                        "20 + 10"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Si tengo 1 decena de juguetes, ¿cuántos juguetes tengo?",
+                    "options": [
+                        "1",
+                        "10",
+                        "100"
+                    ],
+                    "ans": 1
+                }
             ],
             "ingles": [
-                        {
-                                    "q": "¿Cómo se dice 'Verde' en inglés?",
-                                    "options": [
-                                                "Yellow",
-                                                "Green",
-                                                "Blue"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué color es 'Purple'?",
-                                    "options": [
-                                                "Morado",
-                                                "Rosa",
-                                                "Naranja"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "The sun is...",
-                                    "options": [
-                                                "Red",
-                                                "Yellow",
-                                                "Black"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "What color is a polar bear? (Oso polar)",
-                                    "options": [
-                                                "White",
-                                                "Brown",
-                                                "Gray"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Si te preguntan 'What color is it?' respondes...",
-                                    "options": [
-                                                "It is red",
-                                                "They are red",
-                                                "Who is that"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Cómo se dice 'Papá' en inglés?",
-                                    "options": [
-                                                "Mom",
-                                                "Brother",
-                                                "Dad"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "¿Quién es 'Grandma'?",
-                                    "options": [
-                                                "La abuela",
-                                                "La hermana",
-                                                "La tía"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Cómo se dice 'Hermano' en inglés?",
-                                    "options": [
-                                                "Sister",
-                                                "Brother",
-                                                "Grandpa"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "En el alfabeto, ¿qué letra va después de la 'C'?",
-                                    "options": [
-                                                "A",
-                                                "D",
-                                                "E"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué usamos para decir 'ESTO es' (algo que está cerca)?",
-                                    "options": [
-                                                "That is",
-                                                "This is",
-                                                "Who is"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Si quiero preguntar '¿Quién es él?', digo:",
-                                    "options": [
-                                                "What color?",
-                                                "Who is this?",
-                                                "There is"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Cómo se dice 'Plátano' en inglés?",
-                                    "options": [
-                                                "Apple",
-                                                "Carrot",
-                                                "Banana"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "A rabbit likes to eat... (El conejo come)",
-                                    "options": [
-                                                "Donut",
-                                                "Carrot (Zanahoria)",
-                                                "Hamburger"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué es una 'Pear'?",
-                                    "options": [
-                                                "Pera",
-                                                "Piña",
-                                                "Sandía"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Para decir 'Hay UNA manzana' uso:",
-                                    "options": [
-                                                "There is",
-                                                "There are",
-                                                "They are"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Para decir 'Hay MUCHAS galletas' uso:",
-                                    "options": [
-                                                "There is",
-                                                "There are",
-                                                "It is"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué color es 'Pink'?",
-                                    "options": [
-                                                "Rosa",
-                                                "Azul",
-                                                "Café"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Quién es 'Sister'?",
-                                    "options": [
-                                                "Mamá",
-                                                "Hermana",
-                                                "Abuelo"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "A 'Hot dog' is...",
-                                    "options": [
-                                                "Un perro caliente",
-                                                "Una hamburguesa",
-                                                "Un pan dulce"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "The color of an elephant is... (El color de un elefante)",
-                                    "options": [
-                                                "Pink",
-                                                "Gray (Gris)",
-                                                "Orange"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "What color is an orange? (¿De qué color es la naranja?)",
-                                    "options": [
-                                                "Red",
-                                                "Blue",
-                                                "Orange"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "What color is a cloud? (¿De qué color es una nube?)",
-                                    "options": [
-                                                "Black",
-                                                "White",
-                                                "Green"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "What color is the dirt? (¿De qué color es la tierra?)",
-                                    "options": [
-                                                "Brown",
-                                                "Pink",
-                                                "Yellow"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "'Who is this?' significa...",
-                                    "options": [
-                                                "¿De qué color es?",
-                                                "¿Quién es este? (de cerca)",
-                                                "¿Cuántos hay?"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "'Who is that?' significa...",
-                                    "options": [
-                                                "¿Quién es ese? (de lejos)",
-                                                "Esta es mi mamá",
-                                                "Es azul"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "'This is my mom' significa...",
-                                    "options": [
-                                                "Ella es mi abuela",
-                                                "Esta es mi mamá",
-                                                "Él es mi papá"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Cómo se dice 'Emparedado' o 'Sándwich' en inglés?",
-                                    "options": [
-                                                "Sandwich",
-                                                "Hot dog",
-                                                "Cookie"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Qué es un 'Cupcake'?",
-                                    "options": [
-                                                "Una manzana",
-                                                "Un pastelito o panquecito",
-                                                "Una zanahoria"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué es una 'Cookie'?",
-                                    "options": [
-                                                "Galleta",
-                                                "Jugo",
-                                                "Pera"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Qué es 'Pineapple'?",
-                                    "options": [
-                                                "Manzana",
-                                                "Piña",
-                                                "Plátano"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "A monkey likes to eat... (A los monos les gusta comer...)",
-                                    "options": [
-                                                "Bananas",
-                                                "Hamburgers",
-                                                "Donuts"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Cómo se dice 'Abuelo' en inglés?",
-                                    "options": [
-                                                "Dad",
-                                                "Brother",
-                                                "Grandpa"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "En el abecedario (Alphabet), ¿qué letra va ANTES de la 'B'?",
-                                    "options": [
-                                                "C",
-                                                "A",
-                                                "Z"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué letra sigue en esta lista: A, B, C, ___ ?",
-                                    "options": [
-                                                "E",
-                                                "F",
-                                                "D"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "'They are blue' significa...",
-                                    "options": [
-                                                "Es rojo",
-                                                "Ellos son azules",
-                                                "Hay uno"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Para decir 'Hay UNA pera' uso:",
-                                    "options": [
-                                                "There is a pear",
-                                                "There are pears",
-                                                "What color is it"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Para decir 'Hay CINCO plátanos' uso:",
-                                    "options": [
-                                                "There is five bananas",
-                                                "There are five bananas",
-                                                "They are bananas"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "What color is the night sky? (¿De qué color es el cielo de noche?)",
-                                    "options": [
-                                                "Black",
-                                                "White",
-                                                "Yellow"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "'Mom and Dad' significa...",
-                                    "options": [
-                                                "Hermano y Hermana",
-                                                "Mamá y Papá",
-                                                "Abuelo y Abuela"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Qué es una 'Hamburger'?",
-                                    "options": [
-                                                "Hamburguesa",
-                                                "Zanahoria",
-                                                "Galleta"
-                                    ],
-                                    "ans": 0
-                        }
+                {
+                    "q": "¿Cómo se dice 'Verde' en inglés?",
+                    "options": [
+                        "Yellow",
+                        "Green",
+                        "Blue"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué color es 'Purple'?",
+                    "options": [
+                        "Morado",
+                        "Rosa",
+                        "Naranja"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "The sun is...",
+                    "options": [
+                        "Red",
+                        "Yellow",
+                        "Black"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "What color is a polar bear? (Oso polar)",
+                    "options": [
+                        "White",
+                        "Brown",
+                        "Gray"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Si te preguntan 'What color is it?' respondes...",
+                    "options": [
+                        "It is red",
+                        "They are red",
+                        "Who is that"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Cómo se dice 'Papá' en inglés?",
+                    "options": [
+                        "Mom",
+                        "Brother",
+                        "Dad"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "¿Quién es 'Grandma'?",
+                    "options": [
+                        "La abuela",
+                        "La hermana",
+                        "La tía"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Cómo se dice 'Hermano' en inglés?",
+                    "options": [
+                        "Sister",
+                        "Brother",
+                        "Grandpa"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "En el alfabeto, ¿qué letra va después de la 'C'?",
+                    "options": [
+                        "A",
+                        "D",
+                        "E"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué usamos para decir 'ESTO es' (algo que está cerca)?",
+                    "options": [
+                        "That is",
+                        "This is",
+                        "Who is"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Si quiero preguntar '¿Quién es él?', digo:",
+                    "options": [
+                        "What color?",
+                        "Who is this?",
+                        "There is"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Cómo se dice 'Plátano' en inglés?",
+                    "options": [
+                        "Apple",
+                        "Carrot",
+                        "Banana"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "A rabbit likes to eat... (El conejo come)",
+                    "options": [
+                        "Donut",
+                        "Carrot (Zanahoria)",
+                        "Hamburger"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué es una 'Pear'?",
+                    "options": [
+                        "Pera",
+                        "Piña",
+                        "Sandía"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Para decir 'Hay UNA manzana' uso:",
+                    "options": [
+                        "There is",
+                        "There are",
+                        "They are"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Para decir 'Hay MUCHAS galletas' uso:",
+                    "options": [
+                        "There is",
+                        "There are",
+                        "It is"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué color es 'Pink'?",
+                    "options": [
+                        "Rosa",
+                        "Azul",
+                        "Café"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Quién es 'Sister'?",
+                    "options": [
+                        "Mamá",
+                        "Hermana",
+                        "Abuelo"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "A 'Hot dog' is...",
+                    "options": [
+                        "Un perro caliente",
+                        "Una hamburguesa",
+                        "Un pan dulce"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "The color of an elephant is... (El color de un elefante)",
+                    "options": [
+                        "Pink",
+                        "Gray (Gris)",
+                        "Orange"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "What color is an orange? (¿De qué color es la naranja?)",
+                    "options": [
+                        "Red",
+                        "Blue",
+                        "Orange"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "What color is a cloud? (¿De qué color es una nube?)",
+                    "options": [
+                        "Black",
+                        "White",
+                        "Green"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "What color is the dirt? (¿De qué color es la tierra?)",
+                    "options": [
+                        "Brown",
+                        "Pink",
+                        "Yellow"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "'Who is this?' significa...",
+                    "options": [
+                        "¿De qué color es?",
+                        "¿Quién es este? (de cerca)",
+                        "¿Cuántos hay?"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "'Who is that?' significa...",
+                    "options": [
+                        "¿Quién es ese? (de lejos)",
+                        "Esta es mi mamá",
+                        "Es azul"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "'This is my mom' significa...",
+                    "options": [
+                        "Ella es mi abuela",
+                        "Esta es mi mamá",
+                        "Él es mi papá"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Cómo se dice 'Emparedado' o 'Sándwich' en inglés?",
+                    "options": [
+                        "Sandwich",
+                        "Hot dog",
+                        "Cookie"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Qué es un 'Cupcake'?",
+                    "options": [
+                        "Una manzana",
+                        "Un pastelito o panquecito",
+                        "Una zanahoria"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué es una 'Cookie'?",
+                    "options": [
+                        "Galleta",
+                        "Jugo",
+                        "Pera"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Qué es 'Pineapple'?",
+                    "options": [
+                        "Manzana",
+                        "Piña",
+                        "Plátano"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "A monkey likes to eat... (A los monos les gusta comer...)",
+                    "options": [
+                        "Bananas",
+                        "Hamburgers",
+                        "Donuts"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Cómo se dice 'Abuelo' en inglés?",
+                    "options": [
+                        "Dad",
+                        "Brother",
+                        "Grandpa"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "En el abecedario (Alphabet), ¿qué letra va ANTES de la 'B'?",
+                    "options": [
+                        "C",
+                        "A",
+                        "Z"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué letra sigue en esta lista: A, B, C, ___ ?",
+                    "options": [
+                        "E",
+                        "F",
+                        "D"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "'They are blue' significa...",
+                    "options": [
+                        "Es rojo",
+                        "Ellos son azules",
+                        "Hay uno"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Para decir 'Hay UNA pera' uso:",
+                    "options": [
+                        "There is a pear",
+                        "There are pears",
+                        "What color is it"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Para decir 'Hay CINCO plátanos' uso:",
+                    "options": [
+                        "There is five bananas",
+                        "There are five bananas",
+                        "They are bananas"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "What color is the night sky? (¿De qué color es el cielo de noche?)",
+                    "options": [
+                        "Black",
+                        "White",
+                        "Yellow"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "'Mom and Dad' significa...",
+                    "options": [
+                        "Hermano y Hermana",
+                        "Mamá y Papá",
+                        "Abuelo y Abuela"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Qué es una 'Hamburger'?",
+                    "options": [
+                        "Hamburguesa",
+                        "Zanahoria",
+                        "Galleta"
+                    ],
+                    "ans": 0
+                }
             ],
             "naturaleza": [
-                        {
-                                    "q": "¿Qué es un factor 'Biótico'?",
-                                    "options": [
-                                                "Algo vivo (como una planta)",
-                                                "Algo que no tiene vida (como una piedra)",
-                                                "El agua"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Qué es un factor 'Abiótico'?",
-                                    "options": [
-                                                "Un animal",
-                                                "Algo sin vida (sol, agua, tierra)",
-                                                "Un hongo"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Un árbol de naranjas es una planta con...",
-                                    "options": [
-                                                "Flores",
-                                                "Frutos",
-                                                "Nada"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Un bosque o una selva son ejemplos de:",
-                                    "options": [
-                                                "Ciudades",
-                                                "Entornos naturales",
-                                                "Escuelas"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Un animal 'Nocturno' es el que...",
-                                    "options": [
-                                                "Duerme todo el día",
-                                                "Sale a cazar y jugar de noche",
-                                                "No tiene huesos"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Una mariposa o un perrito que juegan de día son animales...",
-                                    "options": [
-                                                "Diurnos",
-                                                "Nocturnos",
-                                                "Acuáticos"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Cuál de estos animales NO tiene huesos?",
-                                    "options": [
-                                                "El perro",
-                                                "El gusano (lombriz)",
-                                                "El león"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Cuando te tiras por un tobogán, tu movimiento es...",
-                                    "options": [
-                                                "Rodar",
-                                                "Girar",
-                                                "Deslizar"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "Cuando pateas una pelota, la pelota va a...",
-                                    "options": [
-                                                "Deslizar",
-                                                "Rodar",
-                                                "Saltar"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Cuando algo no se mueve, decimos que está en...",
-                                    "options": [
-                                                "Reposo",
-                                                "Movimiento",
-                                                "Girando"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Para mover un carrito de súper hacia adelante, lo debes...",
-                                    "options": [
-                                                "Jalar",
-                                                "Empujar",
-                                                "Cargar"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Para abrir una puerta hacia ti, debes...",
-                                    "options": [
-                                                "Empujar",
-                                                "Jalar",
-                                                "Patear"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Por qué debemos respetar a los seres vivos?",
-                                    "options": [
-                                                "Porque sienten y son parte de nuestro mundo",
-                                                "Porque son feos",
-                                                "No hay que respetarlos"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "¿Qué es un 'Recurso Natural'?",
-                                    "options": [
-                                                "Algo que compramos",
-                                                "Algo que nos da la naturaleza (agua, árboles)",
-                                                "Un juguete"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Cómo cuidamos nuestro entorno?",
-                                    "options": [
-                                                "Tirando basura al piso",
-                                                "Rompiendo plantas",
-                                                "Poniendo la basura en su lugar"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "El sol es muy importante, es un factor...",
-                                    "options": [
-                                                "Biótico",
-                                                "Abiótico",
-                                                "Animal"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Los animales que tienen plumas y vuelan se mueven por...",
-                                    "options": [
-                                                "El agua",
-                                                "El aire",
-                                                "La tierra"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "El agua la usamos para...",
-                                    "options": [
-                                                "Beber y bañarnos",
-                                                "Ensuciar la ropa",
-                                                "No sirve"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Un búho que tiene los ojos muy grandes para ver en la oscuridad es...",
-                                    "options": [
-                                                "Diurno",
-                                                "Nocturno",
-                                                "Biótico"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Moverse como un trompo dando vueltas es...",
-                                    "options": [
-                                                "Girar",
-                                                "Deslizar",
-                                                "Rodar"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Un hongo en el bosque es un factor...",
-                                    "options": [
-                                                "Biótico (vivo)",
-                                                "Abiótico (sin vida)",
-                                                "Nocturno"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Las nubes, la lluvia y las rocas son factores...",
-                                    "options": [
-                                                "Bióticos",
-                                                "Abióticos",
-                                                "Con huesos"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Una rosa es una planta con...",
-                                    "options": [
-                                                "Frutos",
-                                                "Flores",
-                                                "Espinas gigantes"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Los pinos (como los árboles de Navidad) son plantas que generalmente...",
-                                    "options": [
-                                                "Dan manzanas",
-                                                "Son sin flores llamativas",
-                                                "Son diurnos"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Las manzanas y las peras crecen en árboles con...",
-                                    "options": [
-                                                "Frutos",
-                                                "Llantas",
-                                                "Dulces"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Un desierto lleno de arena y cactus es un...",
-                                    "options": [
-                                                "Centro comercial",
-                                                "Entorno natural",
-                                                "Juego de mesa"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Los murciélagos salen a volar cuando oscurece, son animales...",
-                                    "options": [
-                                                "Diurnos",
-                                                "Nocturnos",
-                                                "Abióticos"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Las abejas buscan las flores cuando hay mucho sol, son animales...",
-                                    "options": [
-                                                "Nocturnos",
-                                                "Diurnos",
-                                                "Sin alas"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Un caracol es un animal...",
-                                    "options": [
-                                                "Con muchos huesos",
-                                                "Sin huesos (invertebrado)",
-                                                "Que vuela"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Un pulpo que vive en el mar es un animal...",
-                                    "options": [
-                                                "Con huesos",
-                                                "Sin huesos",
-                                                "Terrestre"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Un perrito es un animal...",
-                                    "options": [
-                                                "Sin huesos",
-                                                "Con huesos (vertebrado)",
-                                                "Abiótico"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Cuando empujas una caja, la alejas de ti. Cuando la JALAS...",
-                                    "options": [
-                                                "La acercas hacia ti",
-                                                "La rompes",
-                                                "Se queda en reposo"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Las llantas de una bicicleta avanzan al...",
-                                    "options": [
-                                                "Deslizar",
-                                                "Rodar",
-                                                "Saltar"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Cuando un coche está estacionado y apagado, decimos que está en...",
-                                    "options": [
-                                                "Movimiento",
-                                                "Reposo",
-                                                "Vuelo"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "¿Es correcto tirar envolturas de galletas en los ríos?",
-                                    "options": [
-                                                "Sí, para que los peces coman",
-                                                "No, porque contamina el medio ambiente",
-                                                "Sí, no pasa nada"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Darle agua a los pajaritos o cuidar a las mascotas es una forma de...",
-                                    "options": [
-                                                "Respetar a los seres vivos",
-                                                "Jugar",
-                                                "Contaminar"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "El viento que mueve las hojas de los árboles es un factor...",
-                                    "options": [
-                                                "Biótico",
-                                                "Abiótico",
-                                                "Diurno"
-                                    ],
-                                    "ans": 1
-                        },
-                        {
-                                    "q": "Si arrastras tu mochila por el piso sin levantarla, la estás...",
-                                    "options": [
-                                                "Rodando",
-                                                "Girando",
-                                                "Deslizando"
-                                    ],
-                                    "ans": 2
-                        },
-                        {
-                                    "q": "El agua limpia de los ríos y manantiales es un importante...",
-                                    "options": [
-                                                "Recurso natural",
-                                                "Factor biótico",
-                                                "Juguete"
-                                    ],
-                                    "ans": 0
-                        },
-                        {
-                                    "q": "Regar las plantas de tu casa es una buena forma de...",
-                                    "options": [
-                                                "Cuidar tu entorno",
-                                                "Desperdiciar agua",
-                                                "Hacer lodo"
-                                    ],
-                                    "ans": 0
-                        }
+                {
+                    "q": "¿Qué es un factor 'Biótico'?",
+                    "options": [
+                        "Algo vivo (como una planta)",
+                        "Algo que no tiene vida (como una piedra)",
+                        "El agua"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Qué es un factor 'Abiótico'?",
+                    "options": [
+                        "Un animal",
+                        "Algo sin vida (sol, agua, tierra)",
+                        "Un hongo"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Un árbol de naranjas es una planta con...",
+                    "options": [
+                        "Flores",
+                        "Frutos",
+                        "Nada"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Un bosque o una selva son ejemplos de:",
+                    "options": [
+                        "Ciudades",
+                        "Entornos naturales",
+                        "Escuelas"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Un animal 'Nocturno' es el que...",
+                    "options": [
+                        "Duerme todo el día",
+                        "Sale a cazar y jugar de noche",
+                        "No tiene huesos"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Una mariposa o un perrito que juegan de día son animales...",
+                    "options": [
+                        "Diurnos",
+                        "Nocturnos",
+                        "Acuáticos"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Cuál de estos animales NO tiene huesos?",
+                    "options": [
+                        "El perro",
+                        "El gusano (lombriz)",
+                        "El león"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Cuando te tiras por un tobogán, tu movimiento es...",
+                    "options": [
+                        "Rodar",
+                        "Girar",
+                        "Deslizar"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "Cuando pateas una pelota, la pelota va a...",
+                    "options": [
+                        "Deslizar",
+                        "Rodar",
+                        "Saltar"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Cuando algo no se mueve, decimos que está en...",
+                    "options": [
+                        "Reposo",
+                        "Movimiento",
+                        "Girando"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Para mover un carrito de súper hacia adelante, lo debes...",
+                    "options": [
+                        "Jalar",
+                        "Empujar",
+                        "Cargar"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Para abrir una puerta hacia ti, debes...",
+                    "options": [
+                        "Empujar",
+                        "Jalar",
+                        "Patear"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Por qué debemos respetar a los seres vivos?",
+                    "options": [
+                        "Porque sienten y son parte de nuestro mundo",
+                        "Porque son feos",
+                        "No hay que respetarlos"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "¿Qué es un 'Recurso Natural'?",
+                    "options": [
+                        "Algo que compramos",
+                        "Algo que nos da la naturaleza (agua, árboles)",
+                        "Un juguete"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Cómo cuidamos nuestro entorno?",
+                    "options": [
+                        "Tirando basura al piso",
+                        "Rompiendo plantas",
+                        "Poniendo la basura en su lugar"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "El sol es muy importante, es un factor...",
+                    "options": [
+                        "Biótico",
+                        "Abiótico",
+                        "Animal"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Los animales que tienen plumas y vuelan se mueven por...",
+                    "options": [
+                        "El agua",
+                        "El aire",
+                        "La tierra"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "El agua la usamos para...",
+                    "options": [
+                        "Beber y bañarnos",
+                        "Ensuciar la ropa",
+                        "No sirve"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Un búho que tiene los ojos muy grandes para ver en la oscuridad es...",
+                    "options": [
+                        "Diurno",
+                        "Nocturno",
+                        "Biótico"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Moverse como un trompo dando vueltas es...",
+                    "options": [
+                        "Girar",
+                        "Deslizar",
+                        "Rodar"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Un hongo en el bosque es un factor...",
+                    "options": [
+                        "Biótico (vivo)",
+                        "Abiótico (sin vida)",
+                        "Nocturno"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Las nubes, la lluvia y las rocas son factores...",
+                    "options": [
+                        "Bióticos",
+                        "Abióticos",
+                        "Con huesos"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Una rosa es una planta con...",
+                    "options": [
+                        "Frutos",
+                        "Flores",
+                        "Espinas gigantes"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Los pinos (como los árboles de Navidad) son plantas que generalmente...",
+                    "options": [
+                        "Dan manzanas",
+                        "Son sin flores llamativas",
+                        "Son diurnos"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Las manzanas y las peras crecen en árboles con...",
+                    "options": [
+                        "Frutos",
+                        "Llantas",
+                        "Dulces"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Un desierto lleno de arena y cactus es un...",
+                    "options": [
+                        "Centro comercial",
+                        "Entorno natural",
+                        "Juego de mesa"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Los murciélagos salen a volar cuando oscurece, son animales...",
+                    "options": [
+                        "Diurnos",
+                        "Nocturnos",
+                        "Abióticos"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Las abejas buscan las flores cuando hay mucho sol, son animales...",
+                    "options": [
+                        "Nocturnos",
+                        "Diurnos",
+                        "Sin alas"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Un caracol es un animal...",
+                    "options": [
+                        "Con muchos huesos",
+                        "Sin huesos (invertebrado)",
+                        "Que vuela"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Un pulpo que vive en el mar es un animal...",
+                    "options": [
+                        "Con huesos",
+                        "Sin huesos",
+                        "Terrestre"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Un perrito es un animal...",
+                    "options": [
+                        "Sin huesos",
+                        "Con huesos (vertebrado)",
+                        "Abiótico"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Cuando empujas una caja, la alejas de ti. Cuando la JALAS...",
+                    "options": [
+                        "La acercas hacia ti",
+                        "La rompes",
+                        "Se queda en reposo"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Las llantas de una bicicleta avanzan al...",
+                    "options": [
+                        "Deslizar",
+                        "Rodar",
+                        "Saltar"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Cuando un coche está estacionado y apagado, decimos que está en...",
+                    "options": [
+                        "Movimiento",
+                        "Reposo",
+                        "Vuelo"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "¿Es correcto tirar envolturas de galletas en los ríos?",
+                    "options": [
+                        "Sí, para que los peces coman",
+                        "No, porque contamina el medio ambiente",
+                        "Sí, no pasa nada"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Darle agua a los pajaritos o cuidar a las mascotas es una forma de...",
+                    "options": [
+                        "Respetar a los seres vivos",
+                        "Jugar",
+                        "Contaminar"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "El viento que mueve las hojas de los árboles es un factor...",
+                    "options": [
+                        "Biótico",
+                        "Abiótico",
+                        "Diurno"
+                    ],
+                    "ans": 1
+                },
+                {
+                    "q": "Si arrastras tu mochila por el piso sin levantarla, la estás...",
+                    "options": [
+                        "Rodando",
+                        "Girando",
+                        "Deslizando"
+                    ],
+                    "ans": 2
+                },
+                {
+                    "q": "El agua limpia de los ríos y manantiales es un importante...",
+                    "options": [
+                        "Recurso natural",
+                        "Factor biótico",
+                        "Juguete"
+                    ],
+                    "ans": 0
+                },
+                {
+                    "q": "Regar las plantas de tu casa es una buena forma de...",
+                    "options": [
+                        "Cuidar tu entorno",
+                        "Desperdiciar agua",
+                        "Hacer lodo"
+                    ],
+                    "ans": 0
+                }
             ]
-};
+        };
 
         const STORIES_DB = [
             { text: "Había una vez un valiente perrito llamado Toby. Toby se perdió en el bosque oscuro y tenía mucho miedo. De pronto, su amiga la paloma voló alto, vio el camino y lo guio de regreso a casa. ¡Toby y la paloma fueron muy felices!", principal: "🐶 Toby", secundario: "🕊️ Paloma" },
@@ -1824,9 +1835,103 @@
         ];
 
         // ==========================================
-        // 2. LÓGICA DEL QUIZ 
+        // 2. LÓGICA DEL QUIZ Y PROGRESO
         // ==========================================
         let currentQuestions = []; let currentIndex = 0; let score = 0; let isAnswered = false;
+        let currentSubject = '';
+
+        // --- FUNCIONES DE STORAGE Y DASHBOARD --- 
+        function saveProgress() {
+            if (!currentSubject) return;
+            const progress = {
+                questions: currentQuestions,
+                index: currentIndex,
+                score: score,
+                timestamp: new Date().getTime()
+            };
+            localStorage.setItem(`zaid_progreso_${currentSubject}`, JSON.stringify(progress));
+        }
+
+        function loadProgress(subject) {
+            const data = localStorage.getItem(`zaid_progreso_${subject}`);
+            return data ? JSON.parse(data) : null;
+        }
+
+        function clearProgress(subject) {
+            localStorage.removeItem(`zaid_progreso_${subject}`);
+        }
+
+        function recordCompletedExam(subject, finalScore, total) {
+            clearProgress(subject);
+            let metrics = JSON.parse(localStorage.getItem('zaid_metrics')) || { completed: 0, totalScore: 0, totalPossible: 0 };
+            metrics.completed += 1;
+            metrics.totalScore += finalScore;
+            metrics.totalPossible += total;
+            localStorage.setItem('zaid_metrics', JSON.stringify(metrics));
+        }
+
+        function clearAllProgress() {
+            if (confirm('¿Estás seguro de que quieres borrar todo tu progreso y empezar de cero?')) {
+                localStorage.clear();
+                showDashboard(); // Refrescar vista
+            }
+        }
+
+        function showDashboard() {
+            const dash = document.getElementById('dashboard-overlay');
+            const metricsDiv = document.getElementById('dashboard-metrics');
+            let metrics = JSON.parse(localStorage.getItem('zaid_metrics')) || { completed: 0, totalScore: 0, totalPossible: 0 };
+
+            let html = `
+                <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-200 text-center mb-4">
+                    <p class="text-indigo-800 font-bold text-lg">Exámenes Terminados</p>
+                    <p class="text-4xl font-black text-indigo-600">${metrics.completed}</p>
+                </div>
+            `;
+
+            if (metrics.totalPossible > 0) {
+                const percentage = Math.round((metrics.totalScore / metrics.totalPossible) * 100);
+                html += `
+                    <div class="bg-green-50 p-4 rounded-xl border border-green-200 text-center mb-4">
+                        <p class="text-green-800 font-bold text-lg">Promedio de Aciertos</p>
+                        <p class="text-4xl font-black ${percentage >= 80 ? 'text-green-600' : 'text-orange-500'}">${percentage}%</p>
+                    </div>
+                `;
+            } else {
+                html += `<p class="text-center text-gray-500 italic">¡Termina un examen para ver tu promedio!</p>`;
+            }
+
+            // Exámenes en pausa
+            const subjects = ['espanol', 'matematicas', 'ingles', 'naturaleza'];
+            let pendingHtml = '';
+            subjects.forEach(sub => {
+                const prog = loadProgress(sub);
+                if (prog && prog.index > 0 && prog.index < prog.questions.length) {
+                    const subNames = { espanol: "Español", matematicas: "Matemáticas", ingles: "Inglés", naturaleza: "Naturaleza" };
+                    pendingHtml += `
+                        <div class="flex justify-between items-center bg-yellow-50 p-3 rounded-lg border border-yellow-200 mb-2">
+                            <span class="font-bold text-gray-700">${subNames[sub]}</span>
+                            <span class="text-sm bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full font-bold">Pregunta ${prog.index + 1}/40</span>
+                        </div>
+                    `;
+                }
+            });
+
+            if (pendingHtml) {
+                html += `<h3 class="font-bold text-gray-800 mt-4 mb-2 border-b-2 border-gray-100 pb-1">En Pausa:</h3>${pendingHtml}`;
+            }
+
+            metricsDiv.innerHTML = html;
+            dash.classList.remove('hidden');
+            dash.classList.add('flex');
+        }
+
+        function closeDashboard() {
+            document.getElementById('dashboard-overlay').classList.add('hidden');
+            document.getElementById('dashboard-overlay').classList.remove('flex');
+        }
+
+        // --- NAVEGACIÓN PRINCIPAL ---
 
         function goHome() {
             document.getElementById('quiz-screen').classList.add('hidden');
@@ -1841,19 +1946,71 @@
             document.getElementById('flashcards-screen').classList.add('hidden');
             document.getElementById('flashcards-screen').classList.remove('flex');
             document.getElementById('home-screen').classList.remove('hidden');
+            document.getElementById('resume-overlay').classList.add('hidden');
+            document.getElementById('resume-overlay').classList.remove('flex');
             window.speechSynthesis.cancel();
+
+            // Si nos salimos del quiz a la mitad, guardamos
+            if (currentSubject && currentIndex > 0 && currentIndex < currentQuestions.length) {
+                saveProgress();
+            }
+            currentSubject = '';
         }
 
+        // Variable temporal para reanudar
+        let tempSubjectToResume = '';
+
         function startQuiz(subject) {
+            tempSubjectToResume = subject;
+            const saved = loadProgress(subject);
+
+            if (saved && saved.index > 0 && saved.index < saved.questions.length) {
+                // Hay progreso guardado
+                const subjectNames = { espanol: "Español", matematicas: "Matemáticas", ingles: "Inglés", naturaleza: "Naturaleza" };
+                document.getElementById('resume-subject').innerText = subjectNames[subject];
+                document.getElementById('resume-overlay').classList.remove('hidden');
+                document.getElementById('resume-overlay').classList.add('flex');
+            } else {
+                initQuiz(subject, false);
+            }
+        }
+
+        function confirmResumeQuiz(shouldResume) {
+            document.getElementById('resume-overlay').classList.add('hidden');
+            document.getElementById('resume-overlay').classList.remove('flex');
+            initQuiz(tempSubjectToResume, shouldResume);
+        }
+
+        function restartQuiz() {
+            if (confirm('¿Estás seguro de que quieres volver a empezar este examen? Se borrará el progreso actual.')) {
+                clearProgress(currentSubject);
+                initQuiz(currentSubject, false);
+            }
+        }
+
+        function initQuiz(subject, loadSaved) {
             goHome(); // Ensure all other screens are hidden
-            const subjectNames = { espanol: "📚 Español", matematicas: "🔢 Matemáticas", ingles: "🌎 Inglés", naturaleza: "🌱 Naturaleza" };
-            currentQuestions = [...db[subject]].sort(() => Math.random() - 0.5).slice(0, 40);
-            currentIndex = 0; score = 0;
-            document.getElementById('subject-title').innerText = subjectNames[subject];
             document.getElementById('home-screen').classList.add('hidden'); // Fix overlap
+
+            currentSubject = subject;
+            const subjectNames = { espanol: "📚 Español", matematicas: "🔢 Matemáticas", ingles: "🌎 Inglés", naturaleza: "🌱 Naturaleza" };
+            document.getElementById('subject-title').innerText = subjectNames[subject];
+
+            if (loadSaved) {
+                const saved = loadProgress(subject);
+                currentQuestions = saved.questions;
+                currentIndex = saved.index;
+                score = saved.score;
+            } else {
+                currentQuestions = [...db[subject]].sort(() => Math.random() - 0.5).slice(0, 40);
+                currentIndex = 0;
+                score = 0;
+            }
+
             document.getElementById('quiz-screen').classList.remove('hidden');
             document.getElementById('quiz-screen').classList.add('flex');
             loadQuestion();
+            if (currentIndex > 0) saveProgress(); // Force save if resumed
         }
 
         function loadQuestion() {
@@ -1900,6 +2057,8 @@
 
         function nextQuestion() {
             currentIndex++;
+            saveProgress(); // Guardar progreso al avanzar
+
             if (currentIndex < currentQuestions.length) loadQuestion();
             else {
                 document.getElementById('quiz-screen').classList.add('hidden');
@@ -1907,6 +2066,10 @@
                 document.getElementById('result-screen').classList.remove('hidden');
                 document.getElementById('final-score').innerText = score;
                 document.getElementById('total-score-display').innerText = currentQuestions.length;
+
+                // Registrar métricas finales y limpiar progreso local de la materia
+                recordCompletedExam(currentSubject, score, currentQuestions.length);
+                currentSubject = ''; // Limpiar
             }
         }
 
