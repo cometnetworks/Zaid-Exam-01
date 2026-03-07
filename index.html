@@ -2417,10 +2417,10 @@
             // Highlight result visually
             const container = document.getElementById('carrera-question-container');
             const resultMsg = document.createElement('div');
-            resultMsg.className = \`absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 rounded-2xl z-20 transition-opacity duration-300\`;
-            resultMsg.innerHTML = \`<span class="text-7xl \${isCorrect?'animate-bounce':'animate-shake'}">\${isCorrect?'🌟':'❌'}</span>\`;
+            resultMsg.className = `absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 rounded-2xl z-20 transition-opacity duration-300`;
+            resultMsg.innerHTML = `<span class="text-7xl ${isCorrect ? 'animate-bounce' : 'animate-shake'}">${isCorrect ? '🌟' : '❌'}</span>`;
             container.appendChild(resultMsg);
-            
+
             setTimeout(() => {
                 state.currentIndex++;
                 renderCarreraQuestion();
@@ -2430,16 +2430,16 @@
         function endCarrera() {
             const state = window.carreraState;
             const content = document.getElementById('minigame-content');
-            
-            content.innerHTML = \`
+
+            content.innerHTML = `
                 <div class="text-center bg-white p-6 rounded-3xl shadow-xl border-4 border-pink-400 mt-6">
                     <p class="text-6xl mb-4">🏁</p>
                     <h2 class="text-3xl md:text-4xl font-black text-pink-600 mb-6">¡Carrera Terminada!</h2>
                     <div class="bg-gray-100 rounded-2xl p-6 shadow-inner mx-auto max-w-sm mb-8 relative border-2 border-gray-200">
                         <p class="text-gray-600 font-bold mb-2">Puntuación Final</p>
-                        <p class="text-6xl font-black text-gray-800">\${state.score}<span class="text-3xl text-gray-400">/10</span></p>
+                        <p class="text-6xl font-black text-gray-800">${state.score}<span class="text-3xl text-gray-400">/10</span></p>
                     </div>
-                    \${state.score >= 8 ? '<p class="text-xl md:text-2xl text-green-500 font-black mb-6 animate-bounce-slow">¡ERES MUY RÁPIDO! 🏆</p>' : ''}
+                    ${state.score >= 8 ? '<p class="text-xl md:text-2xl text-green-500 font-black mb-6 animate-bounce-slow">¡ERES MUY RÁPIDO! 🏆</p>' : ''}
                     <button onclick="startMinigame('carrera')" class="bg-pink-500 hover:bg-pink-600 text-white font-black py-4 px-8 rounded-2xl shadow-lg border-b-8 border-pink-700 text-2xl active:border-b-0 active:translate-y-2 mb-4">
                         🔄 Jugar de Nuevo
                     </button>
@@ -2447,8 +2447,8 @@
                         Salir
                     </button>
                 </div>
-            \`;
-            if(state.score >= 5) confetti();
+            `;
+            if (state.score >= 5) confetti();
         }
 
         // ==========================================
@@ -2642,7 +2642,7 @@
 
         function playSound(text_or_path, id_for_audio = null) {
             if (id_for_audio) {
-                const audioFile = new Audio(`sounds / ${ id_for_audio }.mp3`);
+                const audioFile = new Audio(`sounds / ${id_for_audio}.mp3`);
                 audioFile.play().catch(e => {
                     console.log("No audio file found, falling back to TTS for: ", text_or_path);
                     fallbackToTTS(text_or_path);
@@ -2737,8 +2737,8 @@
                 const qData = fcQuestions[fcIndex];
                 document.getElementById('fc-question').innerText = qData.q;
                 document.getElementById('fc-answer').innerText = qData.options[qData.ans];
-                document.getElementById('fc-counter').innerText = `${ fcIndex + 1 } / ${fcQuestions.length}`;
-        }, 100); // Pequeño delay para que no se vea el cambio si estaba volteada
+                document.getElementById('fc-counter').innerText = `${fcIndex + 1} / ${fcQuestions.length}`;
+            }, 100); // Pequeño delay para que no se vea el cambio si estaba volteada
         }
 
         function flipCard() {
