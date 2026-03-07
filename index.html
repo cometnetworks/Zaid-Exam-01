@@ -282,6 +282,18 @@
                 class="bg-green-100 border-4 border-green-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-green-800 text-left flex items-center gap-4 hover:bg-green-200">
                 <span class="text-4xl">🖍️</span> 4. Une los Sonidos
             </button>
+            <button onclick="startMinigame('agrupaciones')"
+                class="bg-orange-100 border-4 border-orange-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-orange-800 text-left flex items-center gap-4 hover:bg-orange-200">
+                <span class="text-4xl">🎒</span> 5. Agrupando Decenas
+            </button>
+            <button onclick="startMinigame('recta_numerica')"
+                class="bg-purple-100 border-4 border-purple-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-purple-800 text-left flex items-center gap-4 hover:bg-purple-200">
+                <span class="text-4xl">📏</span> 6. Saltos Numéricos
+            </button>
+            <button onclick="startMinigame('carrera')"
+                class="bg-pink-100 border-4 border-pink-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-pink-800 text-left flex items-center gap-4 hover:bg-pink-200">
+                <span class="text-4xl">🏎️</span> 7. Carrera del Saber
+            </button>
         </div>
     </div>
 
@@ -1805,16 +1817,16 @@
         };
 
         const STORIES_DB = [
-            { text: "Había una vez un valiente perrito llamado Toby. Toby se perdió en el bosque oscuro y tenía mucho miedo. De pronto, su amiga la paloma voló alto, vio el camino y lo guio de regreso a casa. ¡Toby y la paloma fueron muy felices!", principal: "🐶 Toby", secundario: "🕊️ Paloma" },
-            { text: "En un castillo gigante vivía la Princesa Sofi. Un día, perdió su corona de oro en el jardín real. El dragón amable sopló fuego pequeñito para iluminar el pasto y la encontraron. ¡Hicieron una gran fiesta!", principal: "👸 Sofi", secundario: "🐉 Dragón" },
-            { text: "El astronauta Leo viajó en su cohete hasta la luna. Allí descubrió que su nave no tenía gasolina. Su amigo el marcianito Zog le prestó polvo de estrellas mágico y Leo pudo volar de regreso a la Tierra.", principal: "🧑‍🚀 Leo", secundario: "👽 Zog" },
-            { text: "El Gato Michi quería alcanzar un pescado muy alto en la mesa. Intentó saltar pero no llegó. Entonces, el ratoncito Tito hizo una rampa con libros para ayudarlo. ¡Se volvieron los mejores amigos!", principal: "🐱 Michi", secundario: "🐭 Tito" },
-            { text: "El pirata PataPalo navegaba buscando un tesoro escondido. Su mapa voló con el viento hacia el mar. Su fiel Loro Pepe voló súper rápido, atrapó el mapa en el aire y encontraron cofres de chocolate.", principal: "🏴‍☠️ PataPalo", secundario: "🦜 Pepe" },
-            { text: "El robot Tuercas quería aprender a bailar, pero estaba muy oxidado y sonaba 'criik, criik'. El Perro-Robot le trajo una latita de aceite mágico. ¡Tuercas bailó breakdance toda la noche!", principal: "🤖 Tuercas", secundario: "🦾 Perro-Bot" },
-            { text: "La Niña Lulú lloraba porque su flor favorita se estaba marchitando. El Hada Brillante apareció flotando, cantó una canción mágica de agua y la flor volvió a crecer hermosa y feliz.", principal: "👧 Lulú", secundario: "🧚 Hada" },
-            { text: "El dinosaurio Rex quería jugar a las escondidas, pero era muy grandote y siempre lo veían. Su amigo el Pterodáctilo Pipo lo cubrió con hojas de palmera gigantes desde el cielo. ¡Nadie lo encontró!", principal: "🦖 Rex", secundario: "🦕 Pipo" },
-            { text: "El osito Bam tenía mucha hambre en la montaña nevada. No sabía cómo conseguir miel. Una pequeña abejita Zumb le mostró un panal escondido en una cueva calentita. ¡Comieron juntos!", principal: "🐻 Bam", secundario: "🐝 Zumb" },
-            { text: "El Superhéroe Rayo perdió su capa voladora en una tormenta. Estaba muy triste. De pronto, el Gato Volador bajó de las nubes trayendo su capa en el hocico. ¡Juntos salvaron la ciudad!", principal: "🦸 Rayo", secundario: "🐈 Gato" }
+            { text: "Había una vez un valiente perrito llamado Toby. Toby se perdió en el bosque oscuro y tenía mucho miedo. De pronto, su amiga la paloma voló alto, vio el camino y lo guio de regreso a casa. ¡Toby y la paloma fueron muy felices!", principal: "🐶 Toby", secundario: "🕊️ Paloma", escenario: "🌲 Bosque" },
+            { text: "En un castillo gigante vivía la Princesa Sofi. Un día, perdió su corona de oro en el jardín real. El dragón amable sopló fuego pequeñito para iluminar el pasto y la encontraron. ¡Hicieron una gran fiesta!", principal: "👸 Sofi", secundario: "🐉 Dragón", escenario: "🏰 Castillo" },
+            { text: "El astronauta Leo viajó en su cohete hasta la luna. Allí descubrió que su nave no tenía gasolina. Su amigo el marcianito Zog le prestó polvo de estrellas mágico y Leo pudo volar de regreso a la Tierra.", principal: "🧑‍🚀 Leo", secundario: "👽 Zog", escenario: "🌕 La Luna" },
+            { text: "El Gato Michi quería alcanzar un pescado muy alto en la mesa. Intentó saltar pero no llegó. Entonces, el ratoncito Tito hizo una rampa con libros para ayudarlo. ¡Se volvieron los mejores amigos!", principal: "🐱 Michi", secundario: "🐭 Tito", escenario: "🏠 La Casa" },
+            { text: "El pirata PataPalo navegaba buscando un tesoro escondido. Su mapa voló con el viento hacia el mar. Su fiel Loro Pepe voló súper rápido, atrapó el mapa en el aire y encontraron cofres de chocolate.", principal: "🏴‍☠️ PataPalo", secundario: "🦜 Pepe", escenario: "🌊 El Mar" },
+            { text: "El robot Tuercas quería aprender a bailar, pero estaba muy oxidado y sonaba 'criik, criik'. El Perro-Robot le trajo una latita de aceite mágico. ¡Tuercas bailó breakdance toda la noche!", principal: "🤖 Tuercas", secundario: "🦾 Perro-Bot", escenario: "🏭 Fábrica" },
+            { text: "La Niña Lulú lloraba porque su flor favorita se estaba marchitando. El Hada Brillante apareció flotando, cantó una canción mágica de agua y la flor volvió a crecer hermosa y feliz.", principal: "👧 Lulú", secundario: "🧚 Hada", escenario: "🌺 Jardín" },
+            { text: "El dinosaurio Rex quería jugar a las escondidas, pero era muy grandote y siempre lo veían. Su amigo el Pterodáctilo Pipo lo cubrió con hojas de palmera gigantes desde el cielo. ¡Nadie lo encontró!", principal: "🦖 Rex", secundario: "🦕 Pipo", escenario: "🌋 La Selva" },
+            { text: "El osito Bam tenía mucha hambre en la montaña nevada. No sabía cómo conseguir miel. Una pequeña abejita Zumb le mostró un panal escondido en una cueva calentita. ¡Comieron juntos!", principal: "🐻 Bam", secundario: "🐝 Zumb", escenario: "🏔️ Montaña" },
+            { text: "El Superhéroe Rayo perdió su capa voladora en una tormenta. Estaba muy triste. De pronto, el Gato Volador bajó de las nubes trayendo su capa en el hocico. ¡Juntos salvaron la ciudad!", principal: "🦸 Rayo", secundario: "🐈 Gato", escenario: "🏙️ La Ciudad" }
         ];
         const ONOMATOPEYAS_DB = [
             { snd: "¡Miau!", img: "🐱 Gato", id: "gato", vocal: "¡Miaauuuuuu!" },
@@ -2101,47 +2113,118 @@
                 document.getElementById('minigame-title').innerText = "📰 Arma la Nota";
                 totalMatches = 3;
                 content.innerHTML = `
-                    <p class="text-center font-bold text-gray-600 mb-4">¡Toca y arrastra los cuadritos a los espacios vacíos!</p>
-                    <div class="flex flex-wrap gap-2 justify-center mb-6 bg-blue-50 p-4 rounded-xl border-2 border-blue-200" id="word-bank">
-                        <div class="draggable bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg" data-match="titulo">Título</div>
-                        <div class="draggable bg-green-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg" data-match="foto">Foto</div>
-                        <div class="draggable bg-orange-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg" data-match="cuerpo">Cuerpo de la Noticia</div>
-                    </div>
-                    <div class="bg-gray-100 p-6 rounded-lg border-2 border-gray-300 shadow-inner w-full max-w-sm mx-auto flex flex-col gap-4">
-                        <div class="dropzone rounded-xl w-full h-14 bg-white" data-target="titulo"><span class="text-gray-300 font-bold">Aquí va el...</span></div>
-                        <div class="flex gap-4">
-                            <div class="dropzone rounded-xl w-1/3 h-28 bg-white" data-target="foto"><span class="text-gray-300 font-bold text-xs text-center">Aquí va la...</span></div>
-                            <div class="dropzone rounded-xl w-2/3 h-28 bg-white" data-target="cuerpo"><span class="text-gray-300 font-bold text-xs text-center">Aquí va el...</span></div>
+                    <p class="text-center font-bold text-gray-600 mb-4 text-lg md:text-xl">¡Adivina cómo se llaman las partes de esta noticia! Une los puntos dibujando una línea.</p>
+                    <div class="relative w-full max-w-4xl mx-auto h-[500px] mb-8" id="canvas-container">
+                        <canvas id="line-canvas" class="absolute inset-0 w-full h-full z-10" style="touch-action: none;"></canvas>
+                        
+                        <!-- Lado Izquierdo: Ejemplo de Noticia -->
+                        <div class="absolute left-0 w-[55%] flex flex-col justify-around h-full z-20 bg-gray-100 p-4 rounded-xl border border-gray-300 shadow-inner">
+                            <div class="flex items-center justify-between bg-white p-3 rounded-lg border-2 border-gray-200">
+                                <h1 class="font-black text-xl text-center flex-1 leading-tight">PERRO SALVA A GATITO<br>DE UN ÁRBOL</h1>
+                                <div class="w-8 h-8 rounded-full bg-blue-300 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="titulo"></div>
+                            </div>
+                            
+                            <div class="flex gap-4 h-48 mt-4">
+                                <div class="w-1/2 flex items-center justify-between bg-gray-200 rounded-lg overflow-hidden border-2 border-gray-300 relative">
+                                    <div class="absolute inset-0 flex items-center justify-center text-4xl">🐕🐈</div>
+                                    <div class="w-8 h-8 rounded-full bg-green-300 border-4 border-white shadow-md left-dot cursor-pointer absolute right-2 dot-hover" data-id="foto"></div>
+                                </div>
+                                <div class="w-1/2 flex items-center justify-between bg-white p-3 rounded-lg border-2 border-gray-200 text-xs text-gray-600 overflow-hidden relative">
+                                    <p align="justify">Ayer por la tarde, un valiente perrito llamado Max, ayudó a bajar a un gatito asustado que no podía bajar de un árbol muy alto en el parque.</p>
+                                    <div class="w-8 h-8 rounded-full bg-orange-300 border-4 border-white shadow-md left-dot cursor-pointer absolute right-2 dot-hover" data-id="cuerpo"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lado Derecho: Nombres -->
+                        <div class="absolute right-0 w-[35%] flex flex-col justify-around h-full z-20 py-8">
+                            <div class="flex items-center gap-4 bg-orange-100 p-4 rounded-xl shadow-md border-2 border-orange-300 label-card">
+                                <div class="w-8 h-8 rounded-full bg-orange-300 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="cuerpo"></div>
+                                <span class="font-bold text-gray-800 text-lg md:text-xl">Cuerpo de la Noticia</span>
+                            </div>
+                            <div class="flex items-center gap-4 bg-blue-100 p-4 rounded-xl shadow-md border-2 border-blue-300 label-card">
+                                <div class="w-8 h-8 rounded-full bg-blue-300 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="titulo"></div>
+                                <span class="font-bold text-gray-800 text-lg md:text-xl">Título</span>
+                            </div>
+                            <div class="flex items-center gap-4 bg-green-100 p-4 rounded-xl shadow-md border-2 border-green-300 label-card">
+                                <div class="w-8 h-8 rounded-full bg-green-300 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="foto"></div>
+                                <span class="font-bold text-gray-800 text-lg md:text-xl">Foto</span>
+                            </div>
                         </div>
                     </div>
                 `;
-                initPointerDragDrop();
+                setTimeout(initCanvasDrawing, 100);
             }
             else if (type === 'carta') {
                 document.getElementById('minigame-title').innerText = "✉️ Arma la Carta";
                 totalMatches = 5;
                 content.innerHTML = `
-                    <p class="text-center font-bold text-gray-600 mb-4">¡Toca y arrastra las partes al lugar correcto!</p>
-                    <div class="flex flex-wrap gap-2 justify-center mb-6 bg-red-50 p-4 rounded-xl border-2 border-red-200" id="word-bank">
-                        <div class="draggable bg-red-400 text-white font-bold py-1 px-3 rounded shadow-lg text-sm md:text-base" data-match="lugar">Lugar y Fecha</div>
-                        <div class="draggable bg-purple-400 text-white font-bold py-1 px-3 rounded shadow-lg text-sm md:text-base" data-match="saludo">Saludo</div>
-                        <div class="draggable bg-blue-400 text-white font-bold py-1 px-3 rounded shadow-lg text-sm md:text-base" data-match="cuerpo">Cuerpo</div>
-                        <div class="draggable bg-green-400 text-white font-bold py-1 px-3 rounded shadow-lg text-sm md:text-base" data-match="despedida">Despedida</div>
-                        <div class="draggable bg-yellow-500 text-white font-bold py-1 px-3 rounded shadow-lg text-sm md:text-base" data-match="firma">Firma</div>
-                    </div>
-                    <div class="bg-yellow-50 p-6 rounded-lg border-2 border-yellow-200 shadow-inner w-full max-w-sm mx-auto flex flex-col gap-3 font-serif" style="background-image: repeating-linear-gradient(transparent, transparent 31px, #ccc 31px, #ccc 32px);">
-                        <div class="flex justify-end"><div class="dropzone rounded w-1/2 h-10 bg-white/90" data-target="lugar"></div></div>
-                        <div class="dropzone rounded w-1/2 h-10 bg-white/90" data-target="saludo"></div>
-                        <div class="dropzone rounded w-full h-20 bg-white/90" data-target="cuerpo"></div>
-                        <div class="dropzone rounded w-1/2 h-10 bg-white/90" data-target="despedida"></div>
-                        <div class="flex justify-center"><div class="dropzone rounded w-1/2 h-10 bg-white/90" data-target="firma"></div></div>
+                    <p class="text-center font-bold text-gray-600 mb-4 text-lg md:text-xl">¡Adivina cómo se llaman las partes de esta carta! Une los puntos dibujando una línea.</p>
+                    <div class="relative w-full max-w-4xl mx-auto h-[600px] mb-8" id="canvas-container">
+                        <canvas id="line-canvas" class="absolute inset-0 w-full h-full z-10" style="touch-action: none;"></canvas>
+                        
+                        <!-- Lado Izquierdo: Ejemplo de Carta -->
+                        <div class="absolute left-0 w-[60%] flex flex-col h-full z-20 bg-yellow-50 p-6 rounded-xl border border-yellow-200 shadow-inner font-serif" style="background-image: repeating-linear-gradient(transparent, transparent 31px, #ccc 31px, #ccc 32px);">
+                            
+                            <div class="flex items-center justify-end mb-4">
+                                <span class="text-sm font-bold text-gray-700 italic border-b-2 border-red-200">Puebla, Pue. 6 de Marzo</span>
+                                <div class="w-8 h-8 rounded-full bg-red-400 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="lugar"></div>
+                            </div>
+                            
+                            <div class="flex items-center justify-start mb-4">
+                                <span class="text-lg font-bold text-gray-800 border-b-2 border-purple-200">Querido Zaid,</span>
+                                <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="saludo"></div>
+                            </div>
+
+                            <div class="flex items-center justify-start mb-4 flex-1">
+                                <p class="text-md text-gray-800 leading-8 border-l-4 border-blue-200 pl-4 w-full h-full">
+                                    Espero que estés muy bien. Te escribo para decirte que estoy muy orgulloso de lo mucho que estudias. ¡Sigue así, vas a sacar excelente en tu examen!
+                                </p>
+                                <div class="w-8 h-8 rounded-full bg-blue-400 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="cuerpo"></div>
+                            </div>
+
+                            <div class="flex items-center justify-start mb-4">
+                                <span class="text-md text-gray-700 border-b-2 border-green-200">Te mando un abrazo fuerte,</span>
+                                <div class="w-8 h-8 rounded-full bg-green-400 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="despedida"></div>
+                            </div>
+
+                            <div class="flex items-center justify-center mt-auto">
+                                <span class="font-black text-xl italic text-gray-800 border-b-4 border-yellow-400">Tu Tío Fernando</span>
+                                <div class="w-8 h-8 rounded-full bg-yellow-400 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="firma"></div>
+                            </div>
+
+                        </div>
+
+                        <!-- Lado Derecho: Nombres -->
+                        <div class="absolute right-0 w-[30%] flex flex-col justify-around h-full z-20 py-2">
+                            <div class="flex items-center gap-3 bg-blue-50 p-3 rounded-xl shadow-sm border-2 border-blue-200 label-card">
+                                <div class="w-8 h-8 rounded-full bg-blue-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="cuerpo"></div>
+                                <span class="font-bold text-gray-800 text-sm md:text-md">Cuerpo de la Carta</span>
+                            </div>
+                            <div class="flex items-center gap-3 bg-red-50 p-3 rounded-xl shadow-sm border-2 border-red-200 label-card">
+                                <div class="w-8 h-8 rounded-full bg-red-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="lugar"></div>
+                                <span class="font-bold text-gray-800 text-sm md:text-md">Lugar y Fecha</span>
+                            </div>
+                            <div class="flex items-center gap-3 bg-yellow-50 p-3 rounded-xl shadow-sm border-2 border-yellow-400 label-card">
+                                <div class="w-8 h-8 rounded-full bg-yellow-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="firma"></div>
+                                <span class="font-bold text-gray-800 text-sm md:text-md">Firma</span>
+                            </div>
+                            <div class="flex items-center gap-3 bg-purple-50 p-3 rounded-xl shadow-sm border-2 border-purple-200 label-card">
+                                <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="saludo"></div>
+                                <span class="font-bold text-gray-800 text-sm md:text-md">Saludo</span>
+                            </div>
+                            <div class="flex items-center gap-3 bg-green-50 p-3 rounded-xl shadow-sm border-2 border-green-200 label-card">
+                                <div class="w-8 h-8 rounded-full bg-green-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="despedida"></div>
+                                <span class="font-bold text-gray-800 text-sm md:text-md">Despedida</span>
+                            </div>
+                        </div>
                     </div>
                 `;
-                initPointerDragDrop();
+                setTimeout(initCanvasDrawing, 100);
             }
             else if (type === 'cuento') {
                 document.getElementById('minigame-title').innerText = "📖 El Cuento Mágico";
-                totalMatches = 5;
+                totalMatches = 6;
                 const randomStory = STORIES_DB[Math.floor(Math.random() * STORIES_DB.length)];
 
                 content.innerHTML = `
@@ -2157,6 +2240,7 @@
                         <div class="draggable bg-red-500 text-white font-bold py-2 px-3 rounded-xl shadow-lg" data-match="final">Final</div>
                         <div class="draggable bg-purple-500 text-white font-bold py-2 px-3 rounded-xl shadow-lg" data-match="principal">${randomStory.principal}</div>
                         <div class="draggable bg-orange-500 text-white font-bold py-2 px-3 rounded-xl shadow-lg" data-match="secundario">${randomStory.secundario}</div>
+                        <div class="draggable bg-yellow-500 text-white font-bold py-2 px-3 rounded-xl shadow-lg" data-match="escenario">${randomStory.escenario || 'El Bosque'}</div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-white p-4 rounded-lg border-2 border-gray-200">
@@ -2166,9 +2250,10 @@
                             <div class="flex items-center gap-2 mb-2"><span class="text-xs md:text-sm w-1/3">3. Termina...</span> <div class="dropzone flex-1 h-12" data-target="final"></div></div>
                         </div>
                         <div class="bg-white p-4 rounded-lg border-2 border-gray-200">
-                            <p class="font-bold text-gray-600 mb-2">Identifica a los Personajes:</p>
-                            <div class="flex items-center gap-2 mb-4"><span class="text-xs md:text-sm w-1/3 font-bold text-purple-600">👑 Principal</span> <div class="dropzone flex-1 h-12" data-target="principal"></div></div>
-                            <div class="flex items-center gap-2"><span class="text-xs md:text-sm w-1/3 font-bold text-orange-600">🤝 Secundario</span> <div class="dropzone flex-1 h-12" data-target="secundario"></div></div>
+                            <p class="font-bold text-gray-600 mb-2">Identifica los Elementos:</p>
+                            <div class="flex items-center gap-2 mb-4"><span class="text-xs md:text-sm w-1/3 font-bold text-purple-600">👑 Personaje Principal</span> <div class="dropzone flex-1 h-12" data-target="principal"></div></div>
+                            <div class="flex items-center gap-2 mb-4"><span class="text-xs md:text-sm w-1/3 font-bold text-orange-600">🤝 Personaje Secundario</span> <div class="dropzone flex-1 h-12" data-target="secundario"></div></div>
+                            <div class="flex items-center gap-2"><span class="text-xs md:text-sm w-1/3 font-bold text-yellow-600">🏞️ Escenario (Lugar)</span> <div class="dropzone flex-1 h-12" data-target="escenario"></div></div>
                         </div>
                     </div>
                 `;
@@ -2207,7 +2292,38 @@
                         </div>
                     </div>
                 `;
-                setTimeout(initCanvasDrawing, 100);
+                setTimeout(initSaltosCanvas, 100);
+            }
+            else if (type === 'carrera') {
+                document.getElementById('minigame-title').innerText = "🏎️ Carrera del Saber";
+
+                // Shuffle all questions and take 10
+                let allQs = [...db.espanol, ...db.matematicas, ...db.ingles, ...db.naturaleza];
+                allQs = allQs.sort(() => Math.random() - 0.5).slice(0, 10);
+
+                window.carreraState = {
+                    questions: allQs,
+                    currentIndex: 0,
+                    score: 0,
+                    timeLeft: 15,
+                    timerInt: null
+                };
+
+                content.innerHTML = `
+                    <div id="carrera-header" class="flex justify-between items-center bg-gray-100 p-4 rounded-xl border-4 border-gray-300 mb-6 shadow-inner">
+                        <div class="text-2xl font-black text-pink-600 flex items-center gap-2">
+                            <span>⏱️</span> <span id="carrera-timer">15</span>s
+                        </div>
+                        <div class="text-xl font-bold text-blue-600 bg-blue-100 px-4 py-1 rounded-full border-2 border-blue-300">
+                            Puntos: <span id="carrera-score">0</span>/10
+                        </div>
+                    </div>
+                    <div id="carrera-question-container" class="transition-opacity duration-300">
+                        <!-- Rendered by JS -->
+                    </div>
+                `;
+
+                renderCarreraQuestion();
             }
             else if (type === 'memorama') {
                 document.getElementById('minigame-title').innerText = "🎴 Memoria de Textos";
@@ -2217,6 +2333,122 @@
                 `;
                 initMemorama();
             }
+        }
+
+        // ==========================================
+        // 3.1 CARRERA DEL SABER LOGIC
+        // ==========================================
+        function renderCarreraQuestion() {
+            const state = window.carreraState;
+            clearInterval(state.timerInt);
+
+            if (state.currentIndex >= state.questions.length) {
+                endCarrera();
+                return;
+            }
+
+            const q = state.questions[state.currentIndex];
+            const container = document.getElementById('carrera-question-container');
+
+            // Randomize options
+            let optionsWithIndex = q.options.map((opt, idx) => ({ text: opt, isCorrect: idx === q.ans }));
+            optionsWithIndex = optionsWithIndex.sort(() => Math.random() - 0.5);
+
+            let optionsHtml = optionsWithIndex.map((opt, i) => `
+                <button onclick="checkCarreraAnswer(${opt.isCorrect})" class="w-full text-left bg-blue-50 hover:bg-blue-100 border-4 border-blue-200 p-4 md:p-6 rounded-2xl text-xl font-bold text-gray-800 transition transform hover:-translate-y-1 active:translate-y-0 relative shadow-sm">
+                    <span class="font-black text-blue-500 mr-2">${String.fromCharCode(65 + i)}</span> 
+                    ${opt.text}
+                </button>
+            `).join('');
+
+            container.style.opacity = '0';
+            setTimeout(() => {
+                container.innerHTML = `
+                    <div class="bg-yellow-50 border-l-8 border-yellow-400 p-6 md:p-8 rounded-2xl mb-6 shadow-md relative mt-4">
+                        <h2 class="text-xl md:text-2xl font-black text-gray-800">${q.q}</h2>
+                        <div class="absolute -top-4 -right-4 bg-pink-500 text-white font-black w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-2 border-white transform rotate-12">
+                            ${state.currentIndex + 1}
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 gap-4">
+                        ${optionsHtml}
+                    </div>
+                `;
+                container.style.opacity = '1';
+
+                // Start Timer
+                state.timeLeft = 15;
+                document.getElementById('carrera-timer').innerText = state.timeLeft;
+                document.getElementById('carrera-timer').parentElement.classList.remove('text-red-500', 'animate-pulse');
+                document.getElementById('carrera-timer').parentElement.classList.add('text-pink-600');
+
+                state.timerInt = setInterval(() => {
+                    state.timeLeft--;
+                    const tEl = document.getElementById('carrera-timer');
+                    tEl.innerText = state.timeLeft;
+
+                    if (state.timeLeft <= 5) {
+                        tEl.parentElement.classList.remove('text-pink-600');
+                        tEl.parentElement.classList.add('text-red-500', 'animate-pulse');
+                        playAudio(false); // small beep
+                    }
+
+                    if (state.timeLeft <= 0) {
+                        clearInterval(state.timerInt);
+                        checkCarreraAnswer(false, true); // time out
+                    }
+                }, 1000);
+            }, 300);
+        }
+
+        window.checkCarreraAnswer = (isCorrect, isTimeout = false) => {
+            const state = window.carreraState;
+            clearInterval(state.timerInt);
+
+            if (isCorrect) {
+                playAudio(true);
+                state.score++;
+                document.getElementById('carrera-score').innerText = state.score;
+            } else {
+                playAudio(false);
+                if (isTimeout && 'vibrate' in navigator) navigator.vibrate(200);
+            }
+
+            // Highlight result visually
+            const container = document.getElementById('carrera-question-container');
+            const resultMsg = document.createElement('div');
+            resultMsg.className = \`absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 rounded-2xl z-20 transition-opacity duration-300\`;
+            resultMsg.innerHTML = \`<span class="text-7xl \${isCorrect?'animate-bounce':'animate-shake'}">\${isCorrect?'🌟':'❌'}</span>\`;
+            container.appendChild(resultMsg);
+            
+            setTimeout(() => {
+                state.currentIndex++;
+                renderCarreraQuestion();
+            }, 1000);
+        };
+
+        function endCarrera() {
+            const state = window.carreraState;
+            const content = document.getElementById('minigame-content');
+            
+            content.innerHTML = \`
+                <div class="text-center bg-white p-6 rounded-3xl shadow-xl border-4 border-pink-400 mt-6">
+                    <p class="text-6xl mb-4">🏁</p>
+                    <h2 class="text-3xl md:text-4xl font-black text-pink-600 mb-6">¡Carrera Terminada!</h2>
+                    <div class="bg-gray-100 rounded-2xl p-6 shadow-inner mx-auto max-w-sm mb-8 relative border-2 border-gray-200">
+                        <p class="text-gray-600 font-bold mb-2">Puntuación Final</p>
+                        <p class="text-6xl font-black text-gray-800">\${state.score}<span class="text-3xl text-gray-400">/10</span></p>
+                    </div>
+                    \${state.score >= 8 ? '<p class="text-xl md:text-2xl text-green-500 font-black mb-6 animate-bounce-slow">¡ERES MUY RÁPIDO! 🏆</p>' : ''}
+                    <button onclick="startMinigame('carrera')" class="bg-pink-500 hover:bg-pink-600 text-white font-black py-4 px-8 rounded-2xl shadow-lg border-b-8 border-pink-700 text-2xl active:border-b-0 active:translate-y-2 mb-4">
+                        🔄 Jugar de Nuevo
+                    </button>
+                    <button onclick="showMinigamesMenu()" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-4 rounded-xl mt-4 border-b-4 border-gray-400 transition transform hover:-translate-y-1">
+                        Salir
+                    </button>
+                </div>
+            \`;
+            if(state.score >= 5) confetti();
         }
 
         // ==========================================
@@ -2410,7 +2642,7 @@
 
         function playSound(text_or_path, id_for_audio = null) {
             if (id_for_audio) {
-                const audioFile = new Audio(`sounds/${id_for_audio}.mp3`);
+                const audioFile = new Audio(`sounds / ${ id_for_audio }.mp3`);
                 audioFile.play().catch(e => {
                     console.log("No audio file found, falling back to TTS for: ", text_or_path);
                     fallbackToTTS(text_or_path);
@@ -2455,7 +2687,7 @@
             if (currentGameType === 'nota' || currentGameType === 'carta' || currentGameType === 'cuento') {
                 document.querySelectorAll('.dropzone').forEach(zone => {
                     const matchId = zone.dataset.target;
-                    const dragEl = document.querySelector(`.draggable[data-match="${matchId}"]`);
+                    const dragEl = document.querySelector(`.draggable[data - match= "${matchId}"]`);
                     if (dragEl && !zone.classList.contains('filled')) {
                         dragEl.style.margin = '0'; zone.innerHTML = ''; zone.appendChild(dragEl); zone.classList.add('filled');
                     }
@@ -2505,8 +2737,8 @@
                 const qData = fcQuestions[fcIndex];
                 document.getElementById('fc-question').innerText = qData.q;
                 document.getElementById('fc-answer').innerText = qData.options[qData.ans];
-                document.getElementById('fc-counter').innerText = `${fcIndex + 1} / ${fcQuestions.length}`;
-            }, 100); // Pequeño delay para que no se vea el cambio si estaba volteada
+                document.getElementById('fc-counter').innerText = `${ fcIndex + 1 } / ${fcQuestions.length}`;
+        }, 100); // Pequeño delay para que no se vea el cambio si estaba volteada
         }
 
         function flipCard() {
