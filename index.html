@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>¡Aprende Jugando! - Repaso 1er Grado</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
 
@@ -2840,7 +2841,7 @@
             if (id_for_audio) {
                 const audioFile = new Audio(`sounds/${id_for_audio}.mp3`);
                 audioFile.play().catch(e => {
-                    console.log("No audio file found, falling back to TTS for: ", text_or_path);
+                    // Silently fallback to TTS if file doesn't exist to avoid console clutter
                     fallbackToTTS(text_or_path);
                 });
             } else {
@@ -2862,20 +2863,16 @@
 
         function playAudio(isCorrect) {
             try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator(); const gain = ctx.createGain();
-                osc.connect(gain); gain.connect(ctx.destination);
-
                 if (isCorrect) {
-                    osc.type = 'sine'; osc.frequency.setValueAtTime(500, ctx.currentTime);
-                    osc.frequency.exponentialRampToValueAtTime(1000, ctx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                    const audio = new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3');
+                    audio.volume = 0.5;
+                    audio.play().catch(e => { });
                 } else {
-                    osc.type = 'sawtooth'; osc.frequency.setValueAtTime(200, ctx.currentTime);
-                    osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.2);
-                    gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                    const audio = new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_c6ccf3232f.mp3');
+                    audio.volume = 0.3;
+                    audio.play().catch(e => { });
+                    if ('vibrate' in navigator) navigator.vibrate(200);
                 }
-                osc.start(); osc.stop(ctx.currentTime + 0.3);
             } catch (e) { }
         }
 
