@@ -2407,33 +2407,27 @@
             else if (type === 'carrera') {
                 document.getElementById('minigame-title').innerText = "🏎️ Carrera del Saber";
 
-                // Shuffle all questions and take 10
-                let allQs = [...db.espanol, ...db.matematicas, ...db.ingles, ...db.naturaleza];
-                allQs = allQs.sort(() => Math.random() - 0.5).slice(0, 10);
-
-                window.carreraState = {
-                    questions: allQs,
-                    currentIndex: 0,
-                    score: 0,
-                    timeLeft: 15,
-                    timerInt: null
-                };
-
                 content.innerHTML = `
-                    <div id="carrera-header" class="flex justify-between items-center bg-gray-100 p-4 rounded-xl border-4 border-gray-300 mb-6 shadow-inner">
-                        <div class="text-2xl font-black text-pink-600 flex items-center gap-2">
-                            <span>⏱️</span> <span id="carrera-timer">15</span>s
+                    <div class="text-center bg-white p-6 md:p-8 rounded-3xl shadow-xl border-4 border-pink-300">
+                        <p class="text-6xl mb-4">🏎️</p>
+                        <h2 class="text-2xl md:text-3xl font-black text-pink-600 mb-2">¡Carrera del Saber!</h2>
+                        <p class="text-gray-500 font-bold mb-6">Elige cuánto tiempo tendrás para responder cada pregunta:</p>
+                        <div class="grid grid-cols-2 gap-4 max-w-md mx-auto mb-4">
+                            <button onclick="launchCarrera(15)" class="bg-red-100 hover:bg-red-200 border-4 border-red-400 text-red-800 font-black text-xl p-4 rounded-2xl shadow-md active:scale-95 transition">
+                                ⚡ 15s <br><span class="text-sm font-bold text-red-500">Difícil</span>
+                            </button>
+                            <button onclick="launchCarrera(30)" class="bg-orange-100 hover:bg-orange-200 border-4 border-orange-400 text-orange-800 font-black text-xl p-4 rounded-2xl shadow-md active:scale-95 transition">
+                                🔥 30s <br><span class="text-sm font-bold text-orange-500">Normal</span>
+                            </button>
+                            <button onclick="launchCarrera(60)" class="bg-green-100 hover:bg-green-200 border-4 border-green-400 text-green-800 font-black text-xl p-4 rounded-2xl shadow-md active:scale-95 transition">
+                                😊 1 min <br><span class="text-sm font-bold text-green-500">Tranquilo</span>
+                            </button>
+                            <button onclick="launchCarrera(120)" class="bg-blue-100 hover:bg-blue-200 border-4 border-blue-400 text-blue-800 font-black text-xl p-4 rounded-2xl shadow-md active:scale-95 transition">
+                                🐢 2 min <br><span class="text-sm font-bold text-blue-500">Sin prisa</span>
+                            </button>
                         </div>
-                        <div class="text-xl font-bold text-blue-600 bg-blue-100 px-4 py-1 rounded-full border-2 border-blue-300">
-                            Puntos: <span id="carrera-score">0</span>/10
-                        </div>
-                    </div>
-                    <div id="carrera-question-container" class="transition-opacity duration-300">
-                        <!-- Rendered by JS -->
                     </div>
                 `;
-
-                renderCarreraQuestion();
             }
             else if (type === 'memorama') {
                 document.getElementById('minigame-title').innerText = "🎴 Memoria de Textos";
@@ -2726,6 +2720,37 @@
         // ==========================================
         // 3.1 CARRERA DEL SABER LOGIC
         // ==========================================
+        function launchCarrera(seconds) {
+            let allQs = [...db.espanol, ...db.matematicas, ...db.ingles, ...db.naturaleza];
+            allQs = allQs.sort(() => Math.random() - 0.5).slice(0, 10);
+
+            window.carreraState = {
+                questions: allQs,
+                currentIndex: 0,
+                score: 0,
+                perQuestionTime: seconds,
+                timeLeft: seconds,
+                timerInt: null
+            };
+
+            const content = document.getElementById('minigame-content');
+            content.innerHTML = `
+                <div id="carrera-header" class="flex justify-between items-center bg-gray-100 p-4 rounded-xl border-4 border-gray-300 mb-6 shadow-inner">
+                    <div class="text-2xl font-black text-pink-600 flex items-center gap-2">
+                        <span>⏱️</span> <span id="carrera-timer">${seconds}</span>s
+                    </div>
+                    <div class="text-xl font-bold text-blue-600 bg-blue-100 px-4 py-1 rounded-full border-2 border-blue-300">
+                        Puntos: <span id="carrera-score">0</span>/10
+                    </div>
+                </div>
+                <div id="carrera-question-container" class="transition-opacity duration-300">
+                    <!-- Rendered by JS -->
+                </div>
+            `;
+
+            renderCarreraQuestion();
+        }
+
         function renderCarreraQuestion() {
             const state = window.carreraState;
             clearInterval(state.timerInt);
@@ -2765,7 +2790,7 @@
                 container.style.opacity = '1';
 
                 // Start Timer
-                state.timeLeft = 15;
+                state.timeLeft = state.perQuestionTime || 15;
                 document.getElementById('carrera-timer').innerText = state.timeLeft;
                 document.getElementById('carrera-timer').parentElement.classList.remove('text-red-500', 'animate-pulse');
                 document.getElementById('carrera-timer').parentElement.classList.add('text-pink-600');
