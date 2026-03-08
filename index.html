@@ -2587,7 +2587,7 @@
         }
 
         function finishNumerosStage(stage) {
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            celebrate();
             const isLast = stage >= 4;
             const nextStage = stage + 1;
 
@@ -2634,7 +2634,7 @@
             if (userTens === correctTens && userUnits === correctUnits) {
                 playAudio(true);
                 document.getElementById('minigame-success').classList.remove('hidden');
-                confetti();
+                celebrate();
             } else {
                 playAudio(false);
                 if ('vibrate' in navigator) navigator.vibrate(200);
@@ -2652,7 +2652,7 @@
             if (userTarget === correctTarget) {
                 playAudio(true);
                 document.getElementById('minigame-success').classList.remove('hidden');
-                confetti();
+                celebrate();
             } else {
                 playAudio(false);
                 if ('vibrate' in navigator) navigator.vibrate(200);
@@ -2861,7 +2861,7 @@
                     </button>
                 </div>
             `;
-            if (state.score >= 5) confetti();
+            if (state.score >= 5) celebrate();
         }
 
         // ==========================================
@@ -3100,6 +3100,32 @@
                 osc.stop(ctx.currentTime + 0.15);
                 osc.onended = () => ctx.close();
             } catch (e) { }
+        }
+
+        function playVictorySound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const notes = [523, 659, 784, 1047]; // C5, E5, G5, C6
+                notes.forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.12;
+                    gain.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.12);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.25);
+                    osc.start(ctx.currentTime + i * 0.12);
+                    osc.stop(ctx.currentTime + i * 0.12 + 0.25);
+                });
+                setTimeout(() => ctx.close(), 1000);
+            } catch (e) { }
+        }
+
+        function celebrate() {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            playVictorySound();
         }
 
         function solveMinigame() {
