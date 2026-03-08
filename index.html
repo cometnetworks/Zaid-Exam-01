@@ -331,6 +331,10 @@
                 class="bg-pink-100 border-4 border-pink-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-pink-800 text-left flex items-center gap-4 hover:bg-pink-200">
                 <span class="text-4xl">🏎️</span> 7. Carrera del Saber
             </button>
+            <button onclick="startMinigame('numeros')"
+                class="bg-teal-100 border-4 border-teal-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-teal-800 text-left flex items-center gap-4 hover:bg-teal-200">
+                <span class="text-4xl">🔢</span> 8. Números y Palabras
+            </button>
         </div>
     </div>
 
@@ -2439,6 +2443,191 @@
                 `;
                 initMemorama();
             }
+            else if (type === 'numeros') {
+                window.numerosStage = window.numerosStage || 1;
+                startNumerosStage(window.numerosStage);
+            }
+        }
+
+        // ==========================================
+        // JUEGO: NÚMEROS Y PALABRAS
+        // ==========================================
+        const NUMEROS_DB = {
+            1: { words: { 1: 'uno', 2: 'dos', 3: 'tres', 4: 'cuatro', 5: 'cinco', 6: 'seis', 7: 'siete', 8: 'ocho', 9: 'nueve', 10: 'diez' }, label: 'Etapa 1 — Del 1 al 10', emoji: '🌱', color: 'green' },
+            2: { words: { 11: 'once', 12: 'doce', 13: 'trece', 14: 'catorce', 15: 'quince', 16: 'dieciséis', 17: 'diecisiete', 18: 'dieciocho', 19: 'diecinueve', 20: 'veinte' }, label: 'Etapa 2 — Del 11 al 20', emoji: '🌿', color: 'blue' },
+            3: { words: { 10: 'diez', 20: 'veinte', 30: 'treinta', 40: 'cuarenta', 50: 'cincuenta', 60: 'sesenta', 70: 'setenta', 80: 'ochenta', 90: 'noventa', 100: 'cien' }, label: 'Etapa 3 — Las Decenas', emoji: '🚀', color: 'purple' },
+            4: { words: { 5: 'cinco', 12: 'doce', 17: 'diecisiete', 22: 'veintidós', 25: 'veinticinco', 30: 'treinta', 45: 'cuarenta y cinco', 50: 'cincuenta', 75: 'setenta y cinco', 100: 'cien' }, label: 'Etapa 4 — ¡Mezcla Total! 🔥', emoji: '🌟', color: 'orange' }
+        };
+
+        function startNumerosStage(stage) {
+            const data = NUMEROS_DB[stage];
+            if (!data) return;
+            document.getElementById('minigame-title').innerText = `🔢 Números y Palabras`;
+
+            const entries = Object.entries(data.words); // [[num, word], ...]
+            const shuffledNums = [...entries].sort(() => Math.random() - 0.5);
+            const shuffledWords = [...entries].sort(() => Math.random() - 0.5);
+
+            const numHTML = shuffledNums.map(([n, w]) => `
+                <button id="num-${n}" onclick="pickNumero(${n})" data-num="${n}" data-matched="false"
+                    class="num-btn bg-${data.color}-100 hover:bg-${data.color}-200 border-4 border-${data.color}-300 text-${data.color}-900 font-black text-2xl md:text-3xl rounded-2xl py-4 px-3 shadow-md transition active:scale-95 cursor-pointer">
+                    ${n}
+                </button>
+            `).join('');
+
+            const wordHTML = shuffledWords.map(([n, w]) => `
+                <button id="word-${n}" onclick="pickPalabra(${n})" data-num="${n}" data-matched="false"
+                    class="word-btn bg-white hover:bg-gray-100 border-4 border-gray-300 text-gray-800 font-bold text-lg md:text-xl rounded-2xl py-3 px-3 uppercase shadow-md transition active:scale-95 cursor-pointer">
+                    ${w}
+                </button>
+            `).join('');
+
+            const colors = { 1: 'teal', 2: 'sky', 3: 'violet', 4: 'amber' };
+            const stageColor = colors[stage];
+
+            const content = document.getElementById('minigame-content');
+            content.innerHTML = `
+                <div class="text-center mb-4">
+                    <div class="inline-flex gap-2 items-center bg-${stageColor}-100 border-2 border-${stageColor}-300 px-4 py-2 rounded-full">
+                        <span class="text-2xl">${data.emoji}</span>
+                        <span class="font-black text-${stageColor}-800 text-lg">${data.label}</span>
+                    </div>
+                </div>
+                
+                <!-- Stage dots -->
+                <div class="flex justify-center gap-3 mb-6">
+                    ${[1, 2, 3, 4].map(s => `
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center font-black text-sm border-4
+                            ${s < stage ? 'bg-green-400 border-green-600 text-white' : s === stage ? 'bg-' + stageColor + '-400 border-' + stageColor + '-600 text-white scale-110' : 'bg-gray-200 border-gray-300 text-gray-500'}
+                        ">${s}</div>
+                    `).join('')}
+                </div>
+
+                <p class="text-center text-gray-500 font-bold mb-4">Toca un <span class="bg-${data.color}-200 px-2 rounded">número</span> y luego su <span class="bg-gray-200 px-2 rounded">nombre</span> para unirlos.</p>
+
+                <div class="grid grid-cols-2 gap-3 md:gap-4">
+                    <div class="grid grid-cols-2 md:grid-cols-2 gap-2 auto-rows-fr content-start">
+                        ${numHTML}
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 content-start">
+                        ${wordHTML}
+                    </div>
+                </div>
+
+                <div id="numeros-score" class="text-center mt-4 font-bold text-gray-500 text-lg">
+                    Pares encontrados: <span id="num-pairs" class="text-teal-600 font-black">0</span> / ${entries.length}
+                </div>
+            `;
+
+            // Init state
+            window.numerosState = {
+                stage,
+                total: entries.length,
+                found: 0,
+                selectedNum: null,
+                selectedWord: null
+            };
+        }
+
+        function pickNumero(n) {
+            const state = window.numerosState;
+            const btn = document.getElementById('num-' + n);
+            if (!btn || btn.dataset.matched === 'true') return;
+
+            // Deselect prev num
+            document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('ring-4', 'ring-yellow-400', 'scale-105'));
+            state.selectedNum = n;
+            btn.classList.add('ring-4', 'ring-yellow-400', 'scale-105');
+
+            if (state.selectedWord !== null) checkNumeroPair();
+        }
+
+        function pickPalabra(n) {
+            const state = window.numerosState;
+            const btn = document.getElementById('word-' + n);
+            if (!btn || btn.dataset.matched === 'true') return;
+
+            // Deselect prev word
+            document.querySelectorAll('.word-btn').forEach(b => b.classList.remove('ring-4', 'ring-yellow-400', 'scale-105'));
+            state.selectedWord = n;
+            btn.classList.add('ring-4', 'ring-yellow-400', 'scale-105');
+
+            if (state.selectedNum !== null) checkNumeroPair();
+        }
+
+        function checkNumeroPair() {
+            const state = window.numerosState;
+            const numBtn = document.getElementById('num-' + state.selectedNum);
+            const wordBtn = document.getElementById('word-' + state.selectedWord);
+
+            if (state.selectedNum === state.selectedWord) {
+                // CORRECT!
+                playAudio(true);
+                numBtn.classList.add('bg-green-400', '!border-green-600', 'text-white', 'cursor-default', 'opacity-60');
+                wordBtn.classList.add('bg-green-400', '!border-green-600', 'text-white', 'cursor-default', 'opacity-60');
+                numBtn.classList.remove('ring-4', 'ring-yellow-400', 'scale-105');
+                wordBtn.classList.remove('ring-4', 'ring-yellow-400', 'scale-105');
+                numBtn.dataset.matched = 'true';
+                wordBtn.dataset.matched = 'true';
+                numBtn.onclick = null; wordBtn.onclick = null;
+
+                state.found++;
+                document.getElementById('num-pairs').innerText = state.found;
+
+                if (state.found >= state.total) {
+                    setTimeout(() => finishNumerosStage(state.stage), 600);
+                }
+            } else {
+                // WRONG!
+                playAudio(false);
+                numBtn.classList.add('animate-shake', '!bg-red-200', '!border-red-400');
+                wordBtn.classList.add('animate-shake', '!bg-red-200', '!border-red-400');
+                setTimeout(() => {
+                    numBtn.classList.remove('animate-shake', '!bg-red-200', '!border-red-400', 'ring-4', 'ring-yellow-400', 'scale-105');
+                    wordBtn.classList.remove('animate-shake', '!bg-red-200', '!border-red-400', 'ring-4', 'ring-yellow-400', 'scale-105');
+                }, 700);
+            }
+
+            state.selectedNum = null;
+            state.selectedWord = null;
+        }
+
+        function finishNumerosStage(stage) {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            const isLast = stage >= 4;
+            const nextStage = stage + 1;
+
+            const msgs = [
+                '🌱 ¡Dominaste los primeros números!',
+                '💧 ¡Excelente, ya conoces hasta el veinte!',
+                '🚀 ¡Las decenas son tuyas!',
+                '🌟 ¡MAESTRO DE LOS NÚMEROS! 🏆'
+            ];
+
+            const content = document.getElementById('minigame-content');
+            content.innerHTML = `
+                <div class="text-center bg-white p-6 md:p-8 rounded-3xl shadow-xl border-4 border-teal-400">
+                    <p class="text-6xl mb-4">${isLast ? '🏆' : '⭐'}</p>
+                    <h2 class="text-2xl md:text-3xl font-black text-teal-600 mb-2">${msgs[stage - 1]}</h2>
+                    <p class="text-gray-500 font-bold mb-8">¡Completaste la Etapa ${stage}!</p>
+                    ${!isLast ? `
+                        <button onclick="window.numerosStage=${nextStage}; startMinigame('numeros');"
+                            class="bg-teal-500 hover:bg-teal-600 text-white font-black py-4 px-10 rounded-2xl shadow-lg border-b-8 border-teal-700 text-2xl active:border-b-0 active:translate-y-2 mb-4 w-full">
+                            🚀 Siguiente Etapa (${nextStage}/4)
+                        </button>
+                    ` : `
+                        <p class="text-xl text-yellow-600 font-black mb-6 animate-bounce">¡Completaste TODAS las etapas! 🎉</p>
+                    `}
+                    <div class="flex flex-col gap-3">
+                        <button onclick="window.numerosStage=${stage}; startMinigame('numeros');" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-xl border-b-4 border-gray-400">
+                            🔄 Repetir Etapa ${stage}
+                        </button>
+                        <button onclick="window.numerosStage=1; showMinigamesMenu();" class="text-gray-500 font-bold py-2">
+                            Salir al menú
+                        </button>
+                    </div>
+                </div>
+            `;
         }
 
         // ==========================================
