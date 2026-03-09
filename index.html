@@ -3015,12 +3015,15 @@
         }
 
         function initTouchDragForMode3() {
+            if (window._touchDragM3Init) return;
+            window._touchDragM3Init = true;
             let draggedEl = null;
             let ghostEl = null;
 
             document.addEventListener('touchstart', function (e) {
                 const t = e.target.closest('.supply-item');
                 if (!t) return;
+                e.preventDefault();
                 draggedEl = t;
                 ghostEl = t.cloneNode(true);
                 ghostEl.style.position = 'fixed';
@@ -3029,18 +3032,20 @@
                 ghostEl.style.opacity = '0.8';
                 ghostEl.style.fontSize = '3rem';
                 document.body.appendChild(ghostEl);
-            }, { passive: true });
+            }, { passive: false });
 
             document.addEventListener('touchmove', function (e) {
                 if (!ghostEl) return;
+                e.preventDefault();
                 const touch = e.touches[0];
                 ghostEl.style.left = (touch.clientX - 20) + 'px';
                 ghostEl.style.top = (touch.clientY - 20) + 'px';
-            }, { passive: true });
+            }, { passive: false });
 
             document.addEventListener('touchend', function (e) {
                 if (!draggedEl || !ghostEl) return;
                 ghostEl.remove();
+                ghostEl = null;
                 const touch = e.changedTouches[0];
                 const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
                 const container = dropTarget ? dropTarget.closest('[id^="drop-container-"]') : null;
