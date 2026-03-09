@@ -2699,6 +2699,7 @@
                 <div class="flex flex-col items-center gap-3">
                     <button onclick="checkAgrupaciones(${tens}, ${units})" class="bg-green-500 hover:bg-green-600 text-white font-black py-4 px-10 rounded-2xl shadow-lg border-b-8 border-green-700 text-2xl active:border-b-0 active:translate-y-2">VERIFICAR</button>
                     <button onclick="startAgrupMode1('${diff}')" class="text-gray-500 font-bold py-2">🔄 Otro ejercicio</button>
+                    <button onclick="startMinigame('agrupaciones')" class="text-gray-400 font-bold py-1 text-sm">⬅️ Volver al menú</button>
                 </div>
             `;
         }
@@ -2743,6 +2744,7 @@
                 <div class="flex flex-col items-center gap-3">
                     <button onclick="checkAgrupMode2()" class="bg-blue-500 hover:bg-blue-600 text-white font-black py-4 px-10 rounded-2xl shadow-lg border-b-8 border-blue-700 text-2xl active:border-b-0 active:translate-y-2">VERIFICAR</button>
                     <button onclick="startAgrupMode2('${diff}')" class="text-gray-500 font-bold py-2">🔄 Otro ejercicio</button>
+                    <button onclick="startMinigame('agrupaciones')" class="text-gray-400 font-bold py-1 text-sm">⬅️ Volver al menú</button>
                 </div>
             `;
         }
@@ -2787,19 +2789,26 @@
 
             const allEmojis = [...AGRUP_ITEMS].sort(() => Math.random() - 0.5);
             const targets = [];
+            let emojiIdx = 0;
             for (let c = 0; c < lvl.cats; c++) {
-                const emoji = allEmojis[c];
+                const tensEmoji = allEmojis[emojiIdx++];
+                const unitsEmoji = level >= 2 ? allEmojis[emojiIdx++] : tensEmoji;
                 const t = Math.floor(Math.random() * (lvl.maxT - lvl.minT + 1)) + lvl.minT;
                 const u = Math.floor(Math.random() * (lvl.maxU - lvl.minU + 1)) + lvl.minU;
-                targets.push({ emoji, tens: t, units: u, total: t * 10 + u });
+                targets.push({ tensEmoji, unitsEmoji, tens: t, units: u, totalItems: t * 10 + u, tensTotal: t * 10, unitsTotal: u });
             }
 
             // Build supply pool
             let supply = [];
-            targets.forEach(tgt => { for (let i = 0; i < tgt.total + 3; i++) supply.push(tgt.emoji); });
+            targets.forEach(tgt => {
+                for (let i = 0; i < tgt.tensTotal + 3; i++) supply.push(tgt.tensEmoji);
+                if (tgt.tensEmoji !== tgt.unitsEmoji) {
+                    for (let i = 0; i < tgt.unitsTotal + 3; i++) supply.push(tgt.unitsEmoji);
+                }
+            });
             // Add distractors
             for (let d = 0; d < lvl.distractors; d++) {
-                const distEmoji = allEmojis[lvl.cats + d] || '⭐';
+                const distEmoji = allEmojis[emojiIdx + d] || '⭐';
                 const distCount = Math.floor(Math.random() * 8) + 3;
                 for (let i = 0; i < distCount; i++) supply.push(distEmoji);
             }
@@ -2813,17 +2822,21 @@
                     ${n < level ? 'bg-green-400 border-green-600 text-white' : n === level ? 'bg-purple-500 border-purple-700 text-white scale-110' : 'bg-gray-200 border-gray-300 text-gray-400'}">${n}</div>
             `).join('');
 
-            const containersHTML = targets.map((tgt, i) => `
+            const containersHTML = targets.map((tgt, i) => {
+                const sameEmoji = tgt.tensEmoji === tgt.unitsEmoji;
+                const label = sameEmoji
+                    ? `${tgt.tensEmoji} ${tgt.tens} decena${tgt.tens > 1 ? 's' : ''} y ${tgt.units} unidad${tgt.units !== 1 ? 'es' : ''}`
+                    : `${tgt.tens} decena${tgt.tens > 1 ? 's' : ''} de ${tgt.tensEmoji} y ${tgt.units} unidad${tgt.units !== 1 ? 'es' : ''} de ${tgt.unitsEmoji}`;
+                return `
                 <div class="bg-white p-4 rounded-2xl border-4 border-dashed border-purple-400 min-h-[120px] text-center shadow-inner" id="drop-container-${i}"
                      ondragover="event.preventDefault(); this.classList.add('bg-purple-100')" 
                      ondragleave="this.classList.remove('bg-purple-100')"
                      ondrop="dropInContainer(event, ${i}); this.classList.remove('bg-purple-100')">
-                    <p class="font-black text-purple-700 text-lg mb-2">${tgt.emoji} ${tgt.tens} decena${tgt.tens > 1 ? 's' : ''} y ${tgt.units} unidad${tgt.units !== 1 ? 'es' : ''}</p>
-                    <p class="text-sm text-gray-400 font-bold">= ${tgt.total} objetos</p>
+                    <p class="font-black text-purple-700 text-lg mb-2">${label}</p>
                     <div id="container-items-${i}" class="flex flex-wrap gap-1 justify-center mt-2 text-2xl min-h-[40px]"></div>
-                    <p id="container-count-${i}" class="text-xs font-black text-gray-400 mt-1">0 / ${tgt.total}</p>
                 </div>
-            `).join('');
+            `;
+            }).join('');
 
             const supplyHTML = supply.map((emoji, i) => `
                 <span class="supply-item text-3xl cursor-grab active:cursor-grabbing select-none inline-block p-1 hover:scale-125 transition" 
@@ -2846,6 +2859,7 @@
                 <div class="flex flex-col items-center gap-3">
                     <button onclick="checkAgrupMode3()" class="bg-purple-500 hover:bg-purple-600 text-white font-black py-4 px-10 rounded-2xl shadow-lg border-b-8 border-purple-700 text-2xl active:border-b-0 active:translate-y-2">VERIFICAR</button>
                     <button onclick="startAgrupMode3(${level})" class="text-gray-500 font-bold py-2">🔄 Reiniciar nivel</button>
+                    <button onclick="startMinigame('agrupaciones')" class="text-gray-400 font-bold py-1 text-sm">⬅️ Volver al menú</button>
                 </div>
             `;
 
@@ -2861,7 +2875,7 @@
 
             const containerItems = document.getElementById('container-items-' + containerIndex);
             const currentCount = containerItems.children.length;
-            if (currentCount >= tgt.total + 5) return; // prevent overflow
+            if (currentCount >= tgt.totalItems + 5) return; // prevent overflow
 
             const span = document.createElement('span');
             span.textContent = emoji;
@@ -2874,9 +2888,6 @@
             const src = document.getElementById(sourceId);
             if (src) src.remove();
 
-            // Update count
-            document.getElementById('container-count-' + containerIndex).textContent =
-                containerItems.children.length + ' / ' + tgt.total;
         }
 
         function returnToSupply(elem, containerIndex) {
@@ -2892,11 +2903,6 @@
             span.textContent = emoji;
             span.ondragstart = function (e) { e.dataTransfer.setData('text/plain', emoji + '|' + span.id); };
             pool.appendChild(span);
-            // Update count
-            const tgt = window.agrupM3.targets[containerIndex];
-            const containerItems = document.getElementById('container-items-' + containerIndex);
-            document.getElementById('container-count-' + containerIndex).textContent =
-                containerItems.children.length + ' / ' + tgt.total;
         }
 
         function checkAgrupMode3() {
@@ -2905,9 +2911,15 @@
             targets.forEach((tgt, i) => {
                 const items = document.getElementById('container-items-' + i);
                 const children = [...items.children];
-                const correctCount = children.filter(c => c.dataset.emoji === tgt.emoji).length;
-                const wrongCount = children.length - correctCount;
-                if (correctCount !== tgt.total || wrongCount > 0) allCorrect = false;
+                const tensCount = children.filter(c => c.dataset.emoji === tgt.tensEmoji).length;
+                const unitsCount = tgt.tensEmoji === tgt.unitsEmoji ? 0 : children.filter(c => c.dataset.emoji === tgt.unitsEmoji).length;
+                const expectedTotal = tgt.totalItems;
+                const sameEmoji = tgt.tensEmoji === tgt.unitsEmoji;
+                if (sameEmoji) {
+                    if (tensCount !== expectedTotal || children.length !== expectedTotal) allCorrect = false;
+                } else {
+                    if (tensCount !== tgt.tensTotal || unitsCount !== tgt.unitsTotal || children.length !== expectedTotal) allCorrect = false;
+                }
             });
 
             if (allCorrect) {
@@ -2991,8 +3003,6 @@
                     span.onclick = function () { returnToSupply(this, idx); };
                     containerItems.appendChild(span);
                     draggedEl.remove();
-                    document.getElementById('container-count-' + idx).textContent =
-                        containerItems.children.length + ' / ' + tgt.total;
                 }
                 draggedEl = null;
                 ghostEl = null;
