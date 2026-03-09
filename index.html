@@ -2854,9 +2854,12 @@
             // Build supply pool
             let supply = [];
             targets.forEach(tgt => {
-                for (let i = 0; i < tgt.tensTotal + 3; i++) supply.push(tgt.tensEmoji);
-                if (tgt.tensEmoji !== tgt.unitsEmoji) {
-                    for (let i = 0; i < tgt.unitsTotal + 3; i++) supply.push(tgt.unitsEmoji);
+                if (tgt.tensEmoji === tgt.unitsEmoji) {
+                    // Same emoji: need totalItems (tens*10 + units), add generous surplus
+                    for (let i = 0; i < tgt.totalItems + 8; i++) supply.push(tgt.tensEmoji);
+                } else {
+                    for (let i = 0; i < tgt.tensTotal + 5; i++) supply.push(tgt.tensEmoji);
+                    for (let i = 0; i < tgt.unitsTotal + 5; i++) supply.push(tgt.unitsEmoji);
                 }
             });
             // Add distractors
