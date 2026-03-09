@@ -2341,30 +2341,25 @@
             }
             else if (type === 'agrupaciones') {
                 document.getElementById('minigame-title').innerText = "🍎 Agrupando Decenas";
-                const totalApples = Math.floor(Math.random() * 80) + 11; // 11 to 90
-                const tens = Math.floor(totalApples / 10);
-                const units = totalApples % 10;
-
-                let emojis = Array(totalApples).fill('🍎').join('');
-
                 content.innerHTML = `
-                    <p class="text-center font-bold text-gray-600 mb-4 text-lg">Cuenta las manzanas. Escribe cuántas decenas y unidades hay.</p>
-                    <div class="bg-red-50 p-6 rounded-2xl border-4 border-red-200 mb-6 flex flex-wrap gap-2 text-3xl justify-center leading-loose">
-                        ${emojis}
-                    </div>
-                    <div class="flex flex-col md:flex-row gap-6 justify-center max-w-lg mx-auto mb-8">
-                        <div class="bg-blue-100 p-6 rounded-2xl border-4 border-blue-300 flex-1 text-center shadow-inner">
-                            <label class="block font-black text-blue-800 text-xl mb-2">Decenas</label>
-                            <input type="number" id="input-tens" class="w-full text-center text-4xl font-bold p-2 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-400" min="0" max="9">
+                    <div class="text-center bg-white p-6 md:p-8 rounded-3xl shadow-xl border-4 border-orange-300">
+                        <p class="text-6xl mb-4">🍎</p>
+                        <h2 class="text-2xl md:text-3xl font-black text-orange-600 mb-2">¡Agrupando Decenas!</h2>
+                        <p class="text-gray-500 font-bold mb-6">Elige un modo de juego:</p>
+                        <div class="grid grid-cols-1 gap-4 max-w-md mx-auto">
+                            <button onclick="showAgrupDifficulty(1)" class="bg-green-100 hover:bg-green-200 border-4 border-green-400 text-green-800 font-black text-xl p-5 rounded-2xl shadow-md active:scale-95 transition text-left flex items-center gap-4">
+                                <span class="text-4xl">🔢</span>
+                                <div><span class="block text-lg">¿Cuántos hay?</span><span class="text-sm font-bold text-green-500">Cuenta los objetos</span></div>
+                            </button>
+                            <button onclick="showAgrupDifficulty(2)" class="bg-blue-100 hover:bg-blue-200 border-4 border-blue-400 text-blue-800 font-black text-xl p-5 rounded-2xl shadow-md active:scale-95 transition text-left flex items-center gap-4">
+                                <span class="text-4xl">📦</span>
+                                <div><span class="block text-lg">Agrupa por Tipo</span><span class="text-sm font-bold text-blue-500">Separa por categorías</span></div>
+                            </button>
+                            <button onclick="startAgrupMode3(1)" class="bg-purple-100 hover:bg-purple-200 border-4 border-purple-400 text-purple-800 font-black text-xl p-5 rounded-2xl shadow-md active:scale-95 transition text-left flex items-center gap-4">
+                                <span class="text-4xl">🏗️</span>
+                                <div><span class="block text-lg">Construye el Grupo</span><span class="text-sm font-bold text-purple-500">Arrastra y organiza • 5 niveles</span></div>
+                            </button>
                         </div>
-                        <div class="text-4xl font-black text-gray-400 self-center hidden md:block">+</div>
-                        <div class="bg-green-100 p-6 rounded-2xl border-4 border-green-300 flex-1 text-center shadow-inner">
-                            <label class="block font-black text-green-800 text-xl mb-2">Unidades</label>
-                            <input type="number" id="input-units" class="w-full text-center text-4xl font-bold p-2 rounded-xl focus:outline-none focus:ring-4 focus:ring-green-400" min="0" max="9">
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <button onclick="checkAgrupaciones(${tens}, ${units})" class="bg-green-500 hover:bg-green-600 text-white font-black py-4 px-10 rounded-2xl shadow-lg border-b-8 border-green-700 text-2xl active:border-b-0 active:translate-y-2">VERIFICAR</button>
                     </div>
                 `;
             }
@@ -2645,6 +2640,363 @@
                     document.getElementById('input-units').classList.remove('animate-shake', 'border-red-500');
                 }, 500);
             }
+        }
+
+        // ==========================================
+        // AGRUPACIONES EXPANDED MODES
+        // ==========================================
+        const AGRUP_ITEMS = ['🍎', '🍐', '🍌', '🥕', '🍍', '🥭', '🫐', '🍊', '🌽', '🥑', '🍇', '🍓', '🥝', '🍑'];
+
+        function showAgrupDifficulty(mode) {
+            const content = document.getElementById('minigame-content');
+            const modeLabel = mode === 1 ? '🔢 ¿Cuántos hay?' : '📦 Agrupa por Tipo';
+            content.innerHTML = `
+                <div class="text-center bg-white p-6 md:p-8 rounded-3xl shadow-xl border-4 border-orange-300">
+                    <h2 class="text-2xl font-black text-orange-600 mb-4">${modeLabel}</h2>
+                    <p class="text-gray-500 font-bold mb-6">Elige la dificultad:</p>
+                    <div class="grid grid-cols-1 gap-4 max-w-sm mx-auto">
+                        <button onclick="startAgrupMode${mode}('easy')" class="bg-green-100 hover:bg-green-200 border-4 border-green-400 text-green-800 font-black text-xl p-4 rounded-2xl shadow-md active:scale-95 transition">
+                            🌱 Fácil
+                        </button>
+                        <button onclick="startAgrupMode${mode}('normal')" class="bg-orange-100 hover:bg-orange-200 border-4 border-orange-400 text-orange-800 font-black text-xl p-4 rounded-2xl shadow-md active:scale-95 transition">
+                            🔥 Normal
+                        </button>
+                        <button onclick="startAgrupMode${mode}('hard')" class="bg-red-100 hover:bg-red-200 border-4 border-red-400 text-red-800 font-black text-xl p-4 rounded-2xl shadow-md active:scale-95 transition">
+                            ⚡ Difícil
+                        </button>
+                    </div>
+                    <button onclick="startMinigame('agrupaciones')" class="mt-6 text-gray-500 font-bold py-2">⬅️ Cambiar modo</button>
+                </div>
+            `;
+        }
+
+        function startAgrupMode1(diff) {
+            const ranges = { easy: [11, 30], normal: [31, 60], hard: [61, 99] };
+            const [min, max] = ranges[diff];
+            const total = Math.floor(Math.random() * (max - min + 1)) + min;
+            const tens = Math.floor(total / 10);
+            const units = total % 10;
+            const emoji = AGRUP_ITEMS[Math.floor(Math.random() * AGRUP_ITEMS.length)];
+            const emojis = Array(total).fill(emoji).join('');
+
+            const content = document.getElementById('minigame-content');
+            content.innerHTML = `
+                <p class="text-center font-bold text-gray-600 mb-4 text-lg">Cuenta los objetos. Escribe cuántas decenas y unidades hay.</p>
+                <div class="bg-orange-50 p-6 rounded-2xl border-4 border-orange-200 mb-6 flex flex-wrap gap-2 text-3xl justify-center leading-loose">
+                    ${emojis}
+                </div>
+                <div class="flex flex-col md:flex-row gap-6 justify-center max-w-lg mx-auto mb-8">
+                    <div class="bg-blue-100 p-6 rounded-2xl border-4 border-blue-300 flex-1 text-center shadow-inner">
+                        <label class="block font-black text-blue-800 text-xl mb-2">Decenas</label>
+                        <input type="number" id="input-tens" class="w-full text-center text-4xl font-bold p-2 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-400" min="0" max="9">
+                    </div>
+                    <div class="text-4xl font-black text-gray-400 self-center hidden md:block">+</div>
+                    <div class="bg-green-100 p-6 rounded-2xl border-4 border-green-300 flex-1 text-center shadow-inner">
+                        <label class="block font-black text-green-800 text-xl mb-2">Unidades</label>
+                        <input type="number" id="input-units" class="w-full text-center text-4xl font-bold p-2 rounded-xl focus:outline-none focus:ring-4 focus:ring-green-400" min="0" max="9">
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-3">
+                    <button onclick="checkAgrupaciones(${tens}, ${units})" class="bg-green-500 hover:bg-green-600 text-white font-black py-4 px-10 rounded-2xl shadow-lg border-b-8 border-green-700 text-2xl active:border-b-0 active:translate-y-2">VERIFICAR</button>
+                    <button onclick="startAgrupMode1('${diff}')" class="text-gray-500 font-bold py-2">🔄 Otro ejercicio</button>
+                </div>
+            `;
+        }
+
+        function startAgrupMode2(diff) {
+            const configs = { easy: { cats: 2, min: 5, max: 20 }, normal: { cats: 2, min: 10, max: 40 }, hard: { cats: 3, min: 8, max: 30 } };
+            const cfg = configs[diff];
+            const picked = [...AGRUP_ITEMS].sort(() => Math.random() - 0.5).slice(0, cfg.cats);
+            const counts = picked.map(() => Math.floor(Math.random() * (cfg.max - cfg.min + 1)) + cfg.min);
+
+            let allItems = [];
+            picked.forEach((emoji, i) => { for (let j = 0; j < counts[i]; j++) allItems.push(emoji); });
+            allItems = allItems.sort(() => Math.random() - 0.5);
+
+            window.agrupMode2Data = picked.map((emoji, i) => ({ emoji, total: counts[i], tens: Math.floor(counts[i] / 10), units: counts[i] % 10 }));
+
+            const inputsHTML = picked.map((emoji, i) => `
+                <div class="bg-white p-4 rounded-2xl border-4 border-gray-300 shadow-inner">
+                    <p class="text-3xl text-center mb-2">${emoji} <span class="text-lg font-black text-gray-600">¿Cuántos hay?</span></p>
+                    <div class="flex gap-3 justify-center">
+                        <div class="text-center">
+                            <label class="block font-black text-blue-700 text-sm">Decenas</label>
+                            <input type="number" id="cat-tens-${i}" class="w-16 text-center text-2xl font-bold p-1 rounded-lg border-2 border-blue-300 focus:ring-2 focus:ring-blue-400" min="0">
+                        </div>
+                        <div class="text-center">
+                            <label class="block font-black text-green-700 text-sm">Unidades</label>
+                            <input type="number" id="cat-units-${i}" class="w-16 text-center text-2xl font-bold p-1 rounded-lg border-2 border-green-300 focus:ring-2 focus:ring-green-400" min="0">
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const content = document.getElementById('minigame-content');
+            content.innerHTML = `
+                <p class="text-center font-bold text-gray-600 mb-4 text-lg">¡Hay objetos mezclados! Cuenta las decenas y unidades de <strong>cada tipo</strong>.</p>
+                <div class="bg-yellow-50 p-6 rounded-2xl border-4 border-yellow-200 mb-6 flex flex-wrap gap-1 text-2xl justify-center leading-loose">
+                    ${allItems.join('')}
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-${cfg.cats} gap-4 mb-6">
+                    ${inputsHTML}
+                </div>
+                <div class="flex flex-col items-center gap-3">
+                    <button onclick="checkAgrupMode2()" class="bg-blue-500 hover:bg-blue-600 text-white font-black py-4 px-10 rounded-2xl shadow-lg border-b-8 border-blue-700 text-2xl active:border-b-0 active:translate-y-2">VERIFICAR</button>
+                    <button onclick="startAgrupMode2('${diff}')" class="text-gray-500 font-bold py-2">🔄 Otro ejercicio</button>
+                </div>
+            `;
+        }
+
+        function checkAgrupMode2() {
+            const data = window.agrupMode2Data;
+            let allCorrect = true;
+            data.forEach((cat, i) => {
+                const uTens = parseInt(document.getElementById('cat-tens-' + i).value) || 0;
+                const uUnits = parseInt(document.getElementById('cat-units-' + i).value) || 0;
+                if (uTens !== cat.tens || uUnits !== cat.units) allCorrect = false;
+            });
+            if (allCorrect) {
+                playAudio(true);
+                document.getElementById('minigame-success').classList.remove('hidden');
+                celebrate();
+            } else {
+                playAudio(false);
+                if ('vibrate' in navigator) navigator.vibrate(200);
+                data.forEach((_, i) => {
+                    document.getElementById('cat-tens-' + i).classList.add('animate-shake', 'border-red-500');
+                    document.getElementById('cat-units-' + i).classList.add('animate-shake', 'border-red-500');
+                });
+                setTimeout(() => data.forEach((_, i) => {
+                    document.getElementById('cat-tens-' + i).classList.remove('animate-shake', 'border-red-500');
+                    document.getElementById('cat-units-' + i).classList.remove('animate-shake', 'border-red-500');
+                }), 600);
+            }
+        }
+
+        // MODE 3: Drag & Drop Builder
+        function startAgrupMode3(level) {
+            const levels = {
+                1: { label: 'Nivel 1', desc: '1 categoría, pocos objetos', cats: 1, minT: 1, maxT: 2, minU: 1, maxU: 5, distractors: 0 },
+                2: { label: 'Nivel 2', desc: '1 categoría, más objetos', cats: 1, minT: 2, maxT: 4, minU: 0, maxU: 9, distractors: 0 },
+                3: { label: 'Nivel 3', desc: '2 contenedores, 2 categorías', cats: 2, minT: 1, maxT: 3, minU: 1, maxU: 5, distractors: 1 },
+                4: { label: 'Nivel 4', desc: 'Cantidades altas + distractores', cats: 2, minT: 2, maxT: 5, minU: 0, maxU: 9, distractors: 2 },
+                5: { label: 'Nivel 5', desc: '¡Mezcla total!', cats: 3, minT: 1, maxT: 3, minU: 0, maxU: 9, distractors: 3 }
+            };
+            const lvl = levels[level];
+            if (!lvl) return;
+
+            const allEmojis = [...AGRUP_ITEMS].sort(() => Math.random() - 0.5);
+            const targets = [];
+            for (let c = 0; c < lvl.cats; c++) {
+                const emoji = allEmojis[c];
+                const t = Math.floor(Math.random() * (lvl.maxT - lvl.minT + 1)) + lvl.minT;
+                const u = Math.floor(Math.random() * (lvl.maxU - lvl.minU + 1)) + lvl.minU;
+                targets.push({ emoji, tens: t, units: u, total: t * 10 + u });
+            }
+
+            // Build supply pool
+            let supply = [];
+            targets.forEach(tgt => { for (let i = 0; i < tgt.total + 3; i++) supply.push(tgt.emoji); });
+            // Add distractors
+            for (let d = 0; d < lvl.distractors; d++) {
+                const distEmoji = allEmojis[lvl.cats + d] || '⭐';
+                const distCount = Math.floor(Math.random() * 8) + 3;
+                for (let i = 0; i < distCount; i++) supply.push(distEmoji);
+            }
+            supply = supply.sort(() => Math.random() - 0.5);
+
+            window.agrupM3 = { level, targets, supply };
+
+            // Level dots
+            const dots = [1, 2, 3, 4, 5].map(n => `
+                <div class="w-8 h-8 rounded-full flex items-center justify-center font-black text-xs border-3 
+                    ${n < level ? 'bg-green-400 border-green-600 text-white' : n === level ? 'bg-purple-500 border-purple-700 text-white scale-110' : 'bg-gray-200 border-gray-300 text-gray-400'}">${n}</div>
+            `).join('');
+
+            const containersHTML = targets.map((tgt, i) => `
+                <div class="bg-white p-4 rounded-2xl border-4 border-dashed border-purple-400 min-h-[120px] text-center shadow-inner" id="drop-container-${i}"
+                     ondragover="event.preventDefault(); this.classList.add('bg-purple-100')" 
+                     ondragleave="this.classList.remove('bg-purple-100')"
+                     ondrop="dropInContainer(event, ${i}); this.classList.remove('bg-purple-100')">
+                    <p class="font-black text-purple-700 text-lg mb-2">${tgt.emoji} ${tgt.tens} decena${tgt.tens > 1 ? 's' : ''} y ${tgt.units} unidad${tgt.units !== 1 ? 'es' : ''}</p>
+                    <p class="text-sm text-gray-400 font-bold">= ${tgt.total} objetos</p>
+                    <div id="container-items-${i}" class="flex flex-wrap gap-1 justify-center mt-2 text-2xl min-h-[40px]"></div>
+                    <p id="container-count-${i}" class="text-xs font-black text-gray-400 mt-1">0 / ${tgt.total}</p>
+                </div>
+            `).join('');
+
+            const supplyHTML = supply.map((emoji, i) => `
+                <span class="supply-item text-3xl cursor-grab active:cursor-grabbing select-none inline-block p-1 hover:scale-125 transition" 
+                      draggable="true" data-emoji="${emoji}" id="supply-${i}"
+                      ondragstart="event.dataTransfer.setData('text/plain', '${emoji}|supply-${i}')">${emoji}</span>
+            `).join('');
+
+            const content = document.getElementById('minigame-content');
+            content.innerHTML = `
+                <div class="flex justify-center gap-2 mb-4">${dots}</div>
+                <p class="text-center font-black text-purple-600 text-lg mb-2">${lvl.label}: ${lvl.desc}</p>
+                <p class="text-center text-gray-500 font-bold mb-4">Arrastra los objetos correctos a cada contenedor.</p>
+                <div class="grid grid-cols-1 ${lvl.cats >= 2 ? 'md:grid-cols-2' : ''} gap-4 mb-6">
+                    ${containersHTML}
+                </div>
+                <div class="bg-gray-50 p-4 rounded-2xl border-4 border-gray-300 mb-4">
+                    <p class="text-center font-black text-gray-600 mb-2">🏪 Tienda de objetos</p>
+                    <div id="supply-pool" class="flex flex-wrap gap-1 justify-center">${supplyHTML}</div>
+                </div>
+                <div class="flex flex-col items-center gap-3">
+                    <button onclick="checkAgrupMode3()" class="bg-purple-500 hover:bg-purple-600 text-white font-black py-4 px-10 rounded-2xl shadow-lg border-b-8 border-purple-700 text-2xl active:border-b-0 active:translate-y-2">VERIFICAR</button>
+                    <button onclick="startAgrupMode3(${level})" class="text-gray-500 font-bold py-2">🔄 Reiniciar nivel</button>
+                </div>
+            `;
+
+            // Touch drag support
+            initTouchDragForMode3();
+        }
+
+        function dropInContainer(event, containerIndex) {
+            event.preventDefault();
+            const data = event.dataTransfer.getData('text/plain');
+            const [emoji, sourceId] = data.split('|');
+            const tgt = window.agrupM3.targets[containerIndex];
+
+            const containerItems = document.getElementById('container-items-' + containerIndex);
+            const currentCount = containerItems.children.length;
+            if (currentCount >= tgt.total + 5) return; // prevent overflow
+
+            const span = document.createElement('span');
+            span.textContent = emoji;
+            span.className = 'text-2xl cursor-pointer hover:scale-125 transition';
+            span.dataset.emoji = emoji;
+            span.onclick = function () { returnToSupply(this, containerIndex); };
+            containerItems.appendChild(span);
+
+            // Remove from supply
+            const src = document.getElementById(sourceId);
+            if (src) src.remove();
+
+            // Update count
+            document.getElementById('container-count-' + containerIndex).textContent =
+                containerItems.children.length + ' / ' + tgt.total;
+        }
+
+        function returnToSupply(elem, containerIndex) {
+            const emoji = elem.dataset.emoji;
+            elem.remove();
+            // Add back to supply
+            const pool = document.getElementById('supply-pool');
+            const span = document.createElement('span');
+            span.className = 'supply-item text-3xl cursor-grab active:cursor-grabbing select-none inline-block p-1 hover:scale-125 transition';
+            span.draggable = true;
+            span.dataset.emoji = emoji;
+            span.id = 'supply-ret-' + Date.now();
+            span.textContent = emoji;
+            span.ondragstart = function (e) { e.dataTransfer.setData('text/plain', emoji + '|' + span.id); };
+            pool.appendChild(span);
+            // Update count
+            const tgt = window.agrupM3.targets[containerIndex];
+            const containerItems = document.getElementById('container-items-' + containerIndex);
+            document.getElementById('container-count-' + containerIndex).textContent =
+                containerItems.children.length + ' / ' + tgt.total;
+        }
+
+        function checkAgrupMode3() {
+            const { targets, level } = window.agrupM3;
+            let allCorrect = true;
+            targets.forEach((tgt, i) => {
+                const items = document.getElementById('container-items-' + i);
+                const children = [...items.children];
+                const correctCount = children.filter(c => c.dataset.emoji === tgt.emoji).length;
+                const wrongCount = children.length - correctCount;
+                if (correctCount !== tgt.total || wrongCount > 0) allCorrect = false;
+            });
+
+            if (allCorrect) {
+                celebrate();
+                const isLast = level >= 5;
+                const next = level + 1;
+                const content = document.getElementById('minigame-content');
+                const msgs = ['🌱 ¡Bien hecho!', '💪 ¡Vas mejorando!', '🚀 ¡Increíble!', '🔥 ¡Casi maestro!', '🏆 ¡MAESTRO CONSTRUCTOR!'];
+                content.innerHTML = `
+                    <div class="text-center bg-white p-6 md:p-8 rounded-3xl shadow-xl border-4 border-purple-400">
+                        <p class="text-6xl mb-4">${isLast ? '🏆' : '⭐'}</p>
+                        <h2 class="text-2xl md:text-3xl font-black text-purple-600 mb-2">${msgs[level - 1]}</h2>
+                        <p class="text-gray-500 font-bold mb-8">¡Completaste el Nivel ${level}!</p>
+                        ${!isLast ? `
+                            <button onclick="startAgrupMode3(${next})" class="bg-purple-500 hover:bg-purple-600 text-white font-black py-4 px-10 rounded-2xl shadow-lg border-b-8 border-purple-700 text-2xl active:border-b-0 active:translate-y-2 mb-4 w-full">
+                                🚀 Siguiente Nivel (${next}/5)
+                            </button>
+                        ` : `
+                            <p class="text-xl text-yellow-600 font-black mb-6 animate-bounce">¡Completaste TODOS los niveles! 🎉</p>
+                        `}
+                        <div class="flex flex-col gap-3">
+                            <button onclick="startAgrupMode3(${level})" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-xl border-b-4 border-gray-400">
+                                🔄 Repetir Nivel ${level}
+                            </button>
+                            <button onclick="startMinigame('agrupaciones')" class="text-gray-500 font-bold py-2">
+                                Volver al menú
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                playAudio(false);
+                if ('vibrate' in navigator) navigator.vibrate(200);
+                targets.forEach((_, i) => {
+                    document.getElementById('drop-container-' + i).classList.add('animate-shake', '!border-red-400');
+                    setTimeout(() => document.getElementById('drop-container-' + i).classList.remove('animate-shake', '!border-red-400'), 700);
+                });
+            }
+        }
+
+        function initTouchDragForMode3() {
+            let draggedEl = null;
+            let ghostEl = null;
+
+            document.addEventListener('touchstart', function (e) {
+                const t = e.target.closest('.supply-item');
+                if (!t) return;
+                draggedEl = t;
+                ghostEl = t.cloneNode(true);
+                ghostEl.style.position = 'fixed';
+                ghostEl.style.pointerEvents = 'none';
+                ghostEl.style.zIndex = '9999';
+                ghostEl.style.opacity = '0.8';
+                ghostEl.style.fontSize = '3rem';
+                document.body.appendChild(ghostEl);
+            }, { passive: true });
+
+            document.addEventListener('touchmove', function (e) {
+                if (!ghostEl) return;
+                const touch = e.touches[0];
+                ghostEl.style.left = (touch.clientX - 20) + 'px';
+                ghostEl.style.top = (touch.clientY - 20) + 'px';
+            }, { passive: true });
+
+            document.addEventListener('touchend', function (e) {
+                if (!draggedEl || !ghostEl) return;
+                ghostEl.remove();
+                const touch = e.changedTouches[0];
+                const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
+                const container = dropTarget ? dropTarget.closest('[id^="drop-container-"]') : null;
+                if (container) {
+                    const idx = parseInt(container.id.replace('drop-container-', ''));
+                    const emoji = draggedEl.dataset.emoji;
+                    const tgt = window.agrupM3.targets[idx];
+                    const containerItems = document.getElementById('container-items-' + idx);
+
+                    const span = document.createElement('span');
+                    span.textContent = emoji;
+                    span.className = 'text-2xl cursor-pointer hover:scale-125 transition';
+                    span.dataset.emoji = emoji;
+                    span.onclick = function () { returnToSupply(this, idx); };
+                    containerItems.appendChild(span);
+                    draggedEl.remove();
+                    document.getElementById('container-count-' + idx).textContent =
+                        containerItems.children.length + ' / ' + tgt.total;
+                }
+                draggedEl = null;
+                ghostEl = null;
+            }, { passive: true });
         }
 
         function checkSaltos(correctTarget) {
