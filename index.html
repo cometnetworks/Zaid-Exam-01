@@ -300,6 +300,9 @@
             <button onclick="goHome()"
                 class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-xl">⬅️ Volver</button>
             <h2 class="text-2xl font-black uppercase text-purple-600">🧩 Minijuegos</h2>
+            <span id="total-mini-stars"
+                class="bg-yellow-300 text-yellow-800 font-black px-3 py-1 rounded-full text-sm border-2 border-yellow-500">⭐
+                0</span>
         </div>
 
         <div class="grid grid-cols-1 gap-4">
@@ -2131,6 +2134,52 @@
         }
 
         // ==========================================
+        // ==========================================
+        // MINIGAME STARS SCORING SYSTEM
+        // ==========================================
+        function getMiniStars() {
+            try { return JSON.parse(localStorage.getItem('zaid_mini_stars') || '{}'); } catch { return {}; }
+        }
+        function addMiniStar(gameKey, points) {
+            points = points || 1;
+            const stars = getMiniStars();
+            stars[gameKey] = (stars[gameKey] || 0) + points;
+            localStorage.setItem('zaid_mini_stars', JSON.stringify(stars));
+            updateMiniStarsUI();
+            return stars[gameKey];
+        }
+        function getTotalStars() {
+            const stars = getMiniStars();
+            return Object.values(stars).reduce((a, b) => a + b, 0);
+        }
+        function updateMiniStarsUI() {
+            const stars = getMiniStars();
+            const gameKeys = {
+                'nota': 0, 'carta': 1, 'cuento': 2, 'onomatopeyas': 3,
+                'agrupaciones': 4, 'recta_numerica': 5, 'carrera': 6, 'numeros': 7
+            };
+            const menu = document.getElementById('minigames-menu');
+            if (!menu) return;
+            const buttons = menu.querySelectorAll('.grid button');
+            Object.entries(gameKeys).forEach(([key, idx]) => {
+                const btn = buttons[idx];
+                if (!btn) return;
+                let badge = btn.querySelector('.star-badge');
+                const count = stars[key] || 0;
+                if (count > 0) {
+                    if (!badge) {
+                        badge = document.createElement('span');
+                        badge.className = 'star-badge ml-auto bg-yellow-300 text-yellow-800 font-black px-3 py-1 rounded-full text-sm border-2 border-yellow-500 whitespace-nowrap';
+                        btn.appendChild(badge);
+                    }
+                    badge.textContent = '⭐ ' + count;
+                }
+            });
+            // Update total counter in header
+            const totalEl = document.getElementById('total-mini-stars');
+            if (totalEl) totalEl.textContent = '⭐ ' + getTotalStars();
+        }
+
         // 3. LÓGICA DE MINIJUEGOS 
         // ==========================================
         function showMinigamesMenu() {
@@ -2138,6 +2187,7 @@
             document.getElementById('home-screen').classList.add('hidden');
             document.getElementById('minigames-menu').classList.remove('hidden');
             document.getElementById('minigames-menu').classList.add('flex');
+            updateMiniStarsUI();
         }
 
         let currentGameType = ''; let correctMatches = 0; let totalMatches = 0;
@@ -2583,6 +2633,7 @@
 
         function finishNumerosStage(stage) {
             celebrate();
+            addMiniStar('numeros', 2);
             const isLast = stage >= 4;
             const nextStage = stage + 1;
 
@@ -2630,6 +2681,7 @@
                 playAudio(true);
                 document.getElementById('minigame-success').classList.remove('hidden');
                 celebrate();
+                addMiniStar('agrupaciones');
             } else {
                 playAudio(false);
                 if ('vibrate' in navigator) navigator.vibrate(200);
@@ -2761,6 +2813,7 @@
                 playAudio(true);
                 document.getElementById('minigame-success').classList.remove('hidden');
                 celebrate();
+                addMiniStar('agrupaciones');
             } else {
                 playAudio(false);
                 if ('vibrate' in navigator) navigator.vibrate(200);
@@ -2924,6 +2977,7 @@
 
             if (allCorrect) {
                 celebrate();
+                addMiniStar('agrupaciones', 2);
                 const isLast = level >= 5;
                 const next = level + 1;
                 const content = document.getElementById('minigame-content');
@@ -3015,6 +3069,7 @@
                 playAudio(true);
                 document.getElementById('minigame-success').classList.remove('hidden');
                 celebrate();
+                addMiniStar('recta_numerica');
             } else {
                 playAudio(false);
                 if ('vibrate' in navigator) navigator.vibrate(200);
@@ -3223,6 +3278,7 @@
                     </button>
                 </div>
             `;
+            addMiniStar('carrera', state.score);
             if (state.score >= 5) celebrate();
         }
 
@@ -3290,6 +3346,7 @@
                     if (correctMatches === totalMatches) {
                         setTimeout(() => document.getElementById('minigame-success').classList.remove('hidden'), 400);
                         playAudio(true);
+                        addMiniStar(currentGameType);
                     }
                 } else {
                     playAudio(false);
@@ -3380,6 +3437,7 @@
                         playAudio(true); correctMatches++;
                         if (correctMatches === totalMatches) {
                             setTimeout(() => document.getElementById('minigame-success').classList.remove('hidden'), 500);
+                            addMiniStar('onomatopeyas');
                         }
                     } else {
                         playAudio(false);
@@ -3649,6 +3707,7 @@
 
                 if (memoMatches === totalMatches) {
                     setTimeout(() => document.getElementById('minigame-success').classList.remove('hidden'), 600);
+                    addMiniStar(currentGameType);
                 }
             } else {
                 // No match
