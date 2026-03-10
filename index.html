@@ -1897,7 +1897,7 @@
         // ==========================================
         // 2. LÓGICA DEL QUIZ Y PROGRESO
         // ==========================================
-        let currentQuestions = []; let currentIndex = 0; let score = 0; let isAnswered = false;
+        let currentQuestions = []; let currentIndex = 0; let score = 0; let isAnswered = false; let currentShuffledAns = 0;
         let currentSubject = '';
 
         // --- FUNCIONES DE STORAGE Y DASHBOARD --- 
@@ -1931,10 +1931,26 @@
         }
 
         function clearAllProgress() {
-            if (confirm('¿Estás seguro de que quieres borrar todo tu progreso y empezar de cero?')) {
-                localStorage.clear();
-                showDashboard(); // Refrescar vista
-            }
+            // Show friendly in-app confirmation
+            const overlay = document.createElement('div');
+            overlay.className = 'fixed inset-0 bg-gray-900 bg-opacity-80 z-50 flex items-center justify-center p-4';
+            overlay.id = 'clear-confirm-overlay';
+            overlay.innerHTML = `
+                <div class="bg-white rounded-3xl p-6 w-full max-w-sm shadow-2xl text-center border-4 border-red-400">
+                    <p class="text-5xl mb-3">⚠️</p>
+                    <h2 class="text-2xl font-black text-red-600 mb-2">¡Cuidado!</h2>
+                    <p class="text-gray-700 font-bold mb-6">Esto borrará <span class="text-red-500">todo</span> tu progreso, estrellas y exámenes.<br>¿Estás seguro?</p>
+                    <button onclick="localStorage.clear(); document.getElementById('clear-confirm-overlay').remove(); showDashboard();"
+                        class="w-full bg-red-500 hover:bg-red-600 text-white p-4 rounded-xl font-bold mb-3 shadow-lg border-b-4 border-red-700 transform transition active:translate-y-1 active:border-b-0">
+                        🗑️ Sí, borrar todo
+                    </button>
+                    <button onclick="document.getElementById('clear-confirm-overlay').remove();"
+                        class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 p-3 rounded-xl font-bold border-b-4 border-gray-400">
+                        ↩️ No, mejor no
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(overlay);
         }
 
         function showDashboard() {
@@ -2042,10 +2058,12 @@
         }
 
         function restartQuiz() {
-            if (confirm('¿Estás seguro de que quieres volver a empezar este examen? Se borrará el progreso actual.')) {
-                clearProgress(currentSubject);
-                initQuiz(currentSubject, false);
-            }
+            // Called from resume overlay — user already chose "Empezar de cero", no need for second confirmation
+            const subject = currentSubject || tempSubjectToResume;
+            document.getElementById('resume-overlay').classList.add('hidden');
+            document.getElementById('resume-overlay').classList.remove('flex');
+            clearProgress(subject);
+            initQuiz(subject, false);
         }
 
         function initQuiz(subject, loadSaved) {
@@ -2082,11 +2100,19 @@
             document.getElementById('progress-bar').style.width = `${((currentIndex) / currentQuestions.length) * 100}%`;
 
             const opts = document.getElementById('options-container'); opts.innerHTML = '';
-            qData.options.forEach((opt, index) => {
+            // Shuffle options so correct answer isn't always in the same position
+            const shuffled = qData.options.map((opt, i) => ({ text: opt, origIdx: i }));
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            const newCorrectIdx = shuffled.findIndex(s => s.origIdx === qData.ans);
+            currentShuffledAns = newCorrectIdx;
+            shuffled.forEach((item, index) => {
                 const btn = document.createElement('button');
                 btn.className = `btn-option w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-6 px-4 md:px-6 rounded-2xl border-4 border-gray-200 text-lg md:text-2xl text-left flex items-center gap-4`;
-                btn.innerHTML = `<span class="bg-white text-blue-500 rounded-full w-10 h-10 flex items-center justify-center font-black shrink-0 border-2 border-blue-200">${String.fromCharCode(65 + index)}</span> <span>${opt}</span>`;
-                btn.onclick = () => selectOption(index, qData.ans, btn);
+                btn.innerHTML = `<span class="bg-white text-blue-500 rounded-full w-10 h-10 flex items-center justify-center font-black shrink-0 border-2 border-blue-200">${String.fromCharCode(65 + index)}</span> <span>${item.text}</span>`;
+                btn.onclick = () => selectOption(index, newCorrectIdx, btn);
                 opts.appendChild(btn);
             });
         }
@@ -2109,10 +2135,9 @@
 
         function revealAnswer() {
             if (isAnswered) return;
-            const correctIndex = currentQuestions[currentIndex].ans;
             const allBtns = document.getElementById('options-container').querySelectorAll('button');
             allBtns.forEach(b => b.classList.remove('hint-reveal'));
-            allBtns[correctIndex].classList.add('hint-reveal');
+            allBtns[currentShuffledAns].classList.add('hint-reveal');
         }
 
         function nextQuestion() {
