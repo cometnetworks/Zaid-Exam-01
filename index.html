@@ -2464,6 +2464,13 @@
                             ${numbers}
                         </div>
                         <div class="absolute bottom-10 w-full h-1 bg-blue-400 pointer-events-none z-0"></div>
+                        <!-- Drawing tools -->
+                        <div class="absolute top-2 right-2 z-20 flex gap-2">
+                            <button id="saltos-draw-btn" onclick="setSaltosTool('draw')" class="bg-pink-500 text-white font-bold px-3 py-1 rounded-full text-sm shadow-md border-2 border-pink-700">✏️ Lápiz</button>
+                            <button id="saltos-eraser-btn" onclick="setSaltosTool('erase')" class="bg-gray-200 text-gray-700 font-bold px-3 py-1 rounded-full text-sm shadow-md border-2 border-gray-400">🧹 Borrador</button>
+                            <button onclick="clearSaltosCanvas()" class="bg-red-100 text-red-600 font-bold px-3 py-1 rounded-full text-sm shadow-md border-2 border-red-300 hover:bg-red-200">🗑️</button>
+                            <button onclick="undoSaltosStroke()" class="bg-yellow-100 text-yellow-700 font-bold px-3 py-1 rounded-full text-sm shadow-md border-2 border-yellow-300 hover:bg-yellow-200">↩️</button>
+                        </div>
                     </div>
                     
                     <div class="flex flex-col md:flex-row justify-center items-center gap-4 bg-gray-100 p-4 rounded-xl border-2 border-gray-200">
@@ -3111,6 +3118,41 @@
             }
         }
 
+        // Saltos tool state
+        window.saltosToolMode = 'draw';
+        window.saltosHistory = [];
+
+        function setSaltosTool(mode) {
+            window.saltosToolMode = mode;
+            const drawBtn = document.getElementById('saltos-draw-btn');
+            const eraserBtn = document.getElementById('saltos-eraser-btn');
+            if (mode === 'draw') {
+                drawBtn.className = 'bg-pink-500 text-white font-bold px-3 py-1 rounded-full text-sm shadow-md border-2 border-pink-700';
+                eraserBtn.className = 'bg-gray-200 text-gray-700 font-bold px-3 py-1 rounded-full text-sm shadow-md border-2 border-gray-400';
+            } else {
+                drawBtn.className = 'bg-gray-200 text-gray-700 font-bold px-3 py-1 rounded-full text-sm shadow-md border-2 border-gray-400';
+                eraserBtn.className = 'bg-yellow-500 text-white font-bold px-3 py-1 rounded-full text-sm shadow-md border-2 border-yellow-700';
+            }
+        }
+
+        function clearSaltosCanvas() {
+            const canvas = document.getElementById('saltos-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            window.saltosHistory = [];
+        }
+
+        function undoSaltosStroke() {
+            const canvas = document.getElementById('saltos-canvas');
+            if (!canvas || !window.saltosHistory.length) return;
+            const ctx = canvas.getContext('2d');
+            window.saltosHistory.pop();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Replay all remaining history
+            window.saltosHistory.forEach(imgData => ctx.putImageData(imgData, 0, 0));
+        }
+
         function initSaltosCanvas() {
             const canvas = document.getElementById('saltos-canvas');
             if (!canvas) return;
@@ -3121,11 +3163,7 @@
             canvas.width = rect.width * dpr;
             canvas.height = rect.height * dpr;
             ctx.scale(dpr, dpr);
-
-            ctx.strokeStyle = '#ec4899'; // pink-500
-            ctx.lineWidth = 4;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
+            window.saltosHistory = [];
 
             let isDrawing = false;
             let lastX = 0; let lastY = 0;
@@ -3141,6 +3179,19 @@
                 isDrawing = true;
                 const pos = getPos(e);
                 lastX = pos.x; lastY = pos.y;
+                // Save state before this stroke for undo
+                window.saltosHistory.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+                // Set draw or erase mode
+                if (window.saltosToolMode === 'erase') {
+                    ctx.globalCompositeOperation = 'destination-out';
+                    ctx.lineWidth = 20;
+                } else {
+                    ctx.globalCompositeOperation = 'source-over';
+                    ctx.strokeStyle = '#ec4899';
+                    ctx.lineWidth = 4;
+                }
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
                 if (e.type !== 'mousedown') e.preventDefault();
             }
 
@@ -3155,7 +3206,12 @@
                 if (e.type !== 'mousemove') e.preventDefault();
             }
 
-            function end() { isDrawing = false; }
+            function end() {
+                if (isDrawing) {
+                    ctx.globalCompositeOperation = 'source-over';
+                }
+                isDrawing = false;
+            }
 
             canvas.addEventListener('mousedown', start, { passive: true });
             canvas.addEventListener('mousemove', move, { passive: true });
