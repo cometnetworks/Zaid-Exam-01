@@ -146,6 +146,298 @@
         .is-flipped {
             transform: rotateY(180deg);
         }
+
+        /* =============================================
+           PROFE MATILDA - VOICE AGENT STYLES
+           ============================================= */
+
+        /* Floating action button */
+        #matilda-fab {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 1000;
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            box-shadow: 0 6px 24px rgba(139, 92, 246, 0.5),
+                        0 0 0 0 rgba(139, 92, 246, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: matilda-pulse 2.5s infinite;
+        }
+        #matilda-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+        }
+        #matilda-fab.active {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            box-shadow: 0 6px 24px rgba(239, 68, 68, 0.5);
+            animation: matilda-pulse-active 1.5s infinite;
+        }
+        @keyframes matilda-pulse {
+            0%, 100% { box-shadow: 0 6px 24px rgba(139, 92, 246, 0.5), 0 0 0 0 rgba(139, 92, 246, 0.4); }
+            50% { box-shadow: 0 6px 24px rgba(139, 92, 246, 0.5), 0 0 0 14px rgba(139, 92, 246, 0); }
+        }
+        @keyframes matilda-pulse-active {
+            0%, 100% { box-shadow: 0 6px 24px rgba(239, 68, 68, 0.5), 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            50% { box-shadow: 0 6px 24px rgba(239, 68, 68, 0.5), 0 0 0 14px rgba(239, 68, 68, 0); }
+        }
+        #matilda-fab .fab-icon {
+            transition: transform 0.3s;
+        }
+        #matilda-fab.active .fab-icon {
+            animation: none;
+        }
+
+        /* Voice panel */
+        #matilda-panel {
+            position: fixed;
+            bottom: 104px;
+            right: 24px;
+            z-index: 999;
+            width: 340px;
+            max-height: 480px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            border: 2px solid rgba(139, 92, 246, 0.25);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15),
+                        0 0 40px rgba(139, 92, 246, 0.08);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.8) translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        opacity 0.25s ease;
+        }
+        #matilda-panel.open {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        @media (max-width: 420px) {
+            #matilda-panel {
+                right: 8px;
+                left: 8px;
+                bottom: 100px;
+                width: auto;
+                max-height: 60vh;
+            }
+        }
+
+        /* Panel header */
+        .matilda-header {
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .matilda-header .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .matilda-header .info h3 {
+            font-weight: 900;
+            font-size: 16px;
+            margin: 0;
+            line-height: 1.2;
+        }
+        .matilda-header .info p {
+            font-weight: 600;
+            font-size: 12px;
+            margin: 0;
+            opacity: 0.85;
+        }
+        .matilda-status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+        .matilda-status-dot.offline { background: #94a3b8; }
+        .matilda-status-dot.connecting { background: #fbbf24; animation: status-blink 1s infinite; }
+        .matilda-status-dot.online { background: #4ade80; box-shadow: 0 0 8px rgba(74, 222, 128, 0.6); }
+        @keyframes status-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Transcript area */
+        .matilda-transcript {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            min-height: 160px;
+            max-height: 280px;
+        }
+        .matilda-transcript::-webkit-scrollbar {
+            width: 4px;
+        }
+        .matilda-transcript::-webkit-scrollbar-thumb {
+            background: #c4b5fd;
+            border-radius: 4px;
+        }
+        .matilda-msg {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 8px;
+            animation: msg-enter 0.3s ease-out;
+        }
+        @keyframes msg-enter {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .matilda-msg .bubble {
+            padding: 10px 14px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            max-width: 80%;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+        .matilda-msg.agent {
+            justify-content: flex-start;
+        }
+        .matilda-msg.agent .bubble {
+            background: #f3e8ff;
+            color: #581c87;
+            border-bottom-left-radius: 4px;
+        }
+        .matilda-msg.user {
+            justify-content: flex-end;
+        }
+        .matilda-msg.user .bubble {
+            background: #6366f1;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .matilda-msg .role-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        /* Empty state */
+        .matilda-empty {
+            text-align: center;
+            color: #a78bfa;
+            font-weight: 700;
+            padding: 30px 20px;
+            font-size: 14px;
+        }
+
+        /* Controls bar */
+        .matilda-controls {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-top: 1px solid rgba(139, 92, 246, 0.1);
+            background: rgba(248, 245, 255, 0.8);
+        }
+        .matilda-controls button {
+            border: none;
+            cursor: pointer;
+            border-radius: 14px;
+            font-weight: 800;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            padding: 10px 16px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .matilda-controls button:active {
+            transform: scale(0.95);
+        }
+        .btn-connect {
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            color: white;
+            flex: 1;
+        }
+        .btn-connect:hover {
+            box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
+        }
+        .btn-connect.connecting {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            pointer-events: none;
+        }
+        .btn-disconnect {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            flex: 1;
+        }
+        .btn-disconnect:hover {
+            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+        }
+        .btn-mic {
+            background: #e9d5ff;
+            color: #7c3aed;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            font-size: 20px;
+        }
+        .btn-mic.muted {
+            background: #fecaca;
+            color: #dc2626;
+        }
+        .btn-clear {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 10px 12px;
+            font-size: 13px;
+        }
+
+        /* Sound wave animation */
+        .matilda-wave {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            height: 24px;
+        }
+        .matilda-wave .bar {
+            width: 4px;
+            height: 8px;
+            background: #a855f7;
+            border-radius: 3px;
+            animation: wave-bar 1.2s ease-in-out infinite;
+        }
+        .matilda-wave .bar:nth-child(1) { animation-delay: 0s; }
+        .matilda-wave .bar:nth-child(2) { animation-delay: 0.15s; }
+        .matilda-wave .bar:nth-child(3) { animation-delay: 0.3s; }
+        .matilda-wave .bar:nth-child(4) { animation-delay: 0.45s; }
+        .matilda-wave .bar:nth-child(5) { animation-delay: 0.6s; }
+        @keyframes wave-bar {
+            0%, 100% { height: 6px; }
+            50% { height: 22px; }
+        }
     </style>
 </head>
 
@@ -3809,6 +4101,334 @@
             }
         }
     </script>
+
+    <!-- =============================================
+         PROFE MATILDA — VOICE AGENT UI
+         ============================================= -->
+
+    <!-- Floating Action Button -->
+    <button id="matilda-fab" onclick="toggleMatildaPanel()" title="Habla con Profe Matilda">
+        <span class="fab-icon">👩‍🏫</span>
+    </button>
+
+    <!-- Voice Panel -->
+    <div id="matilda-panel">
+        <!-- Header -->
+        <div class="matilda-header">
+            <div class="avatar">👩‍🏫</div>
+            <div class="info">
+                <h3>Profe Matilda</h3>
+                <p id="matilda-status-text">Lista para ayudarte</p>
+            </div>
+            <span id="matilda-status-dot" class="matilda-status-dot offline"></span>
+        </div>
+
+        <!-- Transcript -->
+        <div class="matilda-transcript" id="matilda-transcript">
+            <div class="matilda-empty" id="matilda-empty">
+                🎤 Presiona <strong>Conectar</strong> para<br>hablar con Profe Matilda
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="matilda-controls">
+            <button id="matilda-btn-connect" class="btn-connect" onclick="matildaConnect()">
+                🎙️ Conectar
+            </button>
+            <button id="matilda-btn-disconnect" class="btn-disconnect" onclick="matildaDisconnect()" style="display:none">
+                📴 Terminar
+            </button>
+            <button id="matilda-btn-mic" class="btn-mic" onclick="matildaToggleMic()" style="display:none" title="Silenciar/Activar micrófono">
+                🎤
+            </button>
+            <button id="matilda-btn-clear" class="btn-clear" onclick="matildaClearTranscript()" title="Limpiar chat">
+                🗑️
+            </button>
+        </div>
+    </div>
+
+    <!-- =============================================
+         PROFE MATILDA — VOICE AGENT LOGIC
+         ============================================= -->
+    <script src="https://cdn.jsdelivr.net/npm/livekit-client/dist/livekit-client.umd.min.js"></script>
+    <script>
+        // ── State ───────────────────────────────────
+        let matildaRoom = null;
+        let matildaPanelOpen = false;
+        let matildaConnected = false;
+        let matildaMicEnabled = true;
+        let matildaTranscriptData = [];
+
+        // ── DOM References ─────────────────────────
+        const $fab = document.getElementById('matilda-fab');
+        const $panel = document.getElementById('matilda-panel');
+        const $transcript = document.getElementById('matilda-transcript');
+        const $empty = document.getElementById('matilda-empty');
+        const $statusDot = document.getElementById('matilda-status-dot');
+        const $statusText = document.getElementById('matilda-status-text');
+        const $btnConnect = document.getElementById('matilda-btn-connect');
+        const $btnDisconnect = document.getElementById('matilda-btn-disconnect');
+        const $btnMic = document.getElementById('matilda-btn-mic');
+
+        // ── Panel Toggle ───────────────────────────
+        function toggleMatildaPanel() {
+            matildaPanelOpen = !matildaPanelOpen;
+            $panel.classList.toggle('open', matildaPanelOpen);
+        }
+
+        // ── Set Status ─────────────────────────────
+        function setMatildaStatus(status, text) {
+            $statusDot.className = 'matilda-status-dot ' + status;
+            $statusText.textContent = text;
+            if (status === 'online') {
+                $fab.classList.add('active');
+            } else {
+                $fab.classList.remove('active');
+            }
+        }
+
+        // ── Render Transcript ──────────────────────
+        function renderTranscript() {
+            if (matildaTranscriptData.length === 0) {
+                $empty.style.display = 'block';
+                const msgs = $transcript.querySelectorAll('.matilda-msg');
+                msgs.forEach(m => m.remove());
+                return;
+            }
+            $empty.style.display = 'none';
+
+            const msgs = $transcript.querySelectorAll('.matilda-msg');
+            msgs.forEach(m => m.remove());
+
+            matildaTranscriptData.forEach(entry => {
+                const div = document.createElement('div');
+                div.className = 'matilda-msg ' + (entry.role === 'user' ? 'user' : 'agent');
+
+                const icon = entry.role === 'user' ? '🧒' : '👩‍🏫';
+                div.innerHTML = `
+                    ${entry.role !== 'user' ? '<span class="role-icon">' + icon + '</span>' : ''}
+                    <div class="bubble">${escapeHTML(entry.text)}</div>
+                    ${entry.role === 'user' ? '<span class="role-icon">' + icon + '</span>' : ''}
+                `;
+                $transcript.appendChild(div);
+            });
+
+            $transcript.scrollTop = $transcript.scrollHeight;
+        }
+
+        function escapeHTML(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // ── Connect via LiveKit ────────────────────
+        async function matildaConnect() {
+            if (matildaConnected) return;
+
+            $btnConnect.classList.add('connecting');
+            $btnConnect.innerHTML = '⏳ Conectando...';
+            setMatildaStatus('connecting', 'Conectando...');
+
+            try {
+                // 1. Get token from our backend
+                const tokenRes = await fetch('/api/voice-token', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ participant_name: 'Zaid' })
+                });
+
+                if (!tokenRes.ok) {
+                    const errData = await tokenRes.json().catch(() => ({}));
+                    throw new Error(errData.error || 'Error al obtener token (HTTP ' + tokenRes.status + ')');
+                }
+
+                const tokenData = await tokenRes.json();
+                const { livekit_url, token } = tokenData;
+
+                if (!livekit_url || !token) {
+                    throw new Error('Respuesta incompleta del servidor de tokens');
+                }
+
+                console.log('[Profe Matilda] Token received, connecting to:', livekit_url);
+
+                // 2. Create LiveKit room
+                matildaRoom = new LivekitClient.Room({
+                    adaptiveStream: true,
+                    dynacast: true,
+                });
+
+                // 3. Listen for agent audio tracks
+                matildaRoom.on(LivekitClient.RoomEvent.TrackSubscribed, (track, publication, participant) => {
+                    if (track.kind === LivekitClient.Track.Kind.Audio) {
+                        const audioEl = track.attach();
+                        audioEl.id = 'matilda-agent-audio';
+                        document.body.appendChild(audioEl);
+                        console.log('[Profe Matilda] 🔊 Agent audio connected');
+                    }
+                });
+
+                // 4. Handle track unsubscribe (cleanup)
+                matildaRoom.on(LivekitClient.RoomEvent.TrackUnsubscribed, (track) => {
+                    track.detach().forEach(el => el.remove());
+                });
+
+                // 5. Handle data channel messages (heartbeat, transcript, actions)
+                matildaRoom.on(LivekitClient.RoomEvent.DataReceived, (payload, participant, kind, topic) => {
+                    // Only process client_actions topic
+                    if (topic !== 'client_actions') return;
+
+                    try {
+                        const text = new TextDecoder().decode(payload);
+                        const data = JSON.parse(text);
+
+                        if (data.type !== 'client_action') return;
+
+                        // Built-in: Heartbeat
+                        if (data.action === 'heartbeat') {
+                            console.log('[Profe Matilda] ❤️ Heartbeat from:', data.payload?.agent_identity);
+                            // Send ack for latency measurement
+                            sendDataToRoom({
+                                type: 'client_action',
+                                action: 'heartbeat_ack',
+                                payload: { timestamp: data.payload?.timestamp }
+                            });
+                            return;
+                        }
+
+                        // Built-in: Live Transcript
+                        if (data.action === 'send_transcript') {
+                            const { role, text: msgText, timestamp } = data.payload;
+                            matildaTranscriptData.push({ role, text: msgText, timestamp });
+                            renderTranscript();
+                            console.log(`[Profe Matilda] [${role}] ${msgText}`);
+                            return;
+                        }
+
+                        // Other agent actions
+                        console.log('[Profe Matilda] Action:', data.action, data.payload);
+                    } catch (e) {
+                        console.warn('[Profe Matilda] Failed to parse data message:', e);
+                    }
+                });
+
+                // 6. Handle disconnection
+                matildaRoom.on(LivekitClient.RoomEvent.Disconnected, (reason) => {
+                    console.log('[Profe Matilda] Disconnected:', reason);
+                    matildaConnected = false;
+                    setMatildaStatus('offline', 'Desconectada');
+                    $btnConnect.style.display = 'flex';
+                    $btnConnect.classList.remove('connecting');
+                    $btnConnect.innerHTML = '🎙️ Conectar';
+                    $btnDisconnect.style.display = 'none';
+                    $btnMic.style.display = 'none';
+
+                    // Cleanup audio elements
+                    const audioEl = document.getElementById('matilda-agent-audio');
+                    if (audioEl) audioEl.remove();
+                });
+
+                // 7. Connect to room
+                await matildaRoom.connect(livekit_url, token);
+                console.log('[Profe Matilda] ✅ Connected to room:', matildaRoom.name);
+
+                // 8. Enable microphone
+                await matildaRoom.localParticipant.setMicrophoneEnabled(true);
+                console.log('[Profe Matilda] 🎤 Microphone enabled');
+
+                matildaConnected = true;
+                matildaMicEnabled = true;
+
+                // Update UI
+                setMatildaStatus('online', 'Hablando contigo 🌟');
+                $btnConnect.style.display = 'none';
+                $btnDisconnect.style.display = 'flex';
+                $btnMic.style.display = 'flex';
+                $btnMic.classList.remove('muted');
+                $btnMic.innerHTML = '🎤';
+
+            } catch (err) {
+                console.error('[Profe Matilda] Connection failed:', err);
+                setMatildaStatus('offline', 'Error al conectar');
+                $btnConnect.classList.remove('connecting');
+                $btnConnect.innerHTML = '🎙️ Reintentar';
+
+                matildaTranscriptData.push({
+                    role: 'agent',
+                    text: '⚠️ ' + (err.message || 'No pude conectar. Verifica tu conexión e intenta de nuevo.'),
+                    timestamp: Date.now()
+                });
+                renderTranscript();
+            }
+        }
+
+        // ── Send data to room ──────────────────────
+        async function sendDataToRoom(data) {
+            if (!matildaRoom?.localParticipant) return;
+            try {
+                const encoded = new TextEncoder().encode(JSON.stringify(data));
+                await matildaRoom.localParticipant.publishData(encoded, {
+                    reliable: true,
+                    topic: 'client_actions'
+                });
+            } catch (e) {
+                console.warn('[Profe Matilda] Failed to send data:', e);
+            }
+        }
+
+        // ── Disconnect ─────────────────────────────
+        async function matildaDisconnect() {
+            if (matildaRoom) {
+                try {
+                    await matildaRoom.disconnect();
+                } catch (e) {
+                    console.warn('[Profe Matilda] Disconnect error:', e);
+                }
+                matildaRoom = null;
+            }
+
+            matildaConnected = false;
+            setMatildaStatus('offline', 'Desconectada');
+
+            $btnConnect.style.display = 'flex';
+            $btnConnect.classList.remove('connecting');
+            $btnConnect.innerHTML = '🎙️ Conectar';
+            $btnDisconnect.style.display = 'none';
+            $btnMic.style.display = 'none';
+
+            // Cleanup audio
+            const audioEl = document.getElementById('matilda-agent-audio');
+            if (audioEl) audioEl.remove();
+        }
+
+        // ── Toggle Mic ─────────────────────────────
+        async function matildaToggleMic() {
+            if (!matildaRoom || !matildaConnected) return;
+            try {
+                matildaMicEnabled = !matildaMicEnabled;
+                await matildaRoom.localParticipant.setMicrophoneEnabled(matildaMicEnabled);
+
+                if (matildaMicEnabled) {
+                    $btnMic.classList.remove('muted');
+                    $btnMic.innerHTML = '🎤';
+                    $btnMic.title = 'Silenciar micrófono';
+                } else {
+                    $btnMic.classList.add('muted');
+                    $btnMic.innerHTML = '🔇';
+                    $btnMic.title = 'Activar micrófono';
+                }
+            } catch (e) {
+                console.error('[Profe Matilda] Mic toggle error:', e);
+            }
+        }
+
+        // ── Clear Transcript ───────────────────────
+        function matildaClearTranscript() {
+            matildaTranscriptData = [];
+            renderTranscript();
+        }
+    </script>
+
 </body>
 
 

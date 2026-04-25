@@ -1,0 +1,18 @@
+# Environment & secrets
+.env
+
+# Dependencies
+node_modules/
+
+# OS files
+.DS_Store
+
+# Development scripts (not needed for deployment)
+*.py
+check_js.js
+test_dom.js
+raw_*.txt
+extracted_*.txt
+restore.txt
+temario.pdf
+*.docx
