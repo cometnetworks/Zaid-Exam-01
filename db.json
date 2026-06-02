@@ -725,7 +725,7 @@
     ],
     "ingles": [
         {
-            "q": "¿Cómo se dice 'Verde' en inglés?",
+            "q": "How do you say 'Verde' in English? / ¿Cómo se dice 'Verde' en inglés?",
             "options": [
                 "Yellow",
                 "Green",
@@ -734,7 +734,7 @@
             "ans": 1
         },
         {
-            "q": "¿Qué color es 'Purple'?",
+            "q": "What color is 'Purple'? / ¿Qué color es 'Purple'?",
             "options": [
                 "Morado",
                 "Rosa",
@@ -743,7 +743,7 @@
             "ans": 0
         },
         {
-            "q": "The sun is...",
+            "q": "The sun is... / El sol es...",
             "options": [
                 "Red",
                 "Yellow",
@@ -752,7 +752,7 @@
             "ans": 1
         },
         {
-            "q": "What color is a polar bear? (Oso polar)",
+            "q": "What color is a polar bear? (Oso polar) / ¿De qué color es un oso polar?",
             "options": [
                 "White",
                 "Brown",
@@ -761,7 +761,7 @@
             "ans": 0
         },
         {
-            "q": "Si te preguntan 'What color is it?' respondes...",
+            "q": "If you are asked 'What color is it?', you answer... / Si te preguntan 'What color is it?' respondes...",
             "options": [
                 "It is red",
                 "They are red",
@@ -770,7 +770,7 @@
             "ans": 0
         },
         {
-            "q": "¿Cómo se dice 'Papá' en inglés?",
+            "q": "How do you say 'Papá' in English? / ¿Cómo se dice 'Papá' en inglés?",
             "options": [
                 "Mom",
                 "Brother",
@@ -779,7 +779,7 @@
             "ans": 2
         },
         {
-            "q": "¿Quién es 'Grandma'?",
+            "q": "Who is 'Grandma'? / ¿Quién es 'Grandma'?",
             "options": [
                 "La abuela",
                 "La hermana",
@@ -788,7 +788,7 @@
             "ans": 0
         },
         {
-            "q": "¿Cómo se dice 'Hermano' en inglés?",
+            "q": "How do you say 'Hermano' in English? / ¿Cómo se dice 'Hermano' en inglés?",
             "options": [
                 "Sister",
                 "Brother",
@@ -797,7 +797,7 @@
             "ans": 1
         },
         {
-            "q": "En el alfabeto, ¿qué letra va después de la 'C'?",
+            "q": "In the alphabet, which letter comes after 'C'? / En el alfabeto, ¿qué letra va después de la 'C'?",
             "options": [
                 "A",
                 "D",
@@ -806,7 +806,7 @@
             "ans": 1
         },
         {
-            "q": "¿Qué usamos para decir 'ESTO es' (algo que está cerca)?",
+            "q": "What do we use to say 'This is' (something that is close)? / ¿Qué usamos para decir 'ESTO es' (algo que está cerca)?",
             "options": [
                 "That is",
                 "This is",
@@ -815,7 +815,7 @@
             "ans": 1
         },
         {
-            "q": "Si quiero preguntar '¿Quién es él?', digo:",
+            "q": "If I want to ask 'Who is he?', I say: / Si quiero preguntar '¿Quién es él?', digo:",
             "options": [
                 "What color?",
                 "Who is this?",
@@ -824,7 +824,7 @@
             "ans": 1
         },
         {
-            "q": "¿Cómo se dice 'Plátano' en inglés?",
+            "q": "How do you say 'Plátano' in English? / ¿Cómo se dice 'Plátano' en inglés?",
             "options": [
                 "Apple",
                 "Carrot",
@@ -833,7 +833,7 @@
             "ans": 2
         },
         {
-            "q": "A rabbit likes to eat... (El conejo come)",
+            "q": "A rabbit likes to eat... / Un conejo come...",
             "options": [
                 "Donut",
                 "Carrot (Zanahoria)",
@@ -842,7 +842,7 @@
             "ans": 1
         },
         {
-            "q": "¿Qué es una 'Pear'?",
+            "q": "What is a 'Pear'? / ¿Qué es una 'Pear'?",
             "options": [
                 "Pera",
                 "Piña",
@@ -851,7 +851,7 @@
             "ans": 0
         },
         {
-            "q": "Para decir 'Hay UNA manzana' uso:",
+            "q": "To say 'There is ONE apple' I use: / Para decir 'Hay UNA manzana' uso:",
             "options": [
                 "There is",
                 "There are",
@@ -860,7 +860,7 @@
             "ans": 0
         },
         {
-            "q": "Para decir 'Hay MUCHAS galletas' uso:",
+            "q": "To say 'There are MANY cookies' I use: / Para decir 'Hay MUCHAS galletas' uso:",
             "options": [
                 "There is",
                 "There are",
@@ -869,7 +869,7 @@
             "ans": 1
         },
         {
-            "q": "¿Qué color es 'Pink'?",
+            "q": "What color is 'Pink'? / ¿Qué color es 'Pink'?",
             "options": [
                 "Rosa",
                 "Azul",
@@ -878,7 +878,7 @@
             "ans": 0
         },
         {
-            "q": "¿Quién es 'Sister'?",
+            "q": "Who is 'Sister'? / ¿Quién es 'Sister'?",
             "options": [
                 "Mamá",
                 "Hermana",
@@ -887,7 +887,7 @@
             "ans": 1
         },
         {
-            "q": "A 'Hot dog' is...",
+            "q": "A 'Hot dog' is... / Un 'Hot dog' es...",
             "options": [
                 "Un perro caliente",
                 "Una hamburguesa",
@@ -896,7 +896,7 @@
             "ans": 0
         },
         {
-            "q": "The color of an elephant is... (El color de un elefante)",
+            "q": "The color of an elephant is... / El color de un elefante es...",
             "options": [
                 "Pink",
                 "Gray (Gris)",
@@ -905,7 +905,7 @@
             "ans": 1
         },
         {
-            "q": "What color is an orange? (¿De qué color es la naranja?)",
+            "q": "What color is an orange? / ¿De qué color es la naranja?",
             "options": [
                 "Red",
                 "Blue",
@@ -914,7 +914,7 @@
             "ans": 2
         },
         {
-            "q": "What color is a cloud? (¿De qué color es una nube?)",
+            "q": "What color is a cloud? / ¿De qué color es una nube?",
             "options": [
                 "Black",
                 "White",
@@ -923,7 +923,7 @@
             "ans": 1
         },
         {
-            "q": "What color is the dirt? (¿De qué color es la tierra?)",
+            "q": "What color is the dirt? / ¿De qué color es la tierra?",
             "options": [
                 "Brown",
                 "Pink",
@@ -932,7 +932,7 @@
             "ans": 0
         },
         {
-            "q": "'Who is this?' significa...",
+            "q": "What does 'Who is this?' mean? / ¿Qué significa 'Who is this?'?",
             "options": [
                 "¿De qué color es?",
                 "¿Quién es este? (de cerca)",
@@ -941,7 +941,7 @@
             "ans": 1
         },
         {
-            "q": "'Who is that?' significa...",
+            "q": "What does 'Who is that?' mean? / ¿Qué significa 'Who is that?'?",
             "options": [
                 "¿Quién es ese? (de lejos)",
                 "Esta es mi mamá",
@@ -950,7 +950,7 @@
             "ans": 0
         },
         {
-            "q": "'This is my mom' significa...",
+            "q": "What does 'This is my mom' mean? / ¿Qué significa 'This is my mom'?",
             "options": [
                 "Ella es mi abuela",
                 "Esta es mi mamá",
@@ -959,7 +959,7 @@
             "ans": 1
         },
         {
-            "q": "¿Cómo se dice 'Emparedado' o 'Sándwich' en inglés?",
+            "q": "How do you say 'Emparedado' or 'Sándwich' in English? / ¿Cómo se dice 'Emparedado' o 'Sándwich' en inglés?",
             "options": [
                 "Sandwich",
                 "Hot dog",
@@ -968,7 +968,7 @@
             "ans": 0
         },
         {
-            "q": "¿Qué es un 'Cupcake'?",
+            "q": "What is a 'Cupcake'? / ¿Qué es un 'Cupcake'?",
             "options": [
                 "Una manzana",
                 "Un pastelito o panquecito",
@@ -977,7 +977,7 @@
             "ans": 1
         },
         {
-            "q": "¿Qué es una 'Cookie'?",
+            "q": "What is a 'Cookie'? / ¿Qué es una 'Cookie'?",
             "options": [
                 "Galleta",
                 "Jugo",
@@ -986,7 +986,7 @@
             "ans": 0
         },
         {
-            "q": "¿Qué es 'Pineapple'?",
+            "q": "What is 'Pineapple'? / ¿Qué es 'Pineapple'?",
             "options": [
                 "Manzana",
                 "Piña",
@@ -995,7 +995,7 @@
             "ans": 1
         },
         {
-            "q": "A monkey likes to eat... (A los monos les gusta comer...)",
+            "q": "A monkey likes to eat... / A los monos les gusta comer...",
             "options": [
                 "Bananas",
                 "Hamburgers",
@@ -1004,7 +1004,7 @@
             "ans": 0
         },
         {
-            "q": "¿Cómo se dice 'Abuelo' en inglés?",
+            "q": "How do you say 'Abuelo' in English? / ¿Cómo se dice 'Abuelo' en inglés?",
             "options": [
                 "Dad",
                 "Brother",
@@ -1013,7 +1013,7 @@
             "ans": 2
         },
         {
-            "q": "En el abecedario (Alphabet), ¿qué letra va ANTES de la 'B'?",
+            "q": "In the alphabet, which letter comes BEFORE 'B'? / En el abecedario, ¿qué letra va ANTES de la 'B'?",
             "options": [
                 "C",
                 "A",
@@ -1022,7 +1022,7 @@
             "ans": 1
         },
         {
-            "q": "¿Qué letra sigue en esta lista: A, B, C, ___ ?",
+            "q": "Which letter comes next in this list: A, B, C, ___ ? / ¿Qué letra sigue en esta lista: A, B, C, ___ ?",
             "options": [
                 "E",
                 "F",
@@ -1031,7 +1031,7 @@
             "ans": 2
         },
         {
-            "q": "'They are blue' significa...",
+            "q": "What does 'They are blue' mean? / ¿Qué significa 'They are blue'?",
             "options": [
                 "Es rojo",
                 "Ellos son azules",
@@ -1040,7 +1040,7 @@
             "ans": 1
         },
         {
-            "q": "Para decir 'Hay UNA pera' uso:",
+            "q": "To say 'There is ONE pear' I use: / Para decir 'Hay UNA pera' uso:",
             "options": [
                 "There is a pear",
                 "There are pears",
@@ -1049,7 +1049,7 @@
             "ans": 0
         },
         {
-            "q": "Para decir 'Hay CINCO plátanos' uso:",
+            "q": "To say 'There are FIVE bananas' I use: / Para decir 'Hay CINCO plátanos' uso:",
             "options": [
                 "There is five bananas",
                 "There are five bananas",
@@ -1058,7 +1058,7 @@
             "ans": 1
         },
         {
-            "q": "What color is the night sky? (¿De qué color es el cielo de noche?)",
+            "q": "What color is the night sky? / ¿De qué color es el cielo de noche?",
             "options": [
                 "Black",
                 "White",
@@ -1067,7 +1067,7 @@
             "ans": 0
         },
         {
-            "q": "'Mom and Dad' significa...",
+            "q": "What does 'Mom and Dad' mean? / ¿Qué significa 'Mom and Dad'?",
             "options": [
                 "Hermano y Hermana",
                 "Mamá y Papá",
@@ -1076,7 +1076,7 @@
             "ans": 1
         },
         {
-            "q": "¿Qué es una 'Hamburger'?",
+            "q": "What is a 'Hamburger'? / ¿Qué es una 'Hamburger'?",
             "options": [
                 "Hamburguesa",
                 "Zanahoria",

@@ -1,0 +1,1450 @@
+{
+    "espanol": [
+        {
+            "q": "Si digo: 'El pastel de fresa es el más rico de todos', estoy...",
+            "options": [
+                "Dando una opinión.",
+                "Dando una noticia real.",
+                "Leyendo un cartel."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Si un texto dice: 'Ayer llovió por la tarde en la ciudad', es...",
+            "options": [
+                "Una opinión.",
+                "Una información (hecho real).",
+                "Un cuento de hadas."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "La principal diferencia entre opinar e informar es que la opinión expresa...",
+            "options": [
+                "Datos numéricos exactos.",
+                "Lo que uno piensa o siente.",
+                "Noticias de la televisión."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Cuando informamos sobre un suceso, debemos decir...",
+            "options": [
+                "Solo lo que imaginamos.",
+                "Lo que realmente pasó y es verdadero.",
+                "Mentiras divertidas."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Para dar una opinión sobre el dibujo de un compañero de manera correcta debemos...",
+            "options": [
+                "Decirle que está feo y reírnos.",
+                "Decir con respeto lo que nos gusta y sugerir mejoras.",
+                "No decirle nada y romper el dibujo."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Si Zaid dice: 'Pienso que jugar futbol es muy divertido', esto es...",
+            "options": [
+                "Una opinión.",
+                "Una noticia de última hora.",
+                "Un organizador gráfico."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Una información (hecho) es algo que...",
+            "options": [
+                "Se puede comprobar que es real.",
+                "Solo ocurre en los sueños.",
+                "Cambia según el gusto de cada persona."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Si un científico dice: 'El agua hierve a 100 grados', está...",
+            "options": [
+                "Dando una opinión.",
+                "Informando un hecho real.",
+                "Contando un cómic."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Cuál de las siguientes frases es una OPINIÓN?",
+            "options": [
+                "La escuela Alina tiene dos pisos.",
+                "Me parece que el uniforme escolar es muy bonito.",
+                "Hoy es martes."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Cuál de las siguientes frases es una INFORMACIÓN?",
+            "options": [
+                "Los gatos son los mejores animales del mundo.",
+                "Los gatos tienen cuatro patas.",
+                "Los gatos negros dan buena suerte."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Los bailes tradicionales, las artesanías de barro y los platillos típicos son...",
+            "options": [
+                "Manifestaciones culturales.",
+                "Problemas matemáticos.",
+                "Materiales frágiles."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "El mole poblano y los tamales son ejemplos de nuestra...",
+            "options": [
+                "Gastronomía (comida típica).",
+                "Escultura de piedra.",
+                "Encuesta de opinión."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Un jarrón de barro negro hecho a mano por un artesano es una...",
+            "options": [
+                "Pintura al óleo.",
+                "Artesanía.",
+                "Gastronomía."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "El 'Jarabe Tapatío' y la 'Danza de los Viejitos' son ejemplos de...",
+            "options": [
+                "Gastronomía.",
+                "Bailables tradicionales.",
+                "Organizadores gráficos."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Las manifestaciones artísticas son formas de expresar emociones mediante...",
+            "options": [
+                "La pintura, la escultura y la danza.",
+                "Las sumas y las restas.",
+                "El plástico y el metal."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Una estatua hecha de piedra o bronce es una...",
+            "options": [
+                "Pintura.",
+                "Escultura.",
+                "Danza."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Si uso pinceles y acuarelas sobre un lienzo, estoy creando una...",
+            "options": [
+                "Escultura.",
+                "Pintura.",
+                "Danza."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Mover el cuerpo al ritmo de la música para expresar alegría es...",
+            "options": [
+                "La escultura.",
+                "La danza.",
+                "La pintura."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Cuál de estos platillos es parte de la gastronomía mexicana?",
+            "options": [
+                "Tacos.",
+                "Pizza.",
+                "Hamburguesa."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Los artesanos utilizan materiales de su comunidad como el barro o la palma para crear...",
+            "options": [
+                "Cómics de superhéroes.",
+                "Artesanías hermosas.",
+                "Encuestas de opinión."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Un dibujo con globos o ramas donde ponemos la idea principal en medio se llama...",
+            "options": [
+                "Mapa mental.",
+                "Tabla de doble entrada.",
+                "Cuadro sinóptico."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "El organizador gráfico que usa llaves ( { ) para separar la información se llama...",
+            "options": [
+                "Mapa conceptual.",
+                "Cuadro sinóptico.",
+                "Esquema de flechas."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Una tabla sirve para...",
+            "options": [
+                "Organizar datos en filas y columnas.",
+                "Dibujar onomatopeyas.",
+                "Escuchar sonidos agudos."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Un organizador gráfico nos ayuda a...",
+            "options": [
+                "Hacer que los textos sean más difíciles de leer.",
+                "Ordenar la información de forma visual y clara.",
+                "Jugar memorama."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Un cartel que combina dibujos grandes y poco texto es un texto...",
+            "options": [
+                "Discontinuo.",
+                "Continuo.",
+                "Invisible."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Un cartel sirve principalmente para...",
+            "options": [
+                "Enviar una carta privada.",
+                "Dar un mensaje a muchas personas en la calle.",
+                "Hacer una suma difícil."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Los textos que se leen en orden de principio a fin, como un cuento, son textos...",
+            "options": [
+                "Continuos.",
+                "Discontinuos.",
+                "Onomatopéyicos."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "¿Qué elemento es el más importante en un cartel para llamar la atención?",
+            "options": [
+                "Un texto muy largo con letras chiquitas.",
+                "Una imagen o dibujo grande y colorido.",
+                "La fecha de cumpleaños."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Para resumir los conceptos clave unidos por líneas y palabras enlace usamos un...",
+            "options": [
+                "Mapa conceptual.",
+                "Cómic.",
+                "Cuento ilustrado."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Si queremos mostrar los resultados de una votación del grupo, el mejor organizador es...",
+            "options": [
+                "Una tabla o gráfica.",
+                "Un cómic.",
+                "Un cuento."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "¿Cómo se llaman los cuadros ordenados que forman un cómic?",
+            "options": [
+                "Globos de diálogo.",
+                "Viñetas.",
+                "Onomatopeyas."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "En una historieta, las palabras como ¡BOOM!, ¡PUM!, y ¡SPLASH! son...",
+            "options": [
+                "Títulos.",
+                "Onomatopeyas.",
+                "Viñetas."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Dónde se escribe el texto que dicen los personajes en un cómic?",
+            "options": [
+                "En los globos de diálogo.",
+                "Fuera de las viñetas.",
+                "En las onomatopeyas."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "¿Cuáles son las tres partes principales de un cuento?",
+            "options": [
+                "Fecha, Saludo y Firma.",
+                "Inicio, Desarrollo y Final.",
+                "Título, Imagen y Tabla."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "En un cuento ilustrado, los dibujos nos ayudan a...",
+            "options": [
+                "Entender mejor la historia y los personajes.",
+                "Sumar más rápido.",
+                "Resolver conflictos."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Una encuesta sirve para...",
+            "options": [
+                "Hacer preguntas a la gente para saber qué opinan.",
+                "Escribir un poema.",
+                "Construir un prisma."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Si en la escuela hacemos una campaña para cuidar el agua, realizamos una...",
+            "options": [
+                "Campaña social.",
+                "Obra de teatro de terror.",
+                "Clase de danza."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "La parte del cuento donde se presenta a los personajes y el lugar es el...",
+            "options": [
+                "Final.",
+                "Inicio.",
+                "Desarrollo."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "La parte del cuento donde ocurre el problema principal es el...",
+            "options": [
+                "Inicio.",
+                "Desarrollo.",
+                "Final."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "La parte del cuento donde se resuelve el problema es el...",
+            "options": [
+                "Inicio.",
+                "Desarrollo.",
+                "Final."
+            ],
+            "ans": 2
+        }
+    ],
+    "matematicas": [
+        {
+            "q": "¿Cuántos días tiene una semana?",
+            "options": [
+                "5 días.",
+                "7 días.",
+                "10 días."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Cuántos meses tiene un año entero?",
+            "options": [
+                "10 meses.",
+                "12 meses.",
+                "15 meses."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Si hoy es miércoles, ¿qué día fue ayer?",
+            "options": [
+                "Martes.",
+                "Jueves.",
+                "Lunes."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Si hoy es sábado, ¿qué día será mañana?",
+            "options": [
+                "Viernes.",
+                "Domingo.",
+                "Lunes."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Cuál es el primer mes del año?",
+            "options": [
+                "Diciembre.",
+                "Enero.",
+                "Mayo."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Cuál es el último mes del año?",
+            "options": [
+                "Enero.",
+                "Diciembre.",
+                "Noviembre."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Qué mes va después de Mayo?",
+            "options": [
+                "Abril.",
+                "Junio.",
+                "Julio."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Cuáles son los días del fin de semana?",
+            "options": [
+                "Lunes y Martes.",
+                "Sábado y Domingo.",
+                "Jueves y Viernes."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "El día de la semana que va después del lunes es el...",
+            "options": [
+                "Miércoles.",
+                "Martes.",
+                "Domingo."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "El mes en el que celebramos la Navidad es...",
+            "options": [
+                "Julio.",
+                "Septiembre.",
+                "Diciembre."
+            ],
+            "ans": 2
+        },
+        {
+            "q": "Zaid tiene 15 canicas y su tío le regala 10 más. ¿Cuántas tiene ahora?",
+            "options": [
+                "5 canicas.",
+                "25 canicas.",
+                "15 canicas."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "En un árbol había 28 pájaros y se fueron volando 8. ¿Cuántos quedaron?",
+            "options": [
+                "20 pájaros.",
+                "36 pájaros.",
+                "8 pájaros."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Compré un chocolate de 12 pesos y un dulce de 5 pesos. ¿Cuánto pagué en total?",
+            "options": [
+                "17 pesos.",
+                "7 pesos.",
+                "15 pesos."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Si tengo 50 pesos y gasto 20 pesos en un juguete, ¿cuánto dinero me queda?",
+            "options": [
+                "70 pesos.",
+                "30 pesos.",
+                "20 pesos."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "En el salón hay 12 niños y 14 niñas. ¿Cuántos alumnos hay en total?",
+            "options": [
+                "2 niños.",
+                "26 alumnos.",
+                "24 alumnos."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Tengo 30 lápices de colores y le presto 10 a mi amigo. ¿Cuántos me quedan?",
+            "options": [
+                "20 lápices.",
+                "40 lápices.",
+                "10 lápices."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Si sumamos 45 + 5, el resultado es...",
+            "options": [
+                "40",
+                "50",
+                "455"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Si restamos 60 - 10, el resultado es...",
+            "options": [
+                "70",
+                "50",
+                "60"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Zaid juntó 18 tapitas de plástico y su hermana juntó 12. ¿Cuántas juntaron los dos?",
+            "options": [
+                "30 tapitas.",
+                "6 tapitas.",
+                "20 tapitas."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Un tren lleva 35 pasajeros. En la estación se bajan 15. ¿Cuántos pasajeros quedan?",
+            "options": [
+                "50 pasajeros.",
+                "20 pasajeros.",
+                "15 pasajeros."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Si compro una manzana de 8 pesos y pago con un billete de 20, ¿cuánto vuelto recibo?",
+            "options": [
+                "12 pesos.",
+                "10 pesos.",
+                "8 pesos."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Si tienes 40 dulces y te regalan otros 40 dulces, ahora tienes...",
+            "options": [
+                "40 dulces.",
+                "80 dulces.",
+                "0 dulces."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "En una canasta hay 15 manzanas rojas y 15 verdes. ¿Cuántas manzanas hay?",
+            "options": [
+                "30 manzanas.",
+                "15 manzanas.",
+                "10 manzanas."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Zaid tenía 22 estampitas y perdió 2. ¿Cuántas estampitas le quedan?",
+            "options": [
+                "24 estampitas.",
+                "20 estampitas.",
+                "22 estampitas."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Cuánto es 70 + 30?",
+            "options": [
+                "90",
+                "100",
+                "80"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Qué figura geométrica plana tiene 3 esquinas (vértices)?",
+            "options": [
+                "Cuadrado.",
+                "Triángulo.",
+                "Círculo."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Qué figura geométrica plana tiene 4 lados iguales y 4 vértices?",
+            "options": [
+                "Círculo.",
+                "Rectángulo.",
+                "Cuadrado."
+            ],
+            "ans": 2
+        },
+        {
+            "q": "La figura geométrica que se parece a un huevo o a una pista de carreras es el...",
+            "options": [
+                "Óvalo.",
+                "Rombo.",
+                "Triángulo."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "La figura plana que tiene forma de diamante o papalote se llama...",
+            "options": [
+                "Rombo.",
+                "Círculo.",
+                "Rectángulo."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "¿Cuál de estas figuras tiene 4 lados, pero 2 son largos y 2 cortos?",
+            "options": [
+                "Triángulo.",
+                "Cuadrado.",
+                "Rectángulo."
+            ],
+            "ans": 2
+        },
+        {
+            "q": "¿Cómo son los lados de un círculo?",
+            "options": [
+                "Rectos.",
+                "Curvos.",
+                "No tiene lados."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Una pelota de tenis representa un cuerpo geométrico llamado...",
+            "options": [
+                "Cilindro.",
+                "Esfera.",
+                "Cubo."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Un dado para jugar juegos de mesa representa a un...",
+            "options": [
+                "Prisma.",
+                "Cubo.",
+                "Cono."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Un cono de helado o el gorro de un mago representa a un...",
+            "options": [
+                "Cilindro.",
+                "Cono.",
+                "Esfera."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Una lata de refresco tiene la forma de un...",
+            "options": [
+                "Prisma.",
+                "Cilindro.",
+                "Cubo."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Un cuerpo geométrico que tiene todas sus caras planas y cuadradas es el...",
+            "options": [
+                "Cilindro.",
+                "Cono.",
+                "Cubo."
+            ],
+            "ans": 2
+        },
+        {
+            "q": "La esfera tiene...",
+            "options": [
+                "Caras planas.",
+                "Caras curvas.",
+                "Caras planas y curvas."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Una caja de zapatos representa el cuerpo geométrico llamado...",
+            "options": [
+                "Prisma rectangular.",
+                "Cubo.",
+                "Esfera."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "¿Qué cuerpo geométrico termina en una punta y tiene una base circular?",
+            "options": [
+                "Cilindro.",
+                "Cono.",
+                "Prisma."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "La figura inclinada de cuatro lados donde los opuestos son paralelos se llama...",
+            "options": [
+                "Romboide.",
+                "Triángulo.",
+                "Círculo."
+            ],
+            "ans": 0
+        }
+    ],
+    "ingles": [
+        {
+            "q": "How do you say 'Camiseta' (or playera) in English? / ¿Cómo se dice 'Camiseta' (o playera) en inglés?",
+            "options": [
+                "Pajamas",
+                "T-shirt",
+                "Shoes"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "How do you say 'Zapatos' in English? / ¿Cómo se dice 'Zapatos' en inglés?",
+            "options": [
+                "Shoes",
+                "Socks",
+                "Pants"
+            ],
+            "ans": 0
+        },
+        {
+            "q": "What do you wear on your feet before putting on your shoes? / ¿Qué te pones en los pies antes de ponerte los zapatos?",
+            "options": [
+                "Socks",
+                "Cap",
+                "Skirt"
+            ],
+            "ans": 0
+        },
+        {
+            "q": "What is a 'Cap' in Spanish? / ¿Qué es una 'Cap' en español?",
+            "options": [
+                "Gorra",
+                "Pantalón",
+                "Falda"
+            ],
+            "ans": 0
+        },
+        {
+            "q": "How do you say 'Pijama' in English? / ¿Cómo se dice 'Pijama' en inglés?",
+            "options": [
+                "Pajamas",
+                "Dress",
+                "Shirt"
+            ],
+            "ans": 0
+        },
+        {
+            "q": "What is a 'Skirt' in Spanish? / ¿Qué es una 'Skirt' en español?",
+            "options": [
+                "Camisa",
+                "Falda",
+                "Zapatos de tenis"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "How do you say 'Vestido' in English? / ¿Cómo se dice 'Vestido' en inglés?",
+            "options": [
+                "Dress",
+                "Shirt",
+                "Pants"
+            ],
+            "ans": 0
+        },
+        {
+            "q": "How do you say 'Pantalones' in English? / ¿Cómo se dice 'Pantalones' en inglés?",
+            "options": [
+                "Pants",
+                "Socks",
+                "T-shirt"
+            ],
+            "ans": 0
+        },
+        {
+            "q": "What are 'Tennis shoes' in Spanish? / ¿Qué son 'Tennis shoes' en español?",
+            "options": [
+                "Zapatos de vestir",
+                "Tenis (zapatos deportivos)",
+                "Calcetines"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "What is a 'Shirt' in Spanish? / ¿Qué es una 'Shirt' en español?",
+            "options": [
+                "Camisa",
+                "Gorra",
+                "Pijama"
+            ],
+            "ans": 0
+        },
+        {
+            "q": "If you point to a cap that is CLOSE to you, you say... / Si señalas una gorra que está CERCA de ti, dices...",
+            "options": [
+                "That is a cap.",
+                "This is a cap.",
+                "They are caps."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "If you point to a dress that is FAR away, you say... / Si señalas un vestido que está LEJOS de ti, dices...",
+            "options": [
+                "This is a dress.",
+                "That is a dress.",
+                "There are dresses."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "How do you ask about the quantity of shirts? / ¿Cómo preguntas por la cantidad de playeras?",
+            "options": [
+                "Where are the shirts?",
+                "How many shirts are there?",
+                "What color is it?"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Complete: There ______ three caps on the bed. / Completa: Hay tres gorras sobre la cama.",
+            "options": [
+                "is",
+                "are",
+                "am"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Complete: There ______ one T-shirt on the chair. / Completa: Hay una playera en la silla.",
+            "options": [
+                "is",
+                "are",
+                "isn't"
+            ],
+            "ans": 0
+        },
+        {
+            "q": "How do you say 'Ese es mi pantalón' (señalando lejos)? / ¿Cómo dices 'Ese es mi pantalón' (señalando lejos) en inglés?",
+            "options": [
+                "This is my pants.",
+                "That is my pants.",
+                "They are my pants."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "How do you say 'Esta es mi gorra' (teniéndola en la mano)? / ¿Cómo dices 'Esta es mi gorra' (teniéndola en la mano) en inglés?",
+            "options": [
+                "This is my cap.",
+                "That is my cap.",
+                "There is my cap."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "To say 'Hay dos zapatos' in English, you say... / Para decir 'Hay dos zapatos' en inglés, dices...",
+            "options": [
+                "There are two shoes.",
+                "There is two shoes.",
+                "This is two shoes."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "To say 'Hay una falda' in English, you say... / Para decir 'Hay una falda' en inglés, dices...",
+            "options": [
+                "There is a skirt.",
+                "There are a skirt.",
+                "That are a skirt."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "How do you answer: 'How many socks are there?' (2 socks) / ¿Cómo respondes a '¿Cuántos calcetines hay?' (2 calcetines)?",
+            "options": [
+                "There is two socks.",
+                "There are two socks.",
+                "This is two socks."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Where do you cook food in a house? / ¿En qué parte de la casa cocinas la comida?",
+            "options": [
+                "In the Bathroom",
+                "In the Kitchen",
+                "In the Garden"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Where do you sleep at night? / ¿En qué parte de la casa duermes por la noche?",
+            "options": [
+                "In the Bedroom",
+                "In the Living room",
+                "In the Fridge"
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Where is the grass and the flowers in a house? / ¿Dónde está el césped y las flores en una casa?",
+            "options": [
+                "In the Kitchen",
+                "In the Garden",
+                "In the Shower"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Where do you take a bath or wash your hands? / ¿Dónde te bañas o te lavas las manos?",
+            "options": [
+                "In the Bathroom",
+                "In the Dining room",
+                "In the Stove"
+            ],
+            "ans": 0
+        },
+        {
+            "q": "What keeps the milk and apples cold? / ¿Qué aparato mantiene fría la leche y las manzanas?",
+            "options": [
+                "The Stove",
+                "The Fridge",
+                "The Window"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "What appliance do we use to cook or heat soup? / ¿Qué aparato usamos para cocinar o calentar sopa?",
+            "options": [
+                "The Shower",
+                "The Stove",
+                "The Bedroom"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Where is the television and the sofa to watch movies? / ¿Dónde está la televisión y el sofá para ver películas?",
+            "options": [
+                "In the Living room",
+                "In the Bathroom",
+                "In the Fridge"
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Where does the family sit at the table to eat dinner? / ¿Dónde se sienta la familia a la mesa para cenar?",
+            "options": [
+                "In the Dining room",
+                "In the Garden",
+                "In the Shower"
+            ],
+            "ans": 0
+        },
+        {
+            "q": "We look outside the house through the... / Miramos hacia afuera de la casa a través de la...",
+            "options": [
+                "Stove",
+                "Window",
+                "Fridge"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "We clean our bodies under the water in the... / Nos limpiamos el cuerpo bajo el agua en la...",
+            "options": [
+                "Shower",
+                "Kitchen",
+                "Dining room"
+            ],
+            "ans": 0
+        },
+        {
+            "q": "If someone asks 'Where is my dad?', you answer... / Si alguien pregunta '¿Dónde está mi papá?', respondes...",
+            "options": [
+                "He is in the garden.",
+                "She is in the garden.",
+                "It is in the garden."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "If someone asks 'Where is my mom?', you answer... / Si alguien pregunta '¿Dónde está mi mamá?', respondes...",
+            "options": [
+                "He is in the kitchen.",
+                "She is in the kitchen.",
+                "They are in the kitchen."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "If someone asks 'Where is the cat?', you answer... / Si alguien pregunta '¿Dónde está el gato?', respondes...",
+            "options": [
+                "It is under the table.",
+                "They are under the table.",
+                "She is under the table."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "How do you say 'Ellos están en la sala'? / ¿Cómo dices 'Ellos están en la sala' en inglés?",
+            "options": [
+                "They are in the living room.",
+                "They aren't in the living room.",
+                "She is in the living room."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "How do you say 'Él no está en el baño'? / ¿Cómo dices 'Él no está en el baño' en inglés?",
+            "options": [
+                "He is in the bathroom.",
+                "He isn't in the bathroom.",
+                "They aren't in the bathroom."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "How do you say 'Ellos no están en la cocina'? / ¿Cómo dices 'Ellos no están en la cocina' en inglés?",
+            "options": [
+                "They are in the kitchen.",
+                "They aren't in the kitchen.",
+                "It isn't in the kitchen."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Complete: Where ______ the stove? / Completa: ¿Dónde ______ la estufa?",
+            "options": [
+                "is",
+                "are",
+                "am"
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Complete: Where ______ my shoes? / Completa: ¿Dónde ______ mis zapatos?",
+            "options": [
+                "is",
+                "are",
+                "isn't"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Complete: The fridge ______ in the bathroom. It is in the kitchen! / Completa: El refrigerador ______ en el baño. ¡Está en la cocina!",
+            "options": [
+                "is",
+                "isn't",
+                "are"
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Complete: Zaid and Fernando ______ in the garden. They are playing! / Completa: Zaid y Fernando ______ en el jardín. ¡Están jugando!",
+            "options": [
+                "is",
+                "isn't",
+                "are"
+            ],
+            "ans": 2
+        }
+    ],
+    "naturaleza": [
+        {
+            "q": "¿Qué es un conflicto?",
+            "options": [
+                "Un desacuerdo entre dos o más personas.",
+                "Un tipo de material brilloso.",
+                "Un juego de mesa divertido."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "La mejor manera de resolver un conflicto con un compañero es...",
+            "options": [
+                "Gritar muy fuerte.",
+                "Hablar con respeto y escuchar al otro.",
+                "Pelear y no volver a hablarle."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Los acuerdos y normas en el salón de clases sirven para...",
+            "options": [
+                "Que nos castiguen siempre.",
+                "Tener una sana convivencia y trabajar en orden.",
+                "Poder correr y gritar dentro del salón."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Si todos quieren jugar con la única pelota del salón, ¿cuál es una solución justa?",
+            "options": [
+                "Que el niño más grande se quede con ella todo el día.",
+                "Establecer turnos para compartirla.",
+                "Esconder la pelota para que nadie juegue."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Una situación de injusticia es cuando...",
+            "options": [
+                "A todos los niños se les trata con el mismo respeto.",
+                "Un niño trabaja solo y otro recibe el premio de los dos.",
+                "Compartimos los juguetes en el recreo."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Normas de convivencia: Cuando queremos hablar en clase debemos...",
+            "options": [
+                "Gritar la respuesta.",
+                "Levantar la mano y esperar nuestro turno.",
+                "Interrumpir a la maestra."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Si veo que dos amigos están peleando, lo correcto es...",
+            "options": [
+                "Meterme a la pelea a pegarles.",
+                "Pedir ayuda a una autoridad como la maestra.",
+                "Reírme y grabar con un celular."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Un acuerdo familiar es...",
+            "options": [
+                "Una regla que todos en casa ayudan a cumplir.",
+                "Hacer solo lo que yo quiero.",
+                "Dormirse a la hora que sea."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Si un compañero tira mi lápiz sin querer, lo justo es...",
+            "options": [
+                "Tirarle sus cuadernos al suelo.",
+                "Pedirle amablemente que lo levante.",
+                "Llorar en el rincón."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Resolver un conflicto pacíficamente significa hacerlo...",
+            "options": [
+                "Sin golpes ni insultos.",
+                "Peleando en el patio.",
+                "Ignorando el problema para siempre."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "¿Quién es la máxima autoridad dentro del salón de clases?",
+            "options": [
+                "El policía.",
+                "La maestra o maestro.",
+                "El conserje."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Quién representa la autoridad en tu casa?",
+            "options": [
+                "Tus papás o tutores.",
+                "Tus hermanos menores.",
+                "Tus juguetes."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "¿Qué autoridad ayuda a mantener la seguridad en las calles de la comunidad?",
+            "options": [
+                "El director de la escuela.",
+                "El policía.",
+                "El panadero."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Cuál es una situación de riesgo en la escuela?",
+            "options": [
+                "Estudiar en la biblioteca.",
+                "Correr bajando las escaleras.",
+                "Jugar en las áreas verdes."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Si veo un cable de luz pelado o roto en el suelo, debo...",
+            "options": [
+                "Tocarlo para ver si tiene electricidad.",
+                "Alejarme y avisar de inmediato a un adulto.",
+                "Pisar el cable."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Tomar una decisión significa...",
+            "options": [
+                "Elegir entre varias opciones de manera consciente.",
+                "Hacer lo primero que se me ocurra sin pensar.",
+                "Esperar a que otros decidan todo por mí."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Toda decisión que tomamos tiene una...",
+            "options": [
+                "Consecuencia (buena o mala).",
+                "Suma matemática.",
+                "Onomatopeya en el cómic."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Si decido no estudiar para mi examen final, la consecuencia más probable es...",
+            "options": [
+                "Sacar una calificación baja.",
+                "Aprender más cosas.",
+                "Que me regalen un juguete."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Si decido comer muchos dulces antes de la comida, la consecuencia es...",
+            "options": [
+                "Que me duela la panza.",
+                "Tener mucha fuerza.",
+                "Estar muy sano."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "¿Cuál es una autoridad que te cuida en caso de un incendio?",
+            "options": [
+                "Los bomberos.",
+                "Los carteros.",
+                "Los doctores."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "¿De qué material está hecho un clavo de construcción?",
+            "options": [
+                "Madera.",
+                "Metal.",
+                "Plástico."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Si un material se rompe con mucha facilidad si se cae (como un vaso de vidrio), es...",
+            "options": [
+                "Flexible.",
+                "Frágil.",
+                "Duro."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Una regla de plástico que se puede doblar sin romperse tiene la propiedad de ser...",
+            "options": [
+                "Frágil.",
+                "Flexible.",
+                "Dura."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Una ventana nos permite ver hacia afuera porque el vidrio es...",
+            "options": [
+                "Transparente.",
+                "Opaco.",
+                "Duro y oscuro."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Los materiales como el oro, la plata y el aluminio reflejan la luz y son...",
+            "options": [
+                "Brillosos.",
+                "Fragiles.",
+                "Flexibles."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "¿De qué material se extrae de los árboles para hacer hojas de cuaderno y cajas?",
+            "options": [
+                "Metal.",
+                "Madera (papel).",
+                "Plástico."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Un candado de metal es muy difícil de rayar o romper porque es...",
+            "options": [
+                "Flexible.",
+                "Frágil.",
+                "Duro."
+            ],
+            "ans": 2
+        },
+        {
+            "q": "Las botellas de agua desechables y los juguetes ligeros suelen estar hechos de...",
+            "options": [
+                "Madera.",
+                "Plástico.",
+                "Papel."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Un material que no deja pasar la luz y produce sombra es...",
+            "options": [
+                "Transparente.",
+                "Opaco.",
+                "Brilloso."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "Si una hoja de papel se arruga y se dobla fácilmente, es porque el papel es...",
+            "options": [
+                "Duro.",
+                "Flexible.",
+                "Frágil."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "El sonido de un silbato o de un violín tocando una nota muy alta es un sonido...",
+            "options": [
+                "Grave.",
+                "Agudo.",
+                "Agradable."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "El rugido de un león o la voz muy ronca de un gigante es un sonido...",
+            "options": [
+                "Grave.",
+                "Agudo.",
+                "Corto."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "Un aplauso o el disparo de un globo al explotar son sonidos...",
+            "options": [
+                "Largos.",
+                "Cortos.",
+                "Agudos."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "El sonido de una campana sonando durante varios segundos es un sonido...",
+            "options": [
+                "Largo.",
+                "Corto.",
+                "Grave."
+            ],
+            "ans": 0
+        },
+        {
+            "q": "La música suave y el canto de los pájaros por la mañana suelen ser sonidos...",
+            "options": [
+                "Desagradables.",
+                "Agradables.",
+                "Graves."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "El ruido de un motor dañado o de un grito muy fuerte suele ser un sonido...",
+            "options": [
+                "Agradable.",
+                "Desagradables (ruido).",
+                "Corto."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "¿Qué parte de nuestro cuerpo usamos para percibir los sonidos?",
+            "options": [
+                "Los ojos (vista).",
+                "Los oídos (audición).",
+                "La boca (gusto)."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "El sonido del claxon de un coche muy cerca de ti es...",
+            "options": [
+                "Agradable y grave.",
+                "Desagradable y fuerte.",
+                "Corto y silencioso."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "El llanto de un bebé a veces nos parece...",
+            "options": [
+                "Agradable.",
+                "Desagradable/estresante.",
+                "Corto."
+            ],
+            "ans": 1
+        },
+        {
+            "q": "El sonido de un trueno durante una tormenta es un sonido...",
+            "options": [
+                "Fuerte y grave.",
+                "Suave y agudo.",
+                "Agradable y corto."
+            ],
+            "ans": 0
+        }
+    ]
+}

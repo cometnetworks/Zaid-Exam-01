@@ -16,3 +16,6 @@ extracted_*.txt
 restore.txt
 temario.pdf
 *.docx
+
+# Local Netlify folder
+.netlify
