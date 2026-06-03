@@ -101,6 +101,20 @@
             margin: 0;
         }
 
+        .sticky-bank {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 10px;
+            z-index: 40;
+            background-color: rgba(243, 244, 246, 0.95);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid #e5e7eb;
+        }
+
         /* Canvas para líneas */
         #line-canvas {
             position: absolute;
@@ -1498,7 +1512,7 @@
             ],
             "ingles": [
                         {
-                                    "q": "How do you say 'Verde' in English? / ¿Cómo se dice 'Verde' en inglés?",
+                                    "q": "¿Cómo se dice 'Verde' en inglés?",
                                     "options": [
                                                 "Yellow",
                                                 "Green",
@@ -1507,7 +1521,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "What color is 'Purple'? / ¿Qué color es 'Purple'?",
+                                    "q": "¿Qué color es 'Purple'?",
                                     "options": [
                                                 "Morado",
                                                 "Rosa",
@@ -1516,7 +1530,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "The sun is... / El sol es...",
+                                    "q": "El sol es...",
                                     "options": [
                                                 "Red",
                                                 "Yellow",
@@ -1525,7 +1539,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "What color is a polar bear? (Oso polar) / ¿De qué color es un oso polar?",
+                                    "q": "¿De qué color es un oso polar?",
                                     "options": [
                                                 "White",
                                                 "Brown",
@@ -1534,7 +1548,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "If you are asked 'What color is it?', you answer... / Si te preguntan 'What color is it?' respondes...",
+                                    "q": "Si te preguntan 'What color is it?' respondes...",
                                     "options": [
                                                 "It is red",
                                                 "They are red",
@@ -1543,7 +1557,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "How do you say 'Papá' in English? / ¿Cómo se dice 'Papá' en inglés?",
+                                    "q": "¿Cómo se dice 'Papá' en inglés?",
                                     "options": [
                                                 "Mom",
                                                 "Brother",
@@ -1552,7 +1566,7 @@
                                     "ans": 2
                         },
                         {
-                                    "q": "Who is 'Grandma'? / ¿Quién es 'Grandma'?",
+                                    "q": "¿Quién es 'Grandma'?",
                                     "options": [
                                                 "La abuela",
                                                 "La hermana",
@@ -1561,7 +1575,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "How do you say 'Hermano' in English? / ¿Cómo se dice 'Hermano' en inglés?",
+                                    "q": "¿Cómo se dice 'Hermano' en inglés?",
                                     "options": [
                                                 "Sister",
                                                 "Brother",
@@ -1570,7 +1584,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "In the alphabet, which letter comes after 'C'? / En el alfabeto, ¿qué letra va después de la 'C'?",
+                                    "q": "En el alfabeto, ¿qué letra va después de la 'C'?",
                                     "options": [
                                                 "A",
                                                 "D",
@@ -1579,7 +1593,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "What do we use to say 'This is' (something that is close)? / ¿Qué usamos para decir 'ESTO es' (algo que está cerca)?",
+                                    "q": "¿Qué usamos para decir 'ESTO es' (algo que está cerca)?",
                                     "options": [
                                                 "That is",
                                                 "This is",
@@ -1588,7 +1602,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "If I want to ask 'Who is he?', I say: / Si quiero preguntar '¿Quién es él?', digo:",
+                                    "q": "Si quiero preguntar '¿Quién es él?', digo:",
                                     "options": [
                                                 "What color?",
                                                 "Who is this?",
@@ -1597,7 +1611,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "How do you say 'Plátano' in English? / ¿Cómo se dice 'Plátano' en inglés?",
+                                    "q": "¿Cómo se dice 'Plátano' en inglés?",
                                     "options": [
                                                 "Apple",
                                                 "Carrot",
@@ -1606,7 +1620,7 @@
                                     "ans": 2
                         },
                         {
-                                    "q": "A rabbit likes to eat... / Un conejo come...",
+                                    "q": "Un conejo come...",
                                     "options": [
                                                 "Donut",
                                                 "Carrot (Zanahoria)",
@@ -1615,7 +1629,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "What is a 'Pear'? / ¿Qué es una 'Pear'?",
+                                    "q": "¿Qué es una 'Pear'?",
                                     "options": [
                                                 "Pera",
                                                 "Piña",
@@ -1624,7 +1638,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "To say 'There is ONE apple' I use: / Para decir 'Hay UNA manzana' uso:",
+                                    "q": "Para decir 'Hay UNA manzana' uso:",
                                     "options": [
                                                 "There is",
                                                 "There are",
@@ -1633,7 +1647,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "To say 'There are MANY cookies' I use: / Para decir 'Hay MUCHAS galletas' uso:",
+                                    "q": "Para decir 'Hay MUCHAS galletas' uso:",
                                     "options": [
                                                 "There is",
                                                 "There are",
@@ -1642,7 +1656,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "What color is 'Pink'? / ¿Qué color es 'Pink'?",
+                                    "q": "¿Qué color es 'Pink'?",
                                     "options": [
                                                 "Rosa",
                                                 "Azul",
@@ -1651,7 +1665,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "Who is 'Sister'? / ¿Quién es 'Sister'?",
+                                    "q": "¿Quién es 'Sister'?",
                                     "options": [
                                                 "Mamá",
                                                 "Hermana",
@@ -1660,7 +1674,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "A 'Hot dog' is... / Un 'Hot dog' es...",
+                                    "q": "Un 'Hot dog' es...",
                                     "options": [
                                                 "Un perro caliente",
                                                 "Una hamburguesa",
@@ -1669,7 +1683,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "The color of an elephant is... / El color de un elefante es...",
+                                    "q": "El color de un elefante es...",
                                     "options": [
                                                 "Pink",
                                                 "Gray (Gris)",
@@ -1678,7 +1692,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "What color is an orange? / ¿De qué color es la naranja?",
+                                    "q": "¿De qué color es la naranja?",
                                     "options": [
                                                 "Red",
                                                 "Blue",
@@ -1687,7 +1701,7 @@
                                     "ans": 2
                         },
                         {
-                                    "q": "What color is a cloud? / ¿De qué color es una nube?",
+                                    "q": "¿De qué color es una nube?",
                                     "options": [
                                                 "Black",
                                                 "White",
@@ -1696,7 +1710,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "What color is the dirt? / ¿De qué color es la tierra?",
+                                    "q": "¿De qué color es la tierra?",
                                     "options": [
                                                 "Brown",
                                                 "Pink",
@@ -1705,7 +1719,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "What does 'Who is this?' mean? / ¿Qué significa 'Who is this?'?",
+                                    "q": "¿Qué significa 'Who is this?'?",
                                     "options": [
                                                 "¿De qué color es?",
                                                 "¿Quién es este? (de cerca)",
@@ -1714,7 +1728,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "What does 'Who is that?' mean? / ¿Qué significa 'Who is that?'?",
+                                    "q": "¿Qué significa 'Who is that?'?",
                                     "options": [
                                                 "¿Quién es ese? (de lejos)",
                                                 "Esta es mi mamá",
@@ -1723,7 +1737,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "What does 'This is my mom' mean? / ¿Qué significa 'This is my mom'?",
+                                    "q": "¿Qué significa 'This is my mom'?",
                                     "options": [
                                                 "Ella es mi abuela",
                                                 "Esta es mi mamá",
@@ -1732,7 +1746,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "How do you say 'Emparedado' or 'Sándwich' in English? / ¿Cómo se dice 'Emparedado' o 'Sándwich' en inglés?",
+                                    "q": "¿Cómo se dice 'Emparedado' o 'Sándwich' en inglés?",
                                     "options": [
                                                 "Sandwich",
                                                 "Hot dog",
@@ -1741,7 +1755,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "What is a 'Cupcake'? / ¿Qué es un 'Cupcake'?",
+                                    "q": "¿Qué es un 'Cupcake'?",
                                     "options": [
                                                 "Una manzana",
                                                 "Un pastelito o panquecito",
@@ -1750,7 +1764,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "What is a 'Cookie'? / ¿Qué es una 'Cookie'?",
+                                    "q": "¿Qué es una 'Cookie'?",
                                     "options": [
                                                 "Galleta",
                                                 "Jugo",
@@ -1759,7 +1773,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "What is 'Pineapple'? / ¿Qué es 'Pineapple'?",
+                                    "q": "¿Qué es 'Pineapple'?",
                                     "options": [
                                                 "Manzana",
                                                 "Piña",
@@ -1768,7 +1782,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "A monkey likes to eat... / A los monos les gusta comer...",
+                                    "q": "A los monos les gusta comer...",
                                     "options": [
                                                 "Bananas",
                                                 "Hamburgers",
@@ -1777,7 +1791,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "How do you say 'Abuelo' in English? / ¿Cómo se dice 'Abuelo' en inglés?",
+                                    "q": "¿Cómo se dice 'Abuelo' en inglés?",
                                     "options": [
                                                 "Dad",
                                                 "Brother",
@@ -1786,7 +1800,7 @@
                                     "ans": 2
                         },
                         {
-                                    "q": "In the alphabet, which letter comes BEFORE 'B'? / En el abecedario, ¿qué letra va ANTES de la 'B'?",
+                                    "q": "En el abecedario, ¿qué letra va ANTES de la 'B'?",
                                     "options": [
                                                 "C",
                                                 "A",
@@ -1795,7 +1809,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "Which letter comes next in this list: A, B, C, ___ ? / ¿Qué letra sigue en esta lista: A, B, C, ___ ?",
+                                    "q": "¿Qué letra sigue en esta lista: A, B, C, ___ ?",
                                     "options": [
                                                 "E",
                                                 "F",
@@ -1804,7 +1818,7 @@
                                     "ans": 2
                         },
                         {
-                                    "q": "What does 'They are blue' mean? / ¿Qué significa 'They are blue'?",
+                                    "q": "¿Qué significa 'They are blue'?",
                                     "options": [
                                                 "Es rojo",
                                                 "Ellos son azules",
@@ -1813,7 +1827,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "To say 'There is ONE pear' I use: / Para decir 'Hay UNA pera' uso:",
+                                    "q": "Para decir 'Hay UNA pera' uso:",
                                     "options": [
                                                 "There is a pear",
                                                 "There are pears",
@@ -1822,7 +1836,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "To say 'There are FIVE bananas' I use: / Para decir 'Hay CINCO plátanos' uso:",
+                                    "q": "Para decir 'Hay CINCO plátanos' uso:",
                                     "options": [
                                                 "There is five bananas",
                                                 "There are five bananas",
@@ -1831,7 +1845,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "What color is the night sky? / ¿De qué color es el cielo de noche?",
+                                    "q": "¿De qué color es el cielo de noche?",
                                     "options": [
                                                 "Black",
                                                 "White",
@@ -1840,7 +1854,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "What does 'Mom and Dad' mean? / ¿Qué significa 'Mom and Dad'?",
+                                    "q": "¿Qué significa 'Mom and Dad'?",
                                     "options": [
                                                 "Hermano y Hermana",
                                                 "Mamá y Papá",
@@ -1849,7 +1863,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "What is a 'Hamburger'? / ¿Qué es una 'Hamburger'?",
+                                    "q": "¿Qué es una 'Hamburger'?",
                                     "options": [
                                                 "Hamburguesa",
                                                 "Zanahoria",
@@ -2948,7 +2962,7 @@
             ],
             "ingles": [
                         {
-                                    "q": "How do you say 'Camiseta' (or playera) in English? / ¿Cómo se dice 'Camiseta' (o playera) en inglés?",
+                                    "q": "¿Cómo se dice 'Camiseta' (o playera) en inglés?",
                                     "options": [
                                                 "Pajamas",
                                                 "T-shirt",
@@ -2957,7 +2971,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "How do you say 'Zapatos' in English? / ¿Cómo se dice 'Zapatos' en inglés?",
+                                    "q": "¿Cómo se dice 'Zapatos' en inglés?",
                                     "options": [
                                                 "Shoes",
                                                 "Socks",
@@ -2966,7 +2980,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "What do you wear on your feet before putting on your shoes? / ¿Qué te pones en los pies antes de ponerte los zapatos?",
+                                    "q": "¿Qué te pones en los pies antes de ponerte los zapatos?",
                                     "options": [
                                                 "Socks",
                                                 "Cap",
@@ -2975,7 +2989,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "What is a 'Cap' in Spanish? / ¿Qué es una 'Cap' en español?",
+                                    "q": "¿Qué es una 'Cap' en español?",
                                     "options": [
                                                 "Gorra",
                                                 "Pantalón",
@@ -2984,7 +2998,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "How do you say 'Pijama' in English? / ¿Cómo se dice 'Pijama' en inglés?",
+                                    "q": "¿Cómo se dice 'Pijama' en inglés?",
                                     "options": [
                                                 "Pajamas",
                                                 "Dress",
@@ -2993,7 +3007,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "What is a 'Skirt' in Spanish? / ¿Qué es una 'Skirt' en español?",
+                                    "q": "¿Qué es una 'Skirt' en español?",
                                     "options": [
                                                 "Camisa",
                                                 "Falda",
@@ -3002,7 +3016,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "How do you say 'Vestido' in English? / ¿Cómo se dice 'Vestido' en inglés?",
+                                    "q": "¿Cómo se dice 'Vestido' en inglés?",
                                     "options": [
                                                 "Dress",
                                                 "Shirt",
@@ -3011,7 +3025,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "How do you say 'Pantalones' in English? / ¿Cómo se dice 'Pantalones' en inglés?",
+                                    "q": "¿Cómo se dice 'Pantalones' en inglés?",
                                     "options": [
                                                 "Pants",
                                                 "Socks",
@@ -3020,7 +3034,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "What are 'Tennis shoes' in Spanish? / ¿Qué son 'Tennis shoes' en español?",
+                                    "q": "¿Qué son 'Tennis shoes' en español?",
                                     "options": [
                                                 "Zapatos de vestir",
                                                 "Tenis (zapatos deportivos)",
@@ -3029,7 +3043,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "What is a 'Shirt' in Spanish? / ¿Qué es una 'Shirt' en español?",
+                                    "q": "¿Qué es una 'Shirt' en español?",
                                     "options": [
                                                 "Camisa",
                                                 "Gorra",
@@ -3038,7 +3052,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "If you point to a cap that is CLOSE to you, you say... / Si señalas una gorra que está CERCA de ti, dices...",
+                                    "q": "Si señalas una gorra que está CERCA de ti, dices...",
                                     "options": [
                                                 "That is a cap.",
                                                 "This is a cap.",
@@ -3047,7 +3061,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "If you point to a dress that is FAR away, you say... / Si señalas un vestido que está LEJOS de ti, dices...",
+                                    "q": "Si señalas un vestido que está LEJOS de ti, dices...",
                                     "options": [
                                                 "This is a dress.",
                                                 "That is a dress.",
@@ -3056,7 +3070,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "How do you ask about the quantity of shirts? / ¿Cómo preguntas por la cantidad de playeras?",
+                                    "q": "¿Cómo preguntas por la cantidad de playeras?",
                                     "options": [
                                                 "Where are the shirts?",
                                                 "How many shirts are there?",
@@ -3065,7 +3079,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "Complete: There ______ three caps on the bed. / Completa: Hay tres gorras sobre la cama.",
+                                    "q": "Completa: Hay tres gorras sobre la cama.",
                                     "options": [
                                                 "is",
                                                 "are",
@@ -3074,7 +3088,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "Complete: There ______ one T-shirt on the chair. / Completa: Hay una playera en la silla.",
+                                    "q": "Completa: Hay una playera en la silla.",
                                     "options": [
                                                 "is",
                                                 "are",
@@ -3083,7 +3097,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "How do you say 'Ese es mi pantalón' (señalando lejos)? / ¿Cómo dices 'Ese es mi pantalón' (señalando lejos) en inglés?",
+                                    "q": "¿Cómo dices 'Ese es mi pantalón' (señalando lejos) en inglés?",
                                     "options": [
                                                 "This is my pants.",
                                                 "That is my pants.",
@@ -3092,7 +3106,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "How do you say 'Esta es mi gorra' (teniéndola en la mano)? / ¿Cómo dices 'Esta es mi gorra' (teniéndola en la mano) en inglés?",
+                                    "q": "¿Cómo dices 'Esta es mi gorra' (teniéndola en la mano) en inglés?",
                                     "options": [
                                                 "This is my cap.",
                                                 "That is my cap.",
@@ -3101,7 +3115,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "To say 'Hay dos zapatos' in English, you say... / Para decir 'Hay dos zapatos' en inglés, dices...",
+                                    "q": "Para decir 'Hay dos zapatos' en inglés, dices...",
                                     "options": [
                                                 "There are two shoes.",
                                                 "There is two shoes.",
@@ -3110,7 +3124,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "To say 'Hay una falda' in English, you say... / Para decir 'Hay una falda' en inglés, dices...",
+                                    "q": "Para decir 'Hay una falda' en inglés, dices...",
                                     "options": [
                                                 "There is a skirt.",
                                                 "There are a skirt.",
@@ -3119,7 +3133,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "How do you answer: 'How many socks are there?' (2 socks) / ¿Cómo respondes a '¿Cuántos calcetines hay?' (2 calcetines)?",
+                                    "q": "¿Cómo respondes a '¿Cuántos calcetines hay?' (2 calcetines)?",
                                     "options": [
                                                 "There is two socks.",
                                                 "There are two socks.",
@@ -3128,7 +3142,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "Where do you cook food in a house? / ¿En qué parte de la casa cocinas la comida?",
+                                    "q": "¿En qué parte de la casa cocinas la comida?",
                                     "options": [
                                                 "In the Bathroom",
                                                 "In the Kitchen",
@@ -3137,7 +3151,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "Where do you sleep at night? / ¿En qué parte de la casa duermes por la noche?",
+                                    "q": "¿En qué parte de la casa duermes por la noche?",
                                     "options": [
                                                 "In the Bedroom",
                                                 "In the Living room",
@@ -3146,7 +3160,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "Where is the grass and the flowers in a house? / ¿Dónde está el césped y las flores en una casa?",
+                                    "q": "¿Dónde está el césped y las flores en una casa?",
                                     "options": [
                                                 "In the Kitchen",
                                                 "In the Garden",
@@ -3155,7 +3169,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "Where do you take a bath or wash your hands? / ¿Dónde te bañas o te lavas las manos?",
+                                    "q": "¿Dónde te bañas o te lavas las manos?",
                                     "options": [
                                                 "In the Bathroom",
                                                 "In the Dining room",
@@ -3164,7 +3178,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "What keeps the milk and apples cold? / ¿Qué aparato mantiene fría la leche y las manzanas?",
+                                    "q": "¿Qué aparato mantiene fría la leche y las manzanas?",
                                     "options": [
                                                 "The Stove",
                                                 "The Fridge",
@@ -3173,7 +3187,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "What appliance do we use to cook or heat soup? / ¿Qué aparato usamos para cocinar o calentar sopa?",
+                                    "q": "¿Qué aparato usamos para cocinar o calentar sopa?",
                                     "options": [
                                                 "The Shower",
                                                 "The Stove",
@@ -3182,7 +3196,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "Where is the television and the sofa to watch movies? / ¿Dónde está la televisión y el sofá para ver películas?",
+                                    "q": "¿Dónde está la televisión y el sofá para ver películas?",
                                     "options": [
                                                 "In the Living room",
                                                 "In the Bathroom",
@@ -3191,7 +3205,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "Where does the family sit at the table to eat dinner? / ¿Dónde se sienta la familia a la mesa para cenar?",
+                                    "q": "¿Dónde se sienta la familia a la mesa para cenar?",
                                     "options": [
                                                 "In the Dining room",
                                                 "In the Garden",
@@ -3200,7 +3214,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "We look outside the house through the... / Miramos hacia afuera de la casa a través de la...",
+                                    "q": "Miramos hacia afuera de la casa a través de la...",
                                     "options": [
                                                 "Stove",
                                                 "Window",
@@ -3209,7 +3223,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "We clean our bodies under the water in the... / Nos limpiamos el cuerpo bajo el agua en la...",
+                                    "q": "Nos limpiamos el cuerpo bajo el agua en la...",
                                     "options": [
                                                 "Shower",
                                                 "Kitchen",
@@ -3218,7 +3232,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "If someone asks 'Where is my dad?', you answer... / Si alguien pregunta '¿Dónde está mi papá?', respondes...",
+                                    "q": "Si alguien pregunta '¿Dónde está mi papá?', respondes...",
                                     "options": [
                                                 "He is in the garden.",
                                                 "She is in the garden.",
@@ -3227,7 +3241,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "If someone asks 'Where is my mom?', you answer... / Si alguien pregunta '¿Dónde está mi mamá?', respondes...",
+                                    "q": "Si alguien pregunta '¿Dónde está mi mamá?', respondes...",
                                     "options": [
                                                 "He is in the kitchen.",
                                                 "She is in the kitchen.",
@@ -3236,7 +3250,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "If someone asks 'Where is the cat?', you answer... / Si alguien pregunta '¿Dónde está el gato?', respondes...",
+                                    "q": "Si alguien pregunta '¿Dónde está el gato?', respondes...",
                                     "options": [
                                                 "It is under the table.",
                                                 "They are under the table.",
@@ -3245,7 +3259,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "How do you say 'Ellos están en la sala'? / ¿Cómo dices 'Ellos están en la sala' en inglés?",
+                                    "q": "¿Cómo dices 'Ellos están en la sala' en inglés?",
                                     "options": [
                                                 "They are in the living room.",
                                                 "They aren't in the living room.",
@@ -3254,7 +3268,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "How do you say 'Él no está en el baño'? / ¿Cómo dices 'Él no está en el baño' en inglés?",
+                                    "q": "¿Cómo dices 'Él no está en el baño' en inglés?",
                                     "options": [
                                                 "He is in the bathroom.",
                                                 "He isn't in the bathroom.",
@@ -3263,7 +3277,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "How do you say 'Ellos no están en la cocina'? / ¿Cómo dices 'Ellos no están en la cocina' en inglés?",
+                                    "q": "¿Cómo dices 'Ellos no están en la cocina' en inglés?",
                                     "options": [
                                                 "They are in the kitchen.",
                                                 "They aren't in the kitchen.",
@@ -3272,7 +3286,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "Complete: Where ______ the stove? / Completa: ¿Dónde ______ la estufa?",
+                                    "q": "Completa: ¿Dónde ______ la estufa?",
                                     "options": [
                                                 "is",
                                                 "are",
@@ -3281,7 +3295,7 @@
                                     "ans": 0
                         },
                         {
-                                    "q": "Complete: Where ______ my shoes? / Completa: ¿Dónde ______ mis zapatos?",
+                                    "q": "Completa: ¿Dónde ______ mis zapatos?",
                                     "options": [
                                                 "is",
                                                 "are",
@@ -3290,7 +3304,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "Complete: The fridge ______ in the bathroom. It is in the kitchen! / Completa: El refrigerador ______ en el baño. ¡Está en la cocina!",
+                                    "q": "Completa: El refrigerador ______ en el baño. ¡Está en la cocina!",
                                     "options": [
                                                 "is",
                                                 "isn't",
@@ -3299,7 +3313,7 @@
                                     "ans": 1
                         },
                         {
-                                    "q": "Complete: Zaid and Fernando ______ in the garden. They are playing! / Completa: Zaid y Fernando ______ en el jardín. ¡Están jugando!",
+                                    "q": "Completa: Zaid y Fernando ______ en el jardín. ¡Están jugando!",
                                     "options": [
                                                 "is",
                                                 "isn't",
@@ -4386,21 +4400,21 @@
                 
                 const COMIC_STORIES = [
                     {
-                        title: "Toby al Espacio / Toby to Space",
+                        title: "Toby al Espacio",
                         draggables: [
                             { match: "toby", text: "🐶 Toby", bg: "bg-blue-500 text-white" },
-                            { match: "dialogo_toby", text: "💬 \"¡Al espacio! / To space!\"", bg: "bg-yellow-500 text-gray-800" },
-                            { match: "pum", text: "💥 ¡PUM! / BANG!", bg: "bg-red-500 text-white font-black" },
-                            { match: "dialogo_zog", text: "💬 \"¡Hola! / Hello!\"", bg: "bg-green-500 text-white" }
+                            { match: "dialogo_toby", text: "💬 \"¡Al espacio!\"", bg: "bg-yellow-500 text-gray-800" },
+                            { match: "pum", text: "💥 ¡PUM!", bg: "bg-red-500 text-white font-black" },
+                            { match: "dialogo_zog", text: "💬 \"¡Hola!\"", bg: "bg-green-500 text-white" }
                         ],
                         viñetas: [
                             {
                                 num: 1,
                                 emoji: "🚀✨",
-                                desc: "Toby entra al cohete listo para despegar. / Toby enters the rocket ready to launch.",
+                                desc: "Toby entra al cohete listo para despegar.",
                                 drops: [
-                                    { target: "toby", label: "Arrastra a Toby / Drag Toby" },
-                                    { target: "dialogo_toby", label: "Arrastra su diálogo / Drag dialogue" }
+                                    { target: "toby", label: "Arrastra a Toby" },
+                                    { target: "dialogo_toby", label: "Arrastra su diálogo" }
                                 ],
                                 border: "border-indigo-200",
                                 bg: "bg-indigo-50"
@@ -4408,9 +4422,9 @@
                             {
                                 num: 2,
                                 emoji: "🔥🚀💨",
-                                desc: "El cohete despega con un sonido muy fuerte. / The rocket launches with a loud sound.",
+                                desc: "El cohete despega con un sonido muy fuerte.",
                                 drops: [
-                                    { target: "pum", label: "Arrastra sonido / Drag sound" }
+                                    { target: "pum", label: "Arrastra sonido" }
                                 ],
                                 border: "border-red-200",
                                 bg: "bg-red-50"
@@ -4418,9 +4432,9 @@
                             {
                                 num: 3,
                                 emoji: "🌕👽",
-                                desc: "Toby llega a la luna y el marciano Zog lo saluda. / Toby arrives at the moon and the alien Zog greets him.",
+                                desc: "Toby llega a la luna y el marciano Zog lo saluda.",
                                 drops: [
-                                    { target: "dialogo_zog", label: "Arrastra saludo / Drag greeting" }
+                                    { target: "dialogo_zog", label: "Arrastra saludo" }
                                 ],
                                 border: "border-green-200",
                                 bg: "bg-green-50"
@@ -4428,21 +4442,21 @@
                         ]
                     },
                     {
-                        title: "Cleo la Gatita Submarina / Cleo the Underwater Cat",
+                        title: "Cleo la Gatita Submarina",
                         draggables: [
                             { match: "cleo", text: "🐱 Cleo", bg: "bg-pink-500 text-white" },
-                            { match: "dialogo_cleo", text: "💬 \"¡Al agua! / To the water!\"", bg: "bg-cyan-500 text-white" },
-                            { match: "gluglu", text: "💦 ¡GLU GLU! / SPLASH!", bg: "bg-blue-500 text-white font-black" },
-                            { match: "dialogo_pulpo", text: "💬 \"¡Bienvenido! / Welcome!\"", bg: "bg-purple-500 text-white" }
+                            { match: "dialogo_cleo", text: "💬 \"¡Al agua!\"", bg: "bg-cyan-500 text-white" },
+                            { match: "gluglu", text: "💦 ¡GLU GLU!", bg: "bg-blue-500 text-white font-black" },
+                            { match: "dialogo_pulpo", text: "💬 \"¡Bienvenido!\"", bg: "bg-purple-500 text-white" }
                         ],
                         viñetas: [
                             {
                                 num: 1,
                                 emoji: "🚢🌊",
-                                desc: "Cleo se pone su traje de buzo y salta al mar. / Cleo puts on her diving suit and jumps into the sea.",
+                                desc: "Cleo se pone su traje de buzo y salta al mar.",
                                 drops: [
-                                    { target: "cleo", label: "Arrastra a Cleo / Drag Cleo" },
-                                    { target: "dialogo_cleo", label: "Arrastra su diálogo / Drag dialogue" }
+                                    { target: "cleo", label: "Arrastra a Cleo" },
+                                    { target: "dialogo_cleo", label: "Arrastra su diálogo" }
                                 ],
                                 border: "border-cyan-200",
                                 bg: "bg-cyan-50"
@@ -4450,9 +4464,9 @@
                             {
                                 num: 2,
                                 emoji: "🐠🦈🫧",
-                                desc: "Cleo nada bajo el agua haciendo burbujas. / Cleo swims underwater making bubbles.",
+                                desc: "Cleo nada bajo el agua haciendo burbujas.",
                                 drops: [
-                                    { target: "gluglu", label: "Arrastra sonido / Drag sound" }
+                                    { target: "gluglu", label: "Arrastra sonido" }
                                 ],
                                 border: "border-blue-200",
                                 bg: "bg-blue-50"
@@ -4460,9 +4474,9 @@
                             {
                                 num: 3,
                                 emoji: "🐙💎",
-                                desc: "Cleo encuentra un pulpo y lo saluda. / Cleo finds an octopus and greets him.",
+                                desc: "Cleo encuentra un pulpo y lo saluda.",
                                 drops: [
-                                    { target: "dialogo_pulpo", label: "Arrastra saludo / Drag greeting" }
+                                    { target: "dialogo_pulpo", label: "Arrastra saludo" }
                                 ],
                                 border: "border-purple-200",
                                 bg: "bg-purple-50"
@@ -4470,21 +4484,21 @@
                         ]
                     },
                     {
-                        title: "Dino en la Selva / Dino in the Jungle",
+                        title: "Dino en la Selva",
                         draggables: [
                             { match: "dino", text: "🦖 Dino", bg: "bg-emerald-500 text-white" },
-                            { match: "dialogo_dino", text: "💬 \"¡Qué hambre! / So hungry!\"", bg: "bg-amber-500 text-gray-800" },
-                            { match: "crunch", text: "🍎 ¡CRUNCH! / MUNCH!", bg: "bg-red-500 text-white font-black" },
-                            { match: "dialogo_mono", text: "💬 \"¡Hola amigo! / Hello friend!\"", bg: "bg-yellow-600 text-white" }
+                            { match: "dialogo_dino", text: "💬 \"¡Qué hambre!\"", bg: "bg-amber-500 text-gray-800" },
+                            { match: "crunch", text: "🍎 ¡CRUNCH!", bg: "bg-red-500 text-white font-black" },
+                            { match: "dialogo_mono", text: "💬 \"¡Hola amigo!\"", bg: "bg-yellow-600 text-white" }
                         ],
                         viñetas: [
                             {
                                 num: 1,
                                 emoji: "🌴🦕",
-                                desc: "Dino camina entre los árboles buscando comida. / Dino walks through the trees looking for food.",
+                                desc: "Dino camina entre los árboles buscando comida.",
                                 drops: [
-                                    { target: "dino", label: "Arrastra a Dino / Drag Dino" },
-                                    { target: "dialogo_dino", label: "Arrastra su diálogo / Drag dialogue" }
+                                    { target: "dino", label: "Arrastra a Dino" },
+                                    { target: "dialogo_dino", label: "Arrastra su diálogo" }
                                 ],
                                 border: "border-emerald-200",
                                 bg: "bg-emerald-50"
@@ -4492,9 +4506,9 @@
                             {
                                 num: 2,
                                 emoji: "🍎🌳🦖",
-                                desc: "Dino muerde una manzana roja deliciosa. / Dino bites a delicious red apple.",
+                                desc: "Dino muerde una manzana roja deliciosa.",
                                 drops: [
-                                    { target: "crunch", label: "Arrastra sonido / Drag sound" }
+                                    { target: "crunch", label: "Arrastra sonido" }
                                 ],
                                 border: "border-red-200",
                                 bg: "bg-red-50"
@@ -4502,9 +4516,9 @@
                             {
                                 num: 3,
                                 emoji: "🐒🍌",
-                                desc: "El mono Coco lo saluda desde una palmera. / Coco the monkey greets him from a palm tree.",
+                                desc: "El mono Coco lo saluda desde una palmera.",
                                 drops: [
-                                    { target: "dialogo_mono", label: "Arrastra saludo / Drag greeting" }
+                                    { target: "dialogo_mono", label: "Arrastra saludo" }
                                 ],
                                 border: "border-amber-200",
                                 bg: "bg-amber-50"
@@ -4538,10 +4552,10 @@
                 }).join('\n');
                 
                 content.innerHTML = `
-                    <p class="text-center font-bold text-gray-600 mb-2 text-lg">¡Ayuda a Toby a terminar su historieta! Arrastra los elementos a las viñetas correctas. / Help Toby finish his story! Drag the elements to the correct panels.</p>
+                    <p class="text-center font-bold text-gray-600 mb-2 text-lg">¡Ayuda a terminar la historieta! Arrastra los elementos a las viñetas correctas.</p>
                     <p class="text-center font-black text-purple-700 mb-4 text-xl">🖍️ ${story.title}</p>
                     
-                    <div class="flex flex-wrap gap-3 justify-center mb-6 bg-purple-50 p-4 rounded-2xl border-2 border-purple-200" id="comic-bank">
+                    <div class="flex flex-wrap gap-3 justify-center sticky-bank" id="comic-bank">
                         ${draggablesHTML}
                     </div>
                     
@@ -4566,7 +4580,7 @@
                     { id: "blue_tshirt", en: "blue T-shirt", es: "playera azul", emoji: "👕" },
                     { id: "red_tshirt", en: "red T-shirt", es: "playera roja", emoji: "👕" },
                     { id: "yellow_tshirt", en: "yellow T-shirt", es: "playera amarilla", emoji: "👕" },
-                    { id: "pink_dress", en: "pink dress", es: "vestido rosa", emoji: "👗" }
+                    { id: "pink_dress", en: "pink T-shirt", es: "playera rosa", emoji: "👕" }
                 ];
                 
                 const SOCKS = [
@@ -4584,9 +4598,9 @@
                 const esInstr = `Ponte la ${selectedTshirt.es}, la ${selectedCap.es} y los ${selectedSocks.es}.`;
                 
                 const correctItems = [
-                    { match: "cap", label: `${selectedCap.emoji} ${selectedCap.en} / ${selectedCap.es}`, bg: "bg-yellow-100 border-yellow-400 text-yellow-800" },
-                    { match: "tshirt", label: `${selectedTshirt.emoji} ${selectedTshirt.en} / ${selectedTshirt.es}`, bg: "bg-blue-100 border-blue-400 text-blue-800" },
-                    { match: "socks", label: `${selectedSocks.emoji} ${selectedSocks.en} / ${selectedSocks.es}`, bg: "bg-green-100 border-green-400 text-green-800" }
+                    { match: "cap", label: `${selectedCap.emoji} ${selectedCap.es}`, bg: "bg-yellow-100 border-yellow-400 text-yellow-800" },
+                    { match: "tshirt", label: `${selectedTshirt.emoji} ${selectedTshirt.es}`, bg: "bg-blue-100 border-blue-400 text-blue-800" },
+                    { match: "socks", label: `${selectedSocks.emoji} ${selectedSocks.es}`, bg: "bg-green-100 border-green-400 text-green-800" }
                 ];
                 
                 let distractor;
@@ -4596,7 +4610,7 @@
                     if (candidate.id !== selectedCap.id && candidate.id !== selectedTshirt.id && candidate.id !== selectedSocks.id) {
                         distractor = {
                             match: "distractor",
-                            label: `${candidate.emoji} ${candidate.en} / ${candidate.es}`,
+                            label: `${candidate.emoji} ${candidate.es}`,
                             bg: "bg-red-100 border-red-400 text-red-800"
                         };
                         break;
@@ -4611,10 +4625,9 @@
                 `).join('\n');
                 
                 content.innerHTML = `
-                    <p class="text-center font-bold text-gray-600 mb-4 text-lg">Zaid necesita vestirse. ¡Ayúdalo a ponerse las prendas correctas! / Zaid needs to dress up. Help him put on the right clothes!</p>
+                    <p class="text-center font-bold text-gray-600 mb-4 text-lg">Zaid necesita vestirse. ¡Ayúdalo a ponerse las prendas correctas!</p>
                     <div class="bg-blue-50 p-4 rounded-2xl border-2 border-blue-200 mb-6 text-center">
-                        <p class="text-xl font-black text-blue-800 animate-pulse">👕 Instruction: "${enInstr}"</p>
-                        <p class="text-md font-bold text-gray-600 mt-1">🗣️ Instrucción: "${esInstr}"</p>
+                        <p class="text-xl font-black text-blue-800 animate-pulse">🗣️ Instrucción: "${esInstr}"</p>
                     </div>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
@@ -4623,18 +4636,18 @@
                             <div class="text-8xl mb-2">👦</div>
                             
                             <!-- Dropzone Cabeza -->
-                            <div class="dropzone w-48 h-12 border-2 border-dashed border-yellow-400 rounded-xl flex items-center justify-center bg-yellow-50 text-xs font-bold text-yellow-700 mb-4" data-target="cap">Gorra / Cap</div>
+                            <div class="dropzone w-48 h-12 border-2 border-dashed border-yellow-400 rounded-xl flex items-center justify-center bg-yellow-50 text-xs font-bold text-yellow-700 mb-4" data-target="cap">Gorra</div>
                             
                             <!-- Dropzone Torso -->
-                            <div class="dropzone w-48 h-12 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center bg-blue-50 text-xs font-bold text-blue-700 mb-4" data-target="tshirt">Playera / T-shirt</div>
+                            <div class="dropzone w-48 h-12 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center bg-blue-50 text-xs font-bold text-blue-700 mb-4" data-target="tshirt">Playera</div>
                             
                             <!-- Dropzone Pies -->
-                            <div class="dropzone w-48 h-12 border-2 border-dashed border-green-400 rounded-xl flex items-center justify-center bg-green-50 text-xs font-bold text-green-700 mt-auto" data-target="socks">Calcetines / Socks</div>
+                            <div class="dropzone w-48 h-12 border-2 border-dashed border-green-400 rounded-xl flex items-center justify-center bg-green-50 text-xs font-bold text-green-700 mt-auto" data-target="socks">Calcetines</div>
                         </div>
                         
                         <!-- Lado Derecho: Ropa disponible -->
                         <div class="bg-gray-50 p-6 rounded-3xl border-2 border-gray-200 flex flex-col justify-center gap-4 h-full">
-                            <p class="font-bold text-gray-600 text-center mb-2">Arrastra la ropa correcta / Drag the correct clothes:</p>
+                            <p class="font-bold text-gray-600 text-center mb-2">Arrastra la ropa correcta:</p>
                             <div class="grid grid-cols-2 gap-3">
                                 ${draggablesHTML}
                             </div>
@@ -4648,26 +4661,26 @@
                 totalMatches = 5;
                 
                 const HOGAR_POOL = [
-                    { id: "sofa", enName: "Sofa", esName: "Sofá", emoji: "🛋️", enRoom: "living room", esRoom: "la sala", bgClass: "bg-purple-50 border-purple-200", textClass: "text-purple-800", zoneLabel: "Sofá / Sofa", enText: "The sofa is in the living room", esText: "El sofá está en la sala" },
-                    { id: "fridge", enName: "Fridge", esName: "Refrigerador", emoji: "🍉", enRoom: "kitchen", esRoom: "la cocina", bgClass: "bg-orange-50 border-orange-200", textClass: "text-orange-800", zoneLabel: "Refrigerador / Fridge", enText: "The fridge is in the kitchen", esText: "El refrigerador está en la cocina" },
-                    { id: "shower", enName: "Shower", esName: "Ducha", emoji: "🚿", enRoom: "bathroom", esRoom: "el baño", bgClass: "bg-blue-50 border-blue-200", textClass: "text-blue-800", zoneLabel: "Ducha / Shower", enText: "The shower is in the bathroom", esText: "La ducha está en el baño" },
-                    { id: "tree", enName: "Tree", esName: "Árbol", emoji: "🌳", enRoom: "garden", esRoom: "el jardín", bgClass: "bg-green-50 border-green-200", textClass: "text-green-800", zoneLabel: "Árbol / Tree", enText: "The tree is in the garden", esText: "El árbol está en el jardín" },
-                    { id: "bed", enName: "Bed", esName: "Cama", emoji: "🛏️", enRoom: "bedroom", esRoom: "la recámara", bgClass: "bg-pink-50 border-pink-200", textClass: "text-pink-800", zoneLabel: "Cama / Bed", enText: "The bed is in the bedroom", esText: "La cama está en la recámara" },
-                    { id: "stove", enName: "Stove", esName: "Estufa", emoji: "🍳", enRoom: "kitchen", esRoom: "la cocina", bgClass: "bg-orange-50 border-orange-200", textClass: "text-orange-800", zoneLabel: "Estufa / Stove", enText: "The stove is in the kitchen", esText: "La estufa está en la cocina" },
-                    { id: "table", enName: "Table", esName: "Mesa", emoji: "🪑", enRoom: "dining room", esRoom: "el comedor", bgClass: "bg-yellow-50 border-yellow-200", textClass: "text-yellow-800", zoneLabel: "Mesa / Table", enText: "The table is in the dining room", esText: "La mesa está en el comedor" },
-                    { id: "car", enName: "Car", esName: "Carro", emoji: "🚗", enRoom: "garage", esRoom: "la cochera", bgClass: "bg-gray-50 border-gray-300", textClass: "text-gray-800", zoneLabel: "Carro / Car", enText: "The car is in the garage", esText: "El carro está en la cochera" },
-                    { id: "lamp", enName: "Lamp", esName: "Lámpara", emoji: "💡", enRoom: "bedroom", esRoom: "la recámara", bgClass: "bg-pink-50 border-pink-200", textClass: "text-pink-800", zoneLabel: "Lámpara / Lamp", enText: "The lamp is in the bedroom", esText: "La lámpara está en la recámara" },
-                    { id: "flowers", enName: "Flowers", esName: "Flores", emoji: "🌸", enRoom: "garden", esRoom: "el jardín", bgClass: "bg-green-50 border-green-200", textClass: "text-green-800", zoneLabel: "Flores / Flowers", enText: "The flowers are in the garden", esText: "Las flores están en el jardín" }
+                    { id: "sofa", enName: "Sofa", esName: "Sofá", emoji: "🛋️", enRoom: "living room", esRoom: "la sala", bgClass: "bg-purple-50 border-purple-200", textClass: "text-purple-800", zoneLabel: "Sofá", enText: "The sofa is in the living room", esText: "El sofá está en la sala" },
+                    { id: "fridge", enName: "Fridge", esName: "Refrigerador", emoji: "🍉", enRoom: "kitchen", esRoom: "la cocina", bgClass: "bg-orange-50 border-orange-200", textClass: "text-orange-800", zoneLabel: "Refrigerador", enText: "The fridge is in the kitchen", esText: "El refrigerador está en la cocina" },
+                    { id: "shower", enName: "Shower", esName: "Ducha", emoji: "🚿", enRoom: "bathroom", esRoom: "el baño", bgClass: "bg-blue-50 border-blue-200", textClass: "text-blue-800", zoneLabel: "Ducha", enText: "The shower is in the bathroom", esText: "La ducha está en el baño" },
+                    { id: "tree", enName: "Tree", esName: "Árbol", emoji: "🌳", enRoom: "garden", esRoom: "el jardín", bgClass: "bg-green-50 border-green-200", textClass: "text-green-800", zoneLabel: "Árbol", enText: "The tree is in the garden", esText: "El árbol está en el jardín" },
+                    { id: "bed", enName: "Bed", esName: "Cama", emoji: "🛏️", enRoom: "bedroom", esRoom: "la recámara", bgClass: "bg-pink-50 border-pink-200", textClass: "text-pink-800", zoneLabel: "Cama", enText: "The bed is in the bedroom", esText: "La cama está en la recámara" },
+                    { id: "stove", enName: "Stove", esName: "Estufa", emoji: "🍳", enRoom: "kitchen", esRoom: "la cocina", bgClass: "bg-orange-50 border-orange-200", textClass: "text-orange-800", zoneLabel: "Estufa", enText: "The stove is in the kitchen", esText: "La estufa está en la cocina" },
+                    { id: "table", enName: "Table", esName: "Mesa", emoji: "🪑", enRoom: "dining room", esRoom: "el comedor", bgClass: "bg-yellow-50 border-yellow-200", textClass: "text-yellow-800", zoneLabel: "Mesa", enText: "The table is in the dining room", esText: "La mesa está en el comedor" },
+                    { id: "car", enName: "Car", esName: "Carro", emoji: "🚗", enRoom: "garage", esRoom: "la cochera", bgClass: "bg-gray-50 border-gray-300", textClass: "text-gray-800", zoneLabel: "Carro", enText: "The car is in the garage", esText: "El carro está en la cochera" },
+                    { id: "lamp", enName: "Lamp", esName: "Lámpara", emoji: "💡", enRoom: "bedroom", esRoom: "la recámara", bgClass: "bg-pink-50 border-pink-200", textClass: "text-pink-800", zoneLabel: "Lámpara", enText: "The lamp is in the bedroom", esText: "La lámpara está en la recámara" },
+                    { id: "flowers", enName: "Flowers", esName: "Flores", emoji: "🌸", enRoom: "garden", esRoom: "el jardín", bgClass: "bg-green-50 border-green-200", textClass: "text-green-800", zoneLabel: "Flores", enText: "The flowers are in the garden", esText: "Las flores están en el jardín" }
                 ];
                 
                 const selectedItems = [...HOGAR_POOL].sort(() => Math.random() - 0.5).slice(0, 5);
                 let instructionsHTML = selectedItems.map(item => 
-                    `<div>${item.emoji} ${item.enText}. / ${item.esText}.</div>`
+                    `<div>${item.emoji} ${item.esText}.</div>`
                 ).join('\n');
                 
                 const shuffledDraggables = [...selectedItems].sort(() => Math.random() - 0.5);
                 let draggablesHTML = shuffledDraggables.map(item => 
-                    `<div class="draggable bg-white border-2 border-gray-300 font-bold py-2 px-3 rounded-xl shadow cursor-pointer text-sm flex items-center gap-2" data-match="${item.id}">${item.emoji} ${item.enName} / ${item.esName}</div>`
+                    `<div class="draggable bg-white border-2 border-gray-300 font-bold py-2 px-3 rounded-xl shadow cursor-pointer text-sm flex items-center gap-2" data-match="${item.id}">${item.emoji} ${item.esName}</div>`
                 ).join('\n');
                 
                 let roomsHTML = selectedItems.map((item, idx) => {
@@ -4676,20 +4689,20 @@
                     const esRoomLabel = item.esRoom.charAt(0).toUpperCase() + item.esRoom.slice(1);
                     return `
                         <div class="${item.bgClass} p-4 rounded-2xl border-4 h-40 flex flex-col justify-between ${colSpan}">
-                            <span class="font-black ${item.textClass} text-sm">${roomLabel} / ${esRoomLabel}</span>
+                            <span class="font-black ${item.textClass} text-sm">${esRoomLabel}</span>
                             <div class="dropzone h-14 border-2 border-dashed ${item.textClass.replace('text-', 'border-').replace('-800', '-300')} rounded-xl flex items-center justify-center bg-white text-xs font-bold ${item.textClass.replace('text-', 'text-').replace('-800', '-400')}" data-target="${item.id}">${item.zoneLabel}</div>
                         </div>
                     `;
                 }).join('\n');
                 
                 content.innerHTML = `
-                    <p class="text-center font-bold text-gray-600 mb-4 text-lg">Coloca cada objeto en la parte de la casa que le corresponde según las instrucciones. / Place each object in the correct part of the house based on instructions.</p>
+                    <p class="text-center font-bold text-gray-600 mb-4 text-lg">Coloca cada objeto en la parte de la casa que le corresponde según las instrucciones.</p>
                     <div class="bg-indigo-50 p-4 rounded-2xl border-2 border-indigo-200 mb-6 text-center text-sm font-bold text-indigo-900 grid grid-cols-1 md:grid-cols-2 gap-1">
                         ${instructionsHTML}
                     </div>
                     
                     <!-- Banco de Objetos -->
-                    <div class="flex flex-wrap gap-3 justify-center mb-6 bg-gray-50 p-4 rounded-2xl border-2 border-gray-200" id="house-bank">
+                    <div class="flex flex-wrap gap-3 justify-center sticky-bank" id="house-bank">
                         ${draggablesHTML}
                     </div>
                     
@@ -4705,25 +4718,25 @@
                 totalMatches = 6;
                 
                 const SHAPES_2D_POOL = [
-                    { text: "🍕 Rebanada (Triángulo / Triangle)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
-                    { text: "🪙 Moneda (Círculo / Circle)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
-                    { text: "🖼️ Cuadro (Cuadrado / Square)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
-                    { text: "🪁 Papalote (Rombo / Rhombus)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
-                    { text: "🍩 Dona (Círculo / Circle)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
-                    { text: "🚪 Puerta (Rectángulo / Rectangle)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
-                    { text: "🧇 Waffle (Cuadrado / Square)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
-                    { text: "📐 Regla (Triángulo / Triangle)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" }
+                    { text: "🍕 Rebanada (Triángulo)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
+                    { text: "🪙 Moneda (Círculo)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
+                    { text: "🖼️ Cuadro (Cuadrado)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
+                    { text: "🪁 Papalote (Rombo)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
+                    { text: "🍩 Dona (Círculo)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
+                    { text: "🚪 Puerta (Rectángulo)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
+                    { text: "🧇 Waffle (Cuadrado)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
+                    { text: "📐 Regla (Triángulo)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" }
                 ];
                 
                 const SHAPES_3D_POOL = [
-                    { text: "⚽ Pelota (Esfera / Sphere)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
-                    { text: "📦 Caja (Cubo / Cube)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
-                    { text: "🍦 Cono (Cono / Cone)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
-                    { text: "🥤 Lata (Cilindro / Cylinder)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
-                    { text: "🎲 Dado (Cubo / Cube)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
-                    { text: "🔋 Pila (Cilindro / Cylinder)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
-                    { text: "🍊 Naranja (Esfera / Sphere)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
-                    { text: "⛺ Tienda (Prisma / Prism)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" }
+                    { text: "⚽ Pelota (Esfera)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
+                    { text: "📦 Caja (Cubo)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
+                    { text: "🍦 Cono (Cono)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
+                    { text: "🥤 Lata (Cilindro)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
+                    { text: "🎲 Dado (Cubo)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
+                    { text: "🔋 Pila (Cilindro)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
+                    { text: "🍊 Naranja (Esfera)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
+                    { text: "⛺ Tienda (Prisma)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" }
                 ];
                 
                 const selected2D = [...SHAPES_2D_POOL].sort(() => Math.random() - 0.5).slice(0, 3);
@@ -4737,10 +4750,10 @@
                 `).join('\n');
                 
                 content.innerHTML = `
-                    <p class="text-center font-bold text-gray-600 mb-4 text-lg">¿Es una Figura Plana (2D) o un Cuerpo con volumen (3D)? Arrastra cada objeto al baúl correcto. / Is it a Flat Shape (2D) or a Solid Body (3D)? Drag each object to the correct chest.</p>
+                    <p class="text-center font-bold text-gray-600 mb-4 text-lg">¿Es una Figura Plana (2D) o un Cuerpo con volumen (3D)? Arrastra cada objeto al baúl correcto.</p>
                     
                     <!-- Banco de Objetos -->
-                    <div class="flex flex-wrap gap-3 justify-center mb-6 bg-gray-50 p-4 rounded-2xl border-2 border-gray-200" id="shapes-bank">
+                    <div class="flex flex-wrap gap-3 justify-center sticky-bank" id="shapes-bank">
                         ${draggablesHTML}
                     </div>
                     
@@ -4748,14 +4761,14 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Baúl Figuras Planas (2D) -->
                         <div class="bg-blue-50 p-6 rounded-3xl border-4 border-blue-300 min-h-[250px] flex flex-col">
-                            <span class="font-black text-blue-800 text-lg mb-4 text-center">🔵 Figuras Planas (2D) / Flat Shapes (2D)</span>
-                            <div class="dropzone flex-1 border-2 border-dashed border-blue-300 rounded-2xl flex flex-wrap gap-2 p-4 items-center justify-center bg-white text-sm font-bold text-blue-400" data-target="figura">Suelta aquí las Figuras Planas / Drop Flat Shapes here</div>
+                            <span class="font-black text-blue-800 text-lg mb-4 text-center">🔵 Figuras Planas (2D)</span>
+                            <div class="dropzone flex-1 border-2 border-dashed border-blue-300 rounded-2xl flex flex-wrap gap-2 p-4 items-center justify-center bg-white text-sm font-bold text-blue-400" data-target="figura">Suelta aquí las Figuras Planas</div>
                         </div>
                         
                         <!-- Baúl Cuerpos Geométricos (3D) -->
                         <div class="bg-red-50 p-6 rounded-3xl border-4 border-red-300 min-h-[250px] flex flex-col">
-                            <span class="font-black text-red-800 text-lg mb-4 text-center">🧱 Cuerpos Geométricos (3D) / Geometric Bodies (3D)</span>
-                            <div class="dropzone flex-1 border-2 border-dashed border-red-300 rounded-2xl flex flex-wrap gap-2 p-4 items-center justify-center bg-white text-sm font-bold text-red-400" data-target="cuerpo">Suelta aquí los Cuerpos Geométricos / Drop Geometric Bodies here</div>
+                            <span class="font-black text-red-800 text-lg mb-4 text-center">🧱 Cuerpos Geométricos (3D)</span>
+                            <div class="dropzone flex-1 border-2 border-dashed border-red-300 rounded-2xl flex flex-wrap gap-2 p-4 items-center justify-center bg-white text-sm font-bold text-red-400" data-target="cuerpo">Suelta aquí los Cuerpos Geométricos</div>
                         </div>
                     </div>
                 `;
@@ -4767,24 +4780,24 @@
                 
                 const MATERIALS_POOL = {
                     flexible: [
-                        { text: "🎈 Globo de Goma / Rubber Balloon", match: "flexible", bg: "bg-green-100 border-green-400 text-green-900" },
-                        { text: "🎗️ Liga Elástica / Elastic Band", match: "flexible", bg: "bg-green-100 border-green-400 text-green-900" },
-                        { text: "🌀 Resorte Metálico / Metal Spring", match: "flexible", bg: "bg-green-100 border-green-400 text-green-900" }
+                        { text: "🎈 Globo de Goma", match: "flexible", bg: "bg-green-100 border-green-400 text-green-900" },
+                        { text: "🎗️ Liga Elástica", match: "flexible", bg: "bg-green-100 border-green-400 text-green-900" },
+                        { text: "🌀 Resorte Metálico", match: "flexible", bg: "bg-green-100 border-green-400 text-green-900" }
                     ],
                     duro: [
-                        { text: "🧱 Bloque de Madera / Wooden Block", match: "duro", bg: "bg-indigo-100 border-indigo-400 text-indigo-900" },
-                        { text: "🪨 Piedra de Río / River Stone", match: "duro", bg: "bg-indigo-100 border-indigo-400 text-indigo-900" },
-                        { text: "🔨 Martillo de Metal / Metal Hammer", match: "duro", bg: "bg-indigo-100 border-indigo-400 text-indigo-900" }
+                        { text: "🧱 Bloque de Madera", match: "duro", bg: "bg-indigo-100 border-indigo-400 text-indigo-900" },
+                        { text: "🪨 Piedra de Río", match: "duro", bg: "bg-indigo-100 border-indigo-400 text-indigo-900" },
+                        { text: "🔨 Martillo de Metal", match: "duro", bg: "bg-indigo-100 border-indigo-400 text-indigo-900" }
                     ],
                     fragil: [
-                        { text: "🥛 Vaso de Vidrio / Glass Cup", match: "fragil", bg: "bg-red-100 border-red-400 text-red-900" },
-                        { text: "🥚 Huevo de Gallina / Chicken Egg", match: "fragil", bg: "bg-red-100 border-red-400 text-red-900" },
-                        { text: "🍽️ Plato de Cerámica / Ceramic Plate", match: "fragil", bg: "bg-red-100 border-red-400 text-red-900" }
+                        { text: "🥛 Vaso de Vidrio", match: "fragil", bg: "bg-red-100 border-red-400 text-red-900" },
+                        { text: "🥚 Huevo de Gallina", match: "fragil", bg: "bg-red-100 border-red-400 text-red-900" },
+                        { text: "🍽️ Plato de Cerámica", match: "fragil", bg: "bg-red-100 border-red-400 text-red-900" }
                     ],
                     brilloso: [
-                        { text: "🪙 Moneda de Plata / Silver Coin", match: "brilloso", bg: "bg-yellow-100 border-yellow-400 text-yellow-900" },
-                        { text: "👑 Anillo de Oro / Gold Ring", match: "brilloso", bg: "bg-yellow-100 border-yellow-400 text-yellow-900" },
-                        { text: "💎 Diamante Fino / Fine Diamond", match: "brilloso", bg: "bg-yellow-100 border-yellow-400 text-yellow-900" }
+                        { text: "🪙 Moneda de Plata", match: "brilloso", bg: "bg-yellow-100 border-yellow-400 text-yellow-900" },
+                        { text: "👑 Anillo de Oro", match: "brilloso", bg: "bg-yellow-100 border-yellow-400 text-yellow-900" },
+                        { text: "💎 Diamante Fino", match: "brilloso", bg: "bg-yellow-100 border-yellow-400 text-yellow-900" }
                     ]
                 };
                 
@@ -4801,10 +4814,10 @@
                 `).join('\n');
                 
                 content.innerHTML = `
-                    <p class="text-center font-bold text-gray-600 mb-4 text-lg">¿Cuáles son las características de estos materiales? Arrastra cada objeto a su propiedad principal. / What are the properties of these materials? Drag each object to its primary property.</p>
+                    <p class="text-center font-bold text-gray-600 mb-4 text-lg">¿Cuáles son las características de estos materiales? Arrastra cada objeto a su propiedad principal.</p>
                     
                     <!-- Banco de Objetos -->
-                    <div class="flex flex-wrap gap-3 justify-center mb-6 bg-gray-50 p-4 rounded-2xl border-2 border-gray-200" id="materials-bank">
+                    <div class="flex flex-wrap gap-3 justify-center sticky-bank" id="materials-bank">
                         ${draggablesHTML}
                     </div>
                     
@@ -4812,22 +4825,22 @@
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div class="bg-green-50 p-4 rounded-2xl border-4 border-green-200 h-44 flex flex-col justify-between">
                             <span class="font-black text-green-800 text-sm">🎈 Flexible</span>
-                            <div class="dropzone h-16 border-2 border-dashed border-green-300 rounded-xl flex items-center justify-center bg-white text-xs font-bold text-green-400" data-target="flexible">Suelta aquí / Drop here</div>
+                            <div class="dropzone h-16 border-2 border-dashed border-green-300 rounded-xl flex items-center justify-center bg-white text-xs font-bold text-green-400" data-target="flexible">Suelta aquí</div>
                         </div>
                         
                         <div class="bg-indigo-50 p-4 rounded-2xl border-4 border-indigo-200 h-44 flex flex-col justify-between">
-                            <span class="font-black text-indigo-800 text-sm">🧱 Duro / Hard</span>
-                            <div class="dropzone h-16 border-2 border-dashed border-indigo-300 rounded-xl flex items-center justify-center bg-white text-xs font-bold text-indigo-400" data-target="duro">Suelta aquí / Drop here</div>
+                            <span class="font-black text-indigo-800 text-sm">🧱 Duro</span>
+                            <div class="dropzone h-16 border-2 border-dashed border-indigo-300 rounded-xl flex items-center justify-center bg-white text-xs font-bold text-indigo-400" data-target="duro">Suelta aquí</div>
                         </div>
                         
                         <div class="bg-red-50 p-4 rounded-2xl border-4 border-red-200 h-44 flex flex-col justify-between">
-                            <span class="font-black text-red-800 text-sm">🥛 Frágil / Fragile</span>
-                            <div class="dropzone h-16 border-2 border-dashed border-red-300 rounded-xl flex items-center justify-center bg-white text-xs font-bold text-red-400" data-target="fragil">Suelta aquí / Drop here</div>
+                            <span class="font-black text-red-800 text-sm">🥛 Frágil</span>
+                            <div class="dropzone h-16 border-2 border-dashed border-red-300 rounded-xl flex items-center justify-center bg-white text-xs font-bold text-red-400" data-target="fragil">Suelta aquí</div>
                         </div>
                         
                         <div class="bg-yellow-50 p-4 rounded-2xl border-4 border-yellow-200 h-44 flex flex-col justify-between">
-                            <span class="font-black text-yellow-800 text-sm">🪙 Brilloso / Shiny</span>
-                            <div class="dropzone h-16 border-2 border-dashed border-yellow-300 rounded-xl flex items-center justify-center bg-white text-xs font-bold text-yellow-400" data-target="brilloso">Suelta aquí / Drop here</div>
+                            <span class="font-black text-yellow-800 text-sm">🪙 Brilloso</span>
+                            <div class="dropzone h-16 border-2 border-dashed border-yellow-300 rounded-xl flex items-center justify-center bg-white text-xs font-bold text-yellow-400" data-target="brilloso">Suelta aquí</div>
                         </div>
                     </div>
                 `;
@@ -4840,12 +4853,12 @@
                 const GRAFICOS_POOL = [
                     {
                         type: "sinoptico",
-                        title: "Cuadro Sinóptico / Synopsis Chart",
-                        desc: "Identifica las partes de este Cuadro Sinóptico. Arrastra las etiquetas a su lugar. / Identify the parts of this Synopsis Chart. Drag the labels to their places.",
+                        title: "Cuadro Sinóptico",
+                        desc: "Identifica las partes de este Cuadro Sinóptico. Arrastra las etiquetas a su lugar.",
                         draggables: [
-                            { match: "principal", text: "Idea Principal / Main Idea", bg: "bg-blue-500 text-white font-bold" },
-                            { match: "llave", text: "Llave / Brace", bg: "bg-purple-500 text-white font-bold" },
-                            { match: "detalles", text: "Subtemas / Subtopics", bg: "bg-green-500 text-white font-bold" }
+                            { match: "principal", text: "Idea Principal", bg: "bg-blue-500 text-white font-bold" },
+                            { match: "llave", text: "Llave", bg: "bg-purple-500 text-white font-bold" },
+                            { match: "detalles", text: "Subtemas", bg: "bg-green-500 text-white font-bold" }
                         ],
                         html: `
                             <div class="flex items-center justify-center gap-6 p-6 bg-purple-50 rounded-3xl border-4 border-purple-200 min-h-[220px] max-w-md mx-auto shadow-inner relative">
@@ -4872,12 +4885,12 @@
                     },
                     {
                         type: "tabla",
-                        title: "Tabla de Datos / Data Table",
-                        desc: "Identifica las partes de esta Tabla de Datos. Arrastra las etiquetas a su lugar. / Identify the parts of this Data Table. Drag the labels to their places.",
+                        title: "Tabla de Datos",
+                        desc: "Identifica las partes de esta Tabla de Datos. Arrastra las etiquetas a su lugar.",
                         draggables: [
-                            { match: "header", text: "Encabezado / Header", bg: "bg-orange-500 text-white font-bold" },
-                            { match: "columna", text: "Columnas / Columns", bg: "bg-teal-500 text-white font-bold" },
-                            { match: "filas", text: "Filas de Datos / Data Rows", bg: "bg-indigo-500 text-white font-bold" }
+                            { match: "header", text: "Encabezado", bg: "bg-orange-500 text-white font-bold" },
+                            { match: "columna", text: "Columnas", bg: "bg-teal-500 text-white font-bold" },
+                            { match: "filas", text: "Filas de Datos", bg: "bg-indigo-500 text-white font-bold" }
                         ],
                         html: `
                             <div class="p-6 bg-orange-50 rounded-3xl border-4 border-orange-200 max-w-md mx-auto shadow-inner relative">
@@ -4904,12 +4917,12 @@
                     },
                     {
                         type: "grafica",
-                        title: "Gráfica de Barras / Bar Chart",
-                        desc: "Identifica las partes de esta Gráfica de Barras. Arrastra las etiquetas a su lugar. / Identify the parts of this Bar Chart. Drag the labels to their places.",
+                        title: "Gráfica de Barras",
+                        desc: "Identifica las partes de esta Gráfica de Barras. Arrastra las etiquetas a su lugar.",
                         draggables: [
-                            { match: "ejey", text: "Eje Y (Cantidad) / Y-Axis", bg: "bg-blue-500 text-white font-bold" },
-                            { match: "barra", text: "Barra / Bar", bg: "bg-pink-500 text-white font-bold" },
-                            { match: "ejex", text: "Eje X (Categorías) / X-Axis", bg: "bg-green-500 text-white font-bold" }
+                            { match: "ejey", text: "Eje Y (Cantidad)", bg: "bg-blue-500 text-white font-bold" },
+                            { match: "barra", text: "Barra", bg: "bg-pink-500 text-white font-bold" },
+                            { match: "ejex", text: "Eje X (Categorías)", bg: "bg-green-500 text-white font-bold" }
                         ],
                         html: `
                             <div class="p-6 bg-blue-50 rounded-3xl border-4 border-blue-200 max-w-md mx-auto shadow-inner flex justify-center relative min-h-[220px]">
@@ -4934,12 +4947,12 @@
                     },
                     {
                         type: "conceptual",
-                        title: "Mapa Mental / Concept Map",
-                        desc: "Identifica las partes de este Mapa Mental. Arrastra las etiquetas a su lugar. / Identify the parts of this Mind Map. Drag the labels to their places.",
+                        title: "Mapa Mental",
+                        desc: "Identifica las partes de este Mapa Mental. Arrastra las etiquetas a su lugar.",
                         draggables: [
-                            { match: "central", text: "Concepto Central / Central Concept", bg: "bg-red-500 text-white font-bold" },
-                            { match: "lineas", text: "Líneas de Enlace / Connectors", bg: "bg-yellow-500 text-gray-800 font-bold" },
-                            { match: "subtemas", text: "Subtemas / Subtopics", bg: "bg-teal-500 text-white font-bold" }
+                            { match: "central", text: "Concepto Central", bg: "bg-red-500 text-white font-bold" },
+                            { match: "lineas", text: "Líneas de Enlace", bg: "bg-yellow-500 text-gray-800 font-bold" },
+                            { match: "subtemas", text: "Subtemas", bg: "bg-teal-500 text-white font-bold" }
                         ],
                         html: `
                             <div class="p-6 bg-red-50 rounded-3xl border-4 border-red-200 max-w-md mx-auto shadow-inner flex flex-col items-center justify-center min-h-[220px] relative">
@@ -4970,7 +4983,7 @@
                     <p class="text-center font-black text-purple-700 mb-6 text-xl">📊 ${selectedGrafico.title}</p>
                     
                     <!-- Banco de Etiquetas -->
-                    <div class="flex flex-wrap gap-3 justify-center mb-8 bg-purple-50 p-4 rounded-2xl border-2 border-purple-200" id="graficos-bank">
+                    <div class="flex flex-wrap gap-3 justify-center sticky-bank" id="graficos-bank">
                         ${draggablesHTML}
                     </div>
                     
@@ -5848,6 +5861,21 @@
             });
         }
 
+        // Auto-scroll variables and functions for dragging
+        let dragScrollInterval = null;
+        function startDragAutoScroll(direction) {
+            if (dragScrollInterval) return;
+            dragScrollInterval = setInterval(() => {
+                window.scrollBy(0, direction * 12);
+            }, 25);
+        }
+        function stopDragAutoScroll() {
+            if (dragScrollInterval) {
+                clearInterval(dragScrollInterval);
+                dragScrollInterval = null;
+            }
+        }
+
         function handleDragStart(e) {
             if (e.target.parentElement.classList.contains('dropzone')) return;
 
@@ -5876,6 +5904,17 @@
             if (!dragClone) return;
             e.preventDefault();
             moveClone(e.clientX, e.clientY);
+            
+            // Auto-scroll check
+            const edgeSize = 80;
+            const clientY = e.clientY;
+            if (clientY > window.innerHeight - edgeSize) {
+                startDragAutoScroll(1);
+            } else if (clientY < edgeSize) {
+                startDragAutoScroll(-1);
+            } else {
+                stopDragAutoScroll();
+            }
         }
 
         function handleDragEnd(e) {
@@ -5910,6 +5949,8 @@
                 playAudio(false);
             }
 
+            stopDragAutoScroll();
+            stopDragAutoScroll();
             dragClone.remove();
             dragClone = null;
             activeDragEl = null;
@@ -5946,6 +5987,17 @@
             if (!dragClone) return;
             e.preventDefault();
             moveClone(e.clientX, e.clientY);
+            
+            // Auto-scroll check
+            const edgeSize = 80;
+            const clientY = e.clientY;
+            if (clientY > window.innerHeight - edgeSize) {
+                startDragAutoScroll(1);
+            } else if (clientY < edgeSize) {
+                startDragAutoScroll(-1);
+            } else {
+                stopDragAutoScroll();
+            }
         }
 
         function handleMultiDragEnd(e) {
@@ -5985,6 +6037,8 @@
                 playAudio(false);
             }
 
+            stopDragAutoScroll();
+            stopDragAutoScroll();
             dragClone.remove();
             dragClone = null;
             activeDragEl = null;

@@ -725,7 +725,7 @@
     ],
     "ingles": [
         {
-            "q": "How do you say 'Camiseta' (or playera) in English? / ¿Cómo se dice 'Camiseta' (o playera) en inglés?",
+            "q": "¿Cómo se dice 'Camiseta' (o playera) en inglés?",
             "options": [
                 "Pajamas",
                 "T-shirt",
@@ -734,7 +734,7 @@
             "ans": 1
         },
         {
-            "q": "How do you say 'Zapatos' in English? / ¿Cómo se dice 'Zapatos' en inglés?",
+            "q": "¿Cómo se dice 'Zapatos' en inglés?",
             "options": [
                 "Shoes",
                 "Socks",
@@ -743,7 +743,7 @@
             "ans": 0
         },
         {
-            "q": "What do you wear on your feet before putting on your shoes? / ¿Qué te pones en los pies antes de ponerte los zapatos?",
+            "q": "¿Qué te pones en los pies antes de ponerte los zapatos?",
             "options": [
                 "Socks",
                 "Cap",
@@ -752,7 +752,7 @@
             "ans": 0
         },
         {
-            "q": "What is a 'Cap' in Spanish? / ¿Qué es una 'Cap' en español?",
+            "q": "¿Qué es una 'Cap' en español?",
             "options": [
                 "Gorra",
                 "Pantalón",
@@ -761,7 +761,7 @@
             "ans": 0
         },
         {
-            "q": "How do you say 'Pijama' in English? / ¿Cómo se dice 'Pijama' en inglés?",
+            "q": "¿Cómo se dice 'Pijama' en inglés?",
             "options": [
                 "Pajamas",
                 "Dress",
@@ -770,7 +770,7 @@
             "ans": 0
         },
         {
-            "q": "What is a 'Skirt' in Spanish? / ¿Qué es una 'Skirt' en español?",
+            "q": "¿Qué es una 'Skirt' en español?",
             "options": [
                 "Camisa",
                 "Falda",
@@ -779,7 +779,7 @@
             "ans": 1
         },
         {
-            "q": "How do you say 'Vestido' in English? / ¿Cómo se dice 'Vestido' en inglés?",
+            "q": "¿Cómo se dice 'Vestido' en inglés?",
             "options": [
                 "Dress",
                 "Shirt",
@@ -788,7 +788,7 @@
             "ans": 0
         },
         {
-            "q": "How do you say 'Pantalones' in English? / ¿Cómo se dice 'Pantalones' en inglés?",
+            "q": "¿Cómo se dice 'Pantalones' en inglés?",
             "options": [
                 "Pants",
                 "Socks",
@@ -797,7 +797,7 @@
             "ans": 0
         },
         {
-            "q": "What are 'Tennis shoes' in Spanish? / ¿Qué son 'Tennis shoes' en español?",
+            "q": "¿Qué son 'Tennis shoes' en español?",
             "options": [
                 "Zapatos de vestir",
                 "Tenis (zapatos deportivos)",
@@ -806,7 +806,7 @@
             "ans": 1
         },
         {
-            "q": "What is a 'Shirt' in Spanish? / ¿Qué es una 'Shirt' en español?",
+            "q": "¿Qué es una 'Shirt' en español?",
             "options": [
                 "Camisa",
                 "Gorra",
@@ -815,7 +815,7 @@
             "ans": 0
         },
         {
-            "q": "If you point to a cap that is CLOSE to you, you say... / Si señalas una gorra que está CERCA de ti, dices...",
+            "q": "Si señalas una gorra que está CERCA de ti, dices...",
             "options": [
                 "That is a cap.",
                 "This is a cap.",
@@ -824,7 +824,7 @@
             "ans": 1
         },
         {
-            "q": "If you point to a dress that is FAR away, you say... / Si señalas un vestido que está LEJOS de ti, dices...",
+            "q": "Si señalas un vestido que está LEJOS de ti, dices...",
             "options": [
                 "This is a dress.",
                 "That is a dress.",
@@ -833,7 +833,7 @@
             "ans": 1
         },
         {
-            "q": "How do you ask about the quantity of shirts? / ¿Cómo preguntas por la cantidad de playeras?",
+            "q": "¿Cómo preguntas por la cantidad de playeras?",
             "options": [
                 "Where are the shirts?",
                 "How many shirts are there?",
@@ -842,7 +842,7 @@
             "ans": 1
         },
         {
-            "q": "Complete: There ______ three caps on the bed. / Completa: Hay tres gorras sobre la cama.",
+            "q": "Completa: Hay tres gorras sobre la cama.",
             "options": [
                 "is",
                 "are",
@@ -851,7 +851,7 @@
             "ans": 1
         },
         {
-            "q": "Complete: There ______ one T-shirt on the chair. / Completa: Hay una playera en la silla.",
+            "q": "Completa: Hay una playera en la silla.",
             "options": [
                 "is",
                 "are",
@@ -860,7 +860,7 @@
             "ans": 0
         },
         {
-            "q": "How do you say 'Ese es mi pantalón' (señalando lejos)? / ¿Cómo dices 'Ese es mi pantalón' (señalando lejos) en inglés?",
+            "q": "¿Cómo dices 'Ese es mi pantalón' (señalando lejos) en inglés?",
             "options": [
                 "This is my pants.",
                 "That is my pants.",
@@ -869,7 +869,7 @@
             "ans": 1
         },
         {
-            "q": "How do you say 'Esta es mi gorra' (teniéndola en la mano)? / ¿Cómo dices 'Esta es mi gorra' (teniéndola en la mano) en inglés?",
+            "q": "¿Cómo dices 'Esta es mi gorra' (teniéndola en la mano) en inglés?",
             "options": [
                 "This is my cap.",
                 "That is my cap.",
@@ -878,7 +878,7 @@
             "ans": 0
         },
         {
-            "q": "To say 'Hay dos zapatos' in English, you say... / Para decir 'Hay dos zapatos' en inglés, dices...",
+            "q": "Para decir 'Hay dos zapatos' en inglés, dices...",
             "options": [
                 "There are two shoes.",
                 "There is two shoes.",
@@ -887,7 +887,7 @@
             "ans": 0
         },
         {
-            "q": "To say 'Hay una falda' in English, you say... / Para decir 'Hay una falda' en inglés, dices...",
+            "q": "Para decir 'Hay una falda' en inglés, dices...",
             "options": [
                 "There is a skirt.",
                 "There are a skirt.",
@@ -896,7 +896,7 @@
             "ans": 0
         },
         {
-            "q": "How do you answer: 'How many socks are there?' (2 socks) / ¿Cómo respondes a '¿Cuántos calcetines hay?' (2 calcetines)?",
+            "q": "¿Cómo respondes a '¿Cuántos calcetines hay?' (2 calcetines)?",
             "options": [
                 "There is two socks.",
                 "There are two socks.",
@@ -905,7 +905,7 @@
             "ans": 1
         },
         {
-            "q": "Where do you cook food in a house? / ¿En qué parte de la casa cocinas la comida?",
+            "q": "¿En qué parte de la casa cocinas la comida?",
             "options": [
                 "In the Bathroom",
                 "In the Kitchen",
@@ -914,7 +914,7 @@
             "ans": 1
         },
         {
-            "q": "Where do you sleep at night? / ¿En qué parte de la casa duermes por la noche?",
+            "q": "¿En qué parte de la casa duermes por la noche?",
             "options": [
                 "In the Bedroom",
                 "In the Living room",
@@ -923,7 +923,7 @@
             "ans": 0
         },
         {
-            "q": "Where is the grass and the flowers in a house? / ¿Dónde está el césped y las flores en una casa?",
+            "q": "¿Dónde está el césped y las flores en una casa?",
             "options": [
                 "In the Kitchen",
                 "In the Garden",
@@ -932,7 +932,7 @@
             "ans": 1
         },
         {
-            "q": "Where do you take a bath or wash your hands? / ¿Dónde te bañas o te lavas las manos?",
+            "q": "¿Dónde te bañas o te lavas las manos?",
             "options": [
                 "In the Bathroom",
                 "In the Dining room",
@@ -941,7 +941,7 @@
             "ans": 0
         },
         {
-            "q": "What keeps the milk and apples cold? / ¿Qué aparato mantiene fría la leche y las manzanas?",
+            "q": "¿Qué aparato mantiene fría la leche y las manzanas?",
             "options": [
                 "The Stove",
                 "The Fridge",
@@ -950,7 +950,7 @@
             "ans": 1
         },
         {
-            "q": "What appliance do we use to cook or heat soup? / ¿Qué aparato usamos para cocinar o calentar sopa?",
+            "q": "¿Qué aparato usamos para cocinar o calentar sopa?",
             "options": [
                 "The Shower",
                 "The Stove",
@@ -959,7 +959,7 @@
             "ans": 1
         },
         {
-            "q": "Where is the television and the sofa to watch movies? / ¿Dónde está la televisión y el sofá para ver películas?",
+            "q": "¿Dónde está la televisión y el sofá para ver películas?",
             "options": [
                 "In the Living room",
                 "In the Bathroom",
@@ -968,7 +968,7 @@
             "ans": 0
         },
         {
-            "q": "Where does the family sit at the table to eat dinner? / ¿Dónde se sienta la familia a la mesa para cenar?",
+            "q": "¿Dónde se sienta la familia a la mesa para cenar?",
             "options": [
                 "In the Dining room",
                 "In the Garden",
@@ -977,7 +977,7 @@
             "ans": 0
         },
         {
-            "q": "We look outside the house through the... / Miramos hacia afuera de la casa a través de la...",
+            "q": "Miramos hacia afuera de la casa a través de la...",
             "options": [
                 "Stove",
                 "Window",
@@ -986,7 +986,7 @@
             "ans": 1
         },
         {
-            "q": "We clean our bodies under the water in the... / Nos limpiamos el cuerpo bajo el agua en la...",
+            "q": "Nos limpiamos el cuerpo bajo el agua en la...",
             "options": [
                 "Shower",
                 "Kitchen",
@@ -995,7 +995,7 @@
             "ans": 0
         },
         {
-            "q": "If someone asks 'Where is my dad?', you answer... / Si alguien pregunta '¿Dónde está mi papá?', respondes...",
+            "q": "Si alguien pregunta '¿Dónde está mi papá?', respondes...",
             "options": [
                 "He is in the garden.",
                 "She is in the garden.",
@@ -1004,7 +1004,7 @@
             "ans": 0
         },
         {
-            "q": "If someone asks 'Where is my mom?', you answer... / Si alguien pregunta '¿Dónde está mi mamá?', respondes...",
+            "q": "Si alguien pregunta '¿Dónde está mi mamá?', respondes...",
             "options": [
                 "He is in the kitchen.",
                 "She is in the kitchen.",
@@ -1013,7 +1013,7 @@
             "ans": 1
         },
         {
-            "q": "If someone asks 'Where is the cat?', you answer... / Si alguien pregunta '¿Dónde está el gato?', respondes...",
+            "q": "Si alguien pregunta '¿Dónde está el gato?', respondes...",
             "options": [
                 "It is under the table.",
                 "They are under the table.",
@@ -1022,7 +1022,7 @@
             "ans": 0
         },
         {
-            "q": "How do you say 'Ellos están en la sala'? / ¿Cómo dices 'Ellos están en la sala' en inglés?",
+            "q": "¿Cómo dices 'Ellos están en la sala' en inglés?",
             "options": [
                 "They are in the living room.",
                 "They aren't in the living room.",
@@ -1031,7 +1031,7 @@
             "ans": 0
         },
         {
-            "q": "How do you say 'Él no está en el baño'? / ¿Cómo dices 'Él no está en el baño' en inglés?",
+            "q": "¿Cómo dices 'Él no está en el baño' en inglés?",
             "options": [
                 "He is in the bathroom.",
                 "He isn't in the bathroom.",
@@ -1040,7 +1040,7 @@
             "ans": 1
         },
         {
-            "q": "How do you say 'Ellos no están en la cocina'? / ¿Cómo dices 'Ellos no están en la cocina' en inglés?",
+            "q": "¿Cómo dices 'Ellos no están en la cocina' en inglés?",
             "options": [
                 "They are in the kitchen.",
                 "They aren't in the kitchen.",
@@ -1049,7 +1049,7 @@
             "ans": 1
         },
         {
-            "q": "Complete: Where ______ the stove? / Completa: ¿Dónde ______ la estufa?",
+            "q": "Completa: ¿Dónde ______ la estufa?",
             "options": [
                 "is",
                 "are",
@@ -1058,7 +1058,7 @@
             "ans": 0
         },
         {
-            "q": "Complete: Where ______ my shoes? / Completa: ¿Dónde ______ mis zapatos?",
+            "q": "Completa: ¿Dónde ______ mis zapatos?",
             "options": [
                 "is",
                 "are",
@@ -1067,7 +1067,7 @@
             "ans": 1
         },
         {
-            "q": "Complete: The fridge ______ in the bathroom. It is in the kitchen! / Completa: El refrigerador ______ en el baño. ¡Está en la cocina!",
+            "q": "Completa: El refrigerador ______ en el baño. ¡Está en la cocina!",
             "options": [
                 "is",
                 "isn't",
@@ -1076,7 +1076,7 @@
             "ans": 1
         },
         {
-            "q": "Complete: Zaid and Fernando ______ in the garden. They are playing! / Completa: Zaid y Fernando ______ en el jardín. ¡Están jugando!",
+            "q": "Completa: Zaid y Fernando ______ en el jardín. ¡Están jugando!",
             "options": [
                 "is",
                 "isn't",
