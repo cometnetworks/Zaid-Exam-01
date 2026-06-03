@@ -689,6 +689,10 @@
                 class="bg-orange-100 border-4 border-orange-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-orange-800 text-left flex items-center gap-4 hover:bg-orange-200">
                 <span class="text-4xl">🧪</span> 5. Laboratorio de Materiales
             </button>
+            <button onclick="startMinigame('final_graficos')"
+                class="bg-purple-100 border-4 border-purple-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-purple-800 text-left flex items-center gap-4 hover:bg-purple-200">
+                <span class="text-4xl">📊</span> 6. Organizadores Visuales
+            </button>
         </div>
     </div>
 
@@ -4829,6 +4833,155 @@
                 `;
                 initPointerDragDrop();
             }
+            else if (type === 'final_graficos') {
+                document.getElementById('minigame-title').innerText = "📊 Organizadores Visuales";
+                totalMatches = 3;
+                
+                const GRAFICOS_POOL = [
+                    {
+                        type: "sinoptico",
+                        title: "Cuadro Sinóptico / Synopsis Chart",
+                        desc: "Identifica las partes de este Cuadro Sinóptico. Arrastra las etiquetas a su lugar. / Identify the parts of this Synopsis Chart. Drag the labels to their places.",
+                        draggables: [
+                            { match: "principal", text: "Idea Principal / Main Idea", bg: "bg-blue-500 text-white font-bold" },
+                            { match: "llave", text: "Llave / Brace", bg: "bg-purple-500 text-white font-bold" },
+                            { match: "detalles", text: "Subtemas / Subtopics", bg: "bg-green-500 text-white font-bold" }
+                        ],
+                        html: `
+                            <div class="flex items-center justify-center gap-6 p-6 bg-purple-50 rounded-3xl border-4 border-purple-200 min-h-[220px] max-w-md mx-auto shadow-inner relative">
+                                <!-- Bloque Izquierdo: Idea Principal -->
+                                <div class="w-1/3 flex flex-col items-center">
+                                    <div class="dropzone w-full h-16 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center bg-white text-xs font-bold text-blue-400" data-target="principal">Idea Principal</div>
+                                </div>
+                                
+                                <!-- Bloque Medio: Llave SVG -->
+                                <div class="flex items-center justify-center relative w-16 h-32">
+                                    <svg class="w-8 h-24 text-purple-600" viewBox="0 0 20 80" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+                                        <path d="M 15,5 Q 5,5 5,25 Q 5,40 1,40" />
+                                        <path d="M 1,40 Q 5,40 5,55 Q 5,75 15,75" />
+                                    </svg>
+                                    <div class="dropzone absolute inset-0 m-auto w-12 h-12 border-2 border-dashed border-purple-400 rounded-full flex items-center justify-center bg-white text-xxs font-bold text-purple-400 z-10" data-target="llave">Llave</div>
+                                </div>
+                                
+                                <!-- Bloque Derecho: Detalles -->
+                                <div class="w-1/3 flex flex-col justify-center">
+                                    <div class="dropzone w-full h-16 border-2 border-dashed border-green-400 rounded-xl flex items-center justify-center bg-white text-xs font-bold text-green-400" data-target="detalles">Subtemas</div>
+                                </div>
+                            </div>
+                        `
+                    },
+                    {
+                        type: "tabla",
+                        title: "Tabla de Datos / Data Table",
+                        desc: "Identifica las partes de esta Tabla de Datos. Arrastra las etiquetas a su lugar. / Identify the parts of this Data Table. Drag the labels to their places.",
+                        draggables: [
+                            { match: "header", text: "Encabezado / Header", bg: "bg-orange-500 text-white font-bold" },
+                            { match: "columna", text: "Columnas / Columns", bg: "bg-teal-500 text-white font-bold" },
+                            { match: "filas", text: "Filas de Datos / Data Rows", bg: "bg-indigo-500 text-white font-bold" }
+                        ],
+                        html: `
+                            <div class="p-6 bg-orange-50 rounded-3xl border-4 border-orange-200 max-w-md mx-auto shadow-inner relative">
+                                <div class="w-full overflow-hidden rounded-2xl border-4 border-orange-300 bg-white">
+                                    <!-- Encabezado Dropzone -->
+                                    <div class="bg-orange-200 p-2 flex justify-center border-b-2 border-orange-300">
+                                        <div class="dropzone w-48 h-12 border-2 border-dashed border-orange-500 rounded-xl flex items-center justify-center bg-white text-xs font-bold text-orange-600" data-target="header">Encabezado</div>
+                                    </div>
+                                    <div class="grid grid-cols-2">
+                                        <!-- Columna Izquierda Dropzone -->
+                                        <div class="border-r border-orange-200 p-4 flex flex-col gap-2 items-center bg-teal-50">
+                                            <div class="dropzone w-32 h-10 border-2 border-dashed border-teal-500 rounded-xl flex items-center justify-center bg-white text-xs font-bold text-teal-600" data-target="columna">Columnas</div>
+                                            <span class="text-xs text-gray-500 font-bold">🍎 Frutas</span>
+                                        </div>
+                                        <!-- Filas de Datos Dropzone -->
+                                        <div class="p-4 flex flex-col gap-2 items-center bg-indigo-50 justify-center">
+                                            <div class="dropzone w-32 h-10 border-2 border-dashed border-indigo-500 rounded-xl flex items-center justify-center bg-white text-xs font-bold text-indigo-600" data-target="filas">Filas de Datos</div>
+                                            <span class="text-xs text-gray-500 font-bold">Cantidad: 5</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    },
+                    {
+                        type: "grafica",
+                        title: "Gráfica de Barras / Bar Chart",
+                        desc: "Identifica las partes de esta Gráfica de Barras. Arrastra las etiquetas a su lugar. / Identify the parts of this Bar Chart. Drag the labels to their places.",
+                        draggables: [
+                            { match: "ejey", text: "Eje Y (Cantidad) / Y-Axis", bg: "bg-blue-500 text-white font-bold" },
+                            { match: "barra", text: "Barra / Bar", bg: "bg-pink-500 text-white font-bold" },
+                            { match: "ejex", text: "Eje X (Categorías) / X-Axis", bg: "bg-green-500 text-white font-bold" }
+                        ],
+                        html: `
+                            <div class="p-6 bg-blue-50 rounded-3xl border-4 border-blue-200 max-w-md mx-auto shadow-inner flex justify-center relative min-h-[220px]">
+                                <div class="relative w-48 h-32 border-l-4 border-b-4 border-blue-900 mt-4 flex items-end justify-around pb-1 pl-1">
+                                    <!-- Eje Y Dropzone -->
+                                    <div class="absolute -left-20 top-1/4 transform -rotate-90">
+                                        <div class="dropzone w-24 h-10 border-2 border-dashed border-blue-500 rounded-xl flex items-center justify-center bg-white text-xxs font-bold text-blue-600" data-target="ejey">Eje Y</div>
+                                    </div>
+                                    
+                                    <!-- Barra de Ejemplo -->
+                                    <div class="w-12 bg-pink-400 rounded-t-lg h-24 border-2 border-pink-500 relative flex items-center justify-center shadow-md">
+                                        <div class="dropzone w-10 h-10 border-2 border-dashed border-pink-700 rounded-full flex items-center justify-center bg-white text-xxs font-bold text-pink-700 z-10" data-target="barra">Barra</div>
+                                    </div>
+                                    
+                                    <!-- Eje X Dropzone -->
+                                    <div class="absolute -bottom-14 left-0 right-0 mx-auto w-28">
+                                        <div class="dropzone w-full h-10 border-2 border-dashed border-green-500 rounded-xl flex items-center justify-center bg-white text-xxs font-bold text-green-600" data-target="ejex">Eje X</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    },
+                    {
+                        type: "conceptual",
+                        title: "Mapa Mental / Concept Map",
+                        desc: "Identifica las partes de este Mapa Mental. Arrastra las etiquetas a su lugar. / Identify the parts of this Mind Map. Drag the labels to their places.",
+                        draggables: [
+                            { match: "central", text: "Concepto Central / Central Concept", bg: "bg-red-500 text-white font-bold" },
+                            { match: "lineas", text: "Líneas de Enlace / Connectors", bg: "bg-yellow-500 text-gray-800 font-bold" },
+                            { match: "subtemas", text: "Subtemas / Subtopics", bg: "bg-teal-500 text-white font-bold" }
+                        ],
+                        html: `
+                            <div class="p-6 bg-red-50 rounded-3xl border-4 border-red-200 max-w-md mx-auto shadow-inner flex flex-col items-center justify-center min-h-[220px] relative">
+                                <!-- Nodo Central -->
+                                <div class="dropzone w-36 h-12 border-2 border-dashed border-red-500 rounded-2xl flex items-center justify-center bg-white text-xs font-bold text-red-600 shadow-md z-10" data-target="central">Concepto Central</div>
+                                
+                                <!-- Conector y Líneas -->
+                                <div class="w-1 h-8 bg-yellow-400 relative flex items-center justify-center">
+                                    <div class="dropzone absolute w-10 h-10 border-2 border-dashed border-yellow-600 rounded-full flex items-center justify-center bg-white text-xxs font-bold text-yellow-600 z-10" data-target="lineas">Líneas</div>
+                                </div>
+                                
+                                <!-- Nodos Secundarios -->
+                                <div class="dropzone w-32 h-12 border-2 border-dashed border-teal-500 rounded-xl flex items-center justify-center bg-white text-xs font-bold text-teal-600 shadow-md" data-target="subtemas">Subtemas</div>
+                            </div>
+                        `
+                    }
+                ];
+                
+                const selectedGrafico = GRAFICOS_POOL[Math.floor(Math.random() * GRAFICOS_POOL.length)];
+                const shuffledDraggables = [...selectedGrafico.draggables].sort(() => Math.random() - 0.5);
+                
+                let draggablesHTML = shuffledDraggables.map(d => 
+                    `<div class="draggable ${d.bg} font-bold py-2 px-3 rounded-xl shadow cursor-pointer text-sm" data-match="${d.match}">${d.text}</div>`
+                ).join('\n');
+                
+                content.innerHTML = `
+                    <p class="text-center font-bold text-gray-600 mb-4 text-md">${selectedGrafico.desc}</p>
+                    <p class="text-center font-black text-purple-700 mb-6 text-xl">📊 ${selectedGrafico.title}</p>
+                    
+                    <!-- Banco de Etiquetas -->
+                    <div class="flex flex-wrap gap-3 justify-center mb-8 bg-purple-50 p-4 rounded-2xl border-2 border-purple-200" id="graficos-bank">
+                        ${draggablesHTML}
+                    </div>
+                    
+                    <!-- Renderizado Gráfico del Diagrama -->
+                    <div class="w-full flex justify-center mb-4">
+                        ${selectedGrafico.html}
+                    </div>
+                `;
+                
+                initPointerDragDrop();
+            }
         }
 
         // ==========================================
@@ -6027,7 +6180,7 @@
             if (currentGameType === 'nota' || currentGameType === 'carta' || currentGameType === 'cuento' || 
                 currentGameType === 'final_comic' || currentGameType === 'final_armario' || 
                 currentGameType === 'final_hogar' || currentGameType === 'final_figuras' || 
-                currentGameType === 'final_materiales') {
+                currentGameType === 'final_materiales' || currentGameType === 'final_graficos') {
                 document.querySelectorAll('.dropzone').forEach(zone => {
                     const matchId = zone.dataset.target;
                     const dragEl = document.querySelector(`.draggable[data-match="${matchId}"]`);
