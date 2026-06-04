@@ -8,6 +8,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
+        .hidden {
+            display: none !important;
+        }
+
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
 
         body {
@@ -452,6 +456,58 @@
             0%, 100% { height: 6px; }
             50% { height: 22px; }
         }
+
+        /* =============================================
+           LÓGICA MEMORAMA CARDS FLIP CSS
+           ============================================= */
+        .memo-card {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .memo-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.5s ease;
+            transform-style: preserve-3d;
+        }
+        .memo-card.flipped .memo-inner {
+            transform: rotateY(180deg);
+        }
+        .memo-front, .memo-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .memo-front {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            color: white;
+            font-size: 2rem;
+            font-weight: 900;
+            border: 3px solid white;
+        }
+        .memo-back {
+            background-color: #ffffff;
+            transform: rotateY(180deg);
+            border: 4px solid #c084fc;
+            padding: 8px;
+        }
+        .memo-card.matched .memo-inner {
+            transform: rotateY(180deg);
+            animation: memo-pulse 0.5s ease-out;
+        }
+        @keyframes memo-pulse {
+            0%, 100% { transform: rotateY(180deg) scale(1); }
+            50% { transform: rotateY(180deg) scale(1.08); }
+        }
     </style>
 </head>
 
@@ -706,6 +762,14 @@
             <button onclick="startMinigame('final_graficos')"
                 class="bg-purple-100 border-4 border-purple-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-purple-800 text-left flex items-center gap-4 hover:bg-purple-200">
                 <span class="text-4xl">📊</span> 6. Organizadores Visuales
+            </button>
+            <button onclick="startMinigame('final_memorama')"
+                class="bg-pink-100 border-4 border-pink-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-pink-800 text-left flex items-center gap-4 hover:bg-pink-200">
+                <span class="text-4xl">🃏</span> 7. Memorama de Figuras
+            </button>
+            <button onclick="startMinigame('final_vertices')"
+                class="bg-teal-100 border-4 border-teal-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-teal-800 text-left flex items-center gap-4 hover:bg-teal-200">
+                <span class="text-4xl">📐</span> 8. Vértices y Aristas
             </button>
         </div>
     </div>
@@ -3865,6 +3929,8 @@
         // --- NAVEGACIÓN PRINCIPAL ---
 
         function goHome() {
+            document.getElementById('phase-screen').classList.add('hidden');
+            document.getElementById('phase-screen').classList.remove('flex');
             document.getElementById('quiz-screen').classList.add('hidden');
             document.getElementById('quiz-screen').classList.remove('flex');
             document.getElementById('result-screen').classList.add('hidden');
@@ -4037,27 +4103,30 @@
         }
         function updateMiniStarsUI() {
             const stars = getMiniStars();
-            const gameKeys = {
-                'nota': 0, 'carta': 1, 'cuento': 2, 'onomatopeyas': 3,
-                'agrupaciones': 4, 'recta_numerica': 5, 'carrera': 6, 'numeros': 7
-            };
             const menu = document.getElementById('minigames-menu');
             if (!menu) return;
-            const buttons = menu.querySelectorAll('.grid button');
-            Object.entries(gameKeys).forEach(([key, idx]) => {
-                const btn = buttons[idx];
-                if (!btn) return;
-                let badge = btn.querySelector('.star-badge');
-                const count = stars[key] || 0;
-                if (count > 0) {
-                    if (!badge) {
-                        badge = document.createElement('span');
-                        badge.className = 'star-badge ml-auto bg-yellow-300 text-yellow-800 font-black px-3 py-1 rounded-full text-sm border-2 border-yellow-500 whitespace-nowrap';
-                        btn.appendChild(badge);
+
+            const buttons = menu.querySelectorAll('button[onclick^="startMinigame"]');
+            buttons.forEach(btn => {
+                const clickAttr = btn.getAttribute('onclick') || '';
+                const match = clickAttr.match(/startMinigame\('([^']+)'\)/);
+                if (match) {
+                    const key = match[1];
+                    let badge = btn.querySelector('.star-badge');
+                    const count = stars[key] || 0;
+                    if (count > 0) {
+                        if (!badge) {
+                            badge = document.createElement('span');
+                            badge.className = 'star-badge ml-auto bg-yellow-300 text-yellow-800 font-black px-3 py-1 rounded-full text-sm border-2 border-yellow-500 whitespace-nowrap';
+                            btn.appendChild(badge);
+                        }
+                        badge.textContent = '⭐ ' + count;
+                    } else if (badge) {
+                        badge.remove();
                     }
-                    badge.textContent = '⭐ ' + count;
                 }
             });
+
             // Update total counter in header
             const totalEl = document.getElementById('total-mini-stars');
             if (totalEl) totalEl.textContent = '⭐ ' + getTotalStars();
@@ -4117,33 +4186,33 @@
                         <div class="absolute left-0 w-[55%] flex flex-col justify-around h-full z-20 bg-gray-100 p-4 rounded-xl border border-gray-300 shadow-inner">
                             <div class="flex items-center justify-between bg-white p-3 rounded-lg border-2 border-gray-200">
                                 <h1 class="font-black text-xl text-center flex-1 leading-tight">PERRO SALVA A GATITO<br>DE UN ÁRBOL</h1>
-                                <div class="w-8 h-8 rounded-full bg-blue-300 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="titulo"></div>
+                                <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="titulo"></div>
                             </div>
                             
                             <div class="flex gap-4 h-48 mt-4">
                                 <div class="w-1/2 flex items-center justify-between bg-gray-200 rounded-lg overflow-hidden border-2 border-gray-300 relative">
                                     <div class="absolute inset-0 flex items-center justify-center text-4xl">🐕🐈</div>
-                                    <div class="w-8 h-8 rounded-full bg-green-300 border-4 border-white shadow-md left-dot cursor-pointer absolute right-2 dot-hover" data-id="foto"></div>
+                                    <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md left-dot cursor-pointer absolute right-2 dot-hover" data-id="foto"></div>
                                 </div>
                                 <div class="w-1/2 flex items-center justify-between bg-white p-3 rounded-lg border-2 border-gray-200 text-xs text-gray-600 overflow-hidden relative">
                                     <p align="justify">Ayer por la tarde, un valiente perrito llamado Max, ayudó a bajar a un gatito asustado que no podía bajar de un árbol muy alto en el parque.</p>
-                                    <div class="w-8 h-8 rounded-full bg-orange-300 border-4 border-white shadow-md left-dot cursor-pointer absolute right-2 dot-hover" data-id="cuerpo"></div>
+                                    <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md left-dot cursor-pointer absolute right-2 dot-hover" data-id="cuerpo"></div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Lado Derecho: Nombres -->
                         <div class="absolute right-0 w-[35%] flex flex-col justify-around h-full z-20 py-8">
-                            <div class="flex items-center gap-4 bg-orange-100 p-4 rounded-xl shadow-md border-2 border-orange-300 label-card">
-                                <div class="w-8 h-8 rounded-full bg-orange-300 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="cuerpo"></div>
+                            <div class="flex items-center gap-4 bg-purple-50 p-4 rounded-xl shadow-md border-2 border-purple-200 label-card">
+                                <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="cuerpo"></div>
                                 <span class="font-bold text-gray-800 text-lg md:text-xl">Cuerpo de la Noticia</span>
                             </div>
-                            <div class="flex items-center gap-4 bg-blue-100 p-4 rounded-xl shadow-md border-2 border-blue-300 label-card">
-                                <div class="w-8 h-8 rounded-full bg-blue-300 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="titulo"></div>
+                            <div class="flex items-center gap-4 bg-purple-50 p-4 rounded-xl shadow-md border-2 border-purple-200 label-card">
+                                <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="titulo"></div>
                                 <span class="font-bold text-gray-800 text-lg md:text-xl">Título</span>
                             </div>
-                            <div class="flex items-center gap-4 bg-green-100 p-4 rounded-xl shadow-md border-2 border-green-300 label-card">
-                                <div class="w-8 h-8 rounded-full bg-green-300 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="foto"></div>
+                            <div class="flex items-center gap-4 bg-purple-50 p-4 rounded-xl shadow-md border-2 border-purple-200 label-card">
+                                <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="foto"></div>
                                 <span class="font-bold text-gray-800 text-lg md:text-xl">Foto</span>
                             </div>
                         </div>
@@ -4163,8 +4232,8 @@
                         <div class="absolute left-0 w-[60%] flex flex-col h-full z-20 bg-yellow-50 p-6 rounded-xl border border-yellow-200 shadow-inner font-serif" style="background-image: repeating-linear-gradient(transparent, transparent 31px, #ccc 31px, #ccc 32px);">
                             
                             <div class="flex items-center justify-end mb-4">
-                                <span class="text-sm font-bold text-gray-700 italic border-b-2 border-red-200">Puebla, Pue. 6 de Marzo</span>
-                                <div class="w-8 h-8 rounded-full bg-red-400 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="lugar"></div>
+                                <span class="text-sm font-bold text-gray-700 italic border-b-2 border-purple-200">Puebla, Pue. 6 de Marzo</span>
+                                <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="lugar"></div>
                             </div>
                             
                             <div class="flex items-center justify-start mb-4">
@@ -4173,44 +4242,44 @@
                             </div>
 
                             <div class="flex items-center justify-start mb-4 flex-1">
-                                <p class="text-md text-gray-800 leading-8 border-l-4 border-blue-200 pl-4 w-full h-full">
+                                <p class="text-md text-gray-800 leading-8 border-l-4 border-purple-200 pl-4 w-full h-full">
                                     Espero que estés muy bien. Te escribo para decirte que estoy muy orgulloso de lo mucho que estudias. ¡Sigue así, vas a sacar excelente en tu examen!
                                 </p>
-                                <div class="w-8 h-8 rounded-full bg-blue-400 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="cuerpo"></div>
+                                <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="cuerpo"></div>
                             </div>
 
                             <div class="flex items-center justify-start mb-4">
-                                <span class="text-md text-gray-700 border-b-2 border-green-200">Te mando un abrazo fuerte,</span>
-                                <div class="w-8 h-8 rounded-full bg-green-400 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="despedida"></div>
+                                <span class="text-md text-gray-700 border-b-2 border-purple-200">Te mando un abrazo fuerte,</span>
+                                <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="despedida"></div>
                             </div>
 
                             <div class="flex items-center justify-center mt-auto">
-                                <span class="font-black text-xl italic text-gray-800 border-b-4 border-yellow-400">Tu Tío Fernando</span>
-                                <div class="w-8 h-8 rounded-full bg-yellow-400 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="firma"></div>
+                                <span class="font-black text-xl italic text-gray-800 border-b-4 border-purple-200">Tu Tío Fernando</span>
+                                <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md left-dot cursor-pointer shrink-0 ml-4 dot-hover" data-id="firma"></div>
                             </div>
 
                         </div>
 
                         <!-- Lado Derecho: Nombres -->
                         <div class="absolute right-0 w-[30%] flex flex-col justify-around h-full z-20 py-2">
-                            <div class="flex items-center gap-3 bg-blue-50 p-3 rounded-xl shadow-sm border-2 border-blue-200 label-card">
-                                <div class="w-8 h-8 rounded-full bg-blue-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="cuerpo"></div>
+                            <div class="flex items-center gap-3 bg-purple-50 p-3 rounded-xl shadow-sm border-2 border-purple-200 label-card">
+                                <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="cuerpo"></div>
                                 <span class="font-bold text-gray-800 text-sm md:text-md">Cuerpo de la Carta</span>
                             </div>
-                            <div class="flex items-center gap-3 bg-red-50 p-3 rounded-xl shadow-sm border-2 border-red-200 label-card">
-                                <div class="w-8 h-8 rounded-full bg-red-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="lugar"></div>
+                            <div class="flex items-center gap-3 bg-purple-50 p-3 rounded-xl shadow-sm border-2 border-purple-200 label-card">
+                                <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="lugar"></div>
                                 <span class="font-bold text-gray-800 text-sm md:text-md">Lugar y Fecha</span>
                             </div>
-                            <div class="flex items-center gap-3 bg-yellow-50 p-3 rounded-xl shadow-sm border-2 border-yellow-400 label-card">
-                                <div class="w-8 h-8 rounded-full bg-yellow-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="firma"></div>
+                            <div class="flex items-center gap-3 bg-purple-50 p-3 rounded-xl shadow-sm border-2 border-purple-200 label-card">
+                                <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="firma"></div>
                                 <span class="font-bold text-gray-800 text-sm md:text-md">Firma</span>
                             </div>
                             <div class="flex items-center gap-3 bg-purple-50 p-3 rounded-xl shadow-sm border-2 border-purple-200 label-card">
                                 <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="saludo"></div>
                                 <span class="font-bold text-gray-800 text-sm md:text-md">Saludo</span>
                             </div>
-                            <div class="flex items-center gap-3 bg-green-50 p-3 rounded-xl shadow-sm border-2 border-green-200 label-card">
-                                <div class="w-8 h-8 rounded-full bg-green-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="despedida"></div>
+                            <div class="flex items-center gap-3 bg-purple-50 p-3 rounded-xl shadow-sm border-2 border-purple-200 label-card">
+                                <div class="w-8 h-8 rounded-full bg-purple-400 border-4 border-white shadow-md right-dot cursor-pointer shrink-0 dot-hover" data-id="despedida"></div>
                                 <span class="font-bold text-gray-800 text-sm md:text-md">Despedida</span>
                             </div>
                         </div>
@@ -4402,10 +4471,10 @@
                     {
                         title: "Toby al Espacio",
                         draggables: [
-                            { match: "toby", text: "🐶 Toby", bg: "bg-blue-500 text-white" },
-                            { match: "dialogo_toby", text: "💬 \"¡Al espacio!\"", bg: "bg-yellow-500 text-gray-800" },
-                            { match: "pum", text: "💥 ¡PUM!", bg: "bg-red-500 text-white font-black" },
-                            { match: "dialogo_zog", text: "💬 \"¡Hola!\"", bg: "bg-green-500 text-white" }
+                            { match: "toby", text: "🐶 Toby", bg: "bg-purple-600 text-white" },
+                            { match: "dialogo_toby", text: "💬 \"¡Al espacio!\"", bg: "bg-purple-600 text-white" },
+                            { match: "pum", text: "💥 ¡PUM!", bg: "bg-purple-600 text-white font-black" },
+                            { match: "dialogo_zog", text: "💬 \"¡Hola!\"", bg: "bg-purple-600 text-white" }
                         ],
                         viñetas: [
                             {
@@ -4444,10 +4513,10 @@
                     {
                         title: "Cleo la Gatita Submarina",
                         draggables: [
-                            { match: "cleo", text: "🐱 Cleo", bg: "bg-pink-500 text-white" },
-                            { match: "dialogo_cleo", text: "💬 \"¡Al agua!\"", bg: "bg-cyan-500 text-white" },
-                            { match: "gluglu", text: "💦 ¡GLU GLU!", bg: "bg-blue-500 text-white font-black" },
-                            { match: "dialogo_pulpo", text: "💬 \"¡Bienvenido!\"", bg: "bg-purple-500 text-white" }
+                            { match: "cleo", text: "🐱 Cleo", bg: "bg-purple-600 text-white" },
+                            { match: "dialogo_cleo", text: "💬 \"¡Al agua!\"", bg: "bg-purple-600 text-white" },
+                            { match: "gluglu", text: "💦 ¡GLU GLU!", bg: "bg-purple-600 text-white font-black" },
+                            { match: "dialogo_pulpo", text: "💬 \"¡Bienvenido!\"", bg: "bg-purple-600 text-white" }
                         ],
                         viñetas: [
                             {
@@ -4486,10 +4555,10 @@
                     {
                         title: "Dino en la Selva",
                         draggables: [
-                            { match: "dino", text: "🦖 Dino", bg: "bg-emerald-500 text-white" },
-                            { match: "dialogo_dino", text: "💬 \"¡Qué hambre!\"", bg: "bg-amber-500 text-gray-800" },
-                            { match: "crunch", text: "🍎 ¡CRUNCH!", bg: "bg-red-500 text-white font-black" },
-                            { match: "dialogo_mono", text: "💬 \"¡Hola amigo!\"", bg: "bg-yellow-600 text-white" }
+                            { match: "dino", text: "🦖 Dino", bg: "bg-purple-600 text-white" },
+                            { match: "dialogo_dino", text: "💬 \"¡Qué hambre!\"", bg: "bg-purple-600 text-white" },
+                            { match: "crunch", text: "🍎 ¡CRUNCH!", bg: "bg-purple-600 text-white font-black" },
+                            { match: "dialogo_mono", text: "💬 \"¡Hola amigo!\"", bg: "bg-purple-600 text-white" }
                         ],
                         viñetas: [
                             {
@@ -4598,9 +4667,9 @@
                 const esInstr = `Ponte la ${selectedTshirt.es}, la ${selectedCap.es} y los ${selectedSocks.es}.`;
                 
                 const correctItems = [
-                    { match: "cap", label: `${selectedCap.emoji} ${selectedCap.es}`, bg: "bg-yellow-100 border-yellow-400 text-yellow-800" },
-                    { match: "tshirt", label: `${selectedTshirt.emoji} ${selectedTshirt.es}`, bg: "bg-blue-100 border-blue-400 text-blue-800" },
-                    { match: "socks", label: `${selectedSocks.emoji} ${selectedSocks.es}`, bg: "bg-green-100 border-green-400 text-green-800" }
+                    { match: "cap", label: `${selectedCap.emoji} ${selectedCap.es}`, bg: "bg-purple-100 border-purple-400 text-purple-800" },
+                    { match: "tshirt", label: `${selectedTshirt.emoji} ${selectedTshirt.es}`, bg: "bg-purple-100 border-purple-400 text-purple-800" },
+                    { match: "socks", label: `${selectedSocks.emoji} ${selectedSocks.es}`, bg: "bg-purple-100 border-purple-400 text-purple-800" }
                 ];
                 
                 let distractor;
@@ -4611,7 +4680,7 @@
                         distractor = {
                             match: "distractor",
                             label: `${candidate.emoji} ${candidate.es}`,
-                            bg: "bg-red-100 border-red-400 text-red-800"
+                            bg: "bg-purple-100 border-purple-400 text-purple-800"
                         };
                         break;
                     }
@@ -4718,25 +4787,25 @@
                 totalMatches = 6;
                 
                 const SHAPES_2D_POOL = [
-                    { text: "🍕 Rebanada (Triángulo)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
-                    { text: "🪙 Moneda (Círculo)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
-                    { text: "🖼️ Cuadro (Cuadrado)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
-                    { text: "🪁 Papalote (Rombo)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
-                    { text: "🍩 Dona (Círculo)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
-                    { text: "🚪 Puerta (Rectángulo)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
-                    { text: "🧇 Waffle (Cuadrado)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" },
-                    { text: "📐 Regla (Triángulo)", match: "figura", bg: "bg-blue-100 border-blue-400 text-blue-900" }
+                    { text: "🍕 Rebanada (Triángulo)", match: "figura", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                    { text: "🪙 Moneda (Círculo)", match: "figura", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                    { text: "🖼️ Cuadro (Cuadrado)", match: "figura", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                    { text: "🪁 Papalote (Rombo)", match: "figura", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                    { text: "🍩 Dona (Círculo)", match: "figura", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                    { text: "🚪 Puerta (Rectángulo)", match: "figura", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                    { text: "🧇 Waffle (Cuadrado)", match: "figura", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                    { text: "📐 Regla (Triángulo)", match: "figura", bg: "bg-purple-100 border-purple-400 text-purple-900" }
                 ];
                 
                 const SHAPES_3D_POOL = [
-                    { text: "⚽ Pelota (Esfera)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
-                    { text: "📦 Caja (Cubo)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
-                    { text: "🍦 Cono (Cono)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
-                    { text: "🥤 Lata (Cilindro)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
-                    { text: "🎲 Dado (Cubo)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
-                    { text: "🔋 Pila (Cilindro)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
-                    { text: "🍊 Naranja (Esfera)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" },
-                    { text: "⛺ Tienda (Prisma)", match: "cuerpo", bg: "bg-red-100 border-red-400 text-red-900" }
+                    { text: "⚽ Pelota (Esfera)", match: "cuerpo", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                    { text: "📦 Caja (Cubo)", match: "cuerpo", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                    { text: "🍦 Cono (Cono)", match: "cuerpo", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                    { text: "🥤 Lata (Cilindro)", match: "cuerpo", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                    { text: "🎲 Dado (Cubo)", match: "cuerpo", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                    { text: "🔋 Pila (Cilindro)", match: "cuerpo", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                    { text: "🍊 Naranja (Esfera)", match: "cuerpo", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                    { text: "⛺ Tienda (Prisma)", match: "cuerpo", bg: "bg-purple-100 border-purple-400 text-purple-900" }
                 ];
                 
                 const selected2D = [...SHAPES_2D_POOL].sort(() => Math.random() - 0.5).slice(0, 3);
@@ -4780,24 +4849,24 @@
                 
                 const MATERIALS_POOL = {
                     flexible: [
-                        { text: "🎈 Globo de Goma", match: "flexible", bg: "bg-green-100 border-green-400 text-green-900" },
-                        { text: "🎗️ Liga Elástica", match: "flexible", bg: "bg-green-100 border-green-400 text-green-900" },
-                        { text: "🌀 Resorte Metálico", match: "flexible", bg: "bg-green-100 border-green-400 text-green-900" }
+                        { text: "🎈 Globo de Goma", match: "flexible", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                        { text: "🎗️ Liga Elástica", match: "flexible", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                        { text: "🌀 Resorte Metálico", match: "flexible", bg: "bg-purple-100 border-purple-400 text-purple-900" }
                     ],
                     duro: [
-                        { text: "🧱 Bloque de Madera", match: "duro", bg: "bg-indigo-100 border-indigo-400 text-indigo-900" },
-                        { text: "🪨 Piedra de Río", match: "duro", bg: "bg-indigo-100 border-indigo-400 text-indigo-900" },
-                        { text: "🔨 Martillo de Metal", match: "duro", bg: "bg-indigo-100 border-indigo-400 text-indigo-900" }
+                        { text: "🧱 Bloque de Madera", match: "duro", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                        { text: "🪨 Piedra de Río", match: "duro", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                        { text: "🔨 Martillo de Metal", match: "duro", bg: "bg-purple-100 border-purple-400 text-purple-900" }
                     ],
                     fragil: [
-                        { text: "🥛 Vaso de Vidrio", match: "fragil", bg: "bg-red-100 border-red-400 text-red-900" },
-                        { text: "🥚 Huevo de Gallina", match: "fragil", bg: "bg-red-100 border-red-400 text-red-900" },
-                        { text: "🍽️ Plato de Cerámica", match: "fragil", bg: "bg-red-100 border-red-400 text-red-900" }
+                        { text: "🥛 Vaso de Vidrio", match: "fragil", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                        { text: "🥚 Huevo de Gallina", match: "fragil", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                        { text: "🍽️ Plato de Cerámica", match: "fragil", bg: "bg-purple-100 border-purple-400 text-purple-900" }
                     ],
                     brilloso: [
-                        { text: "🪙 Moneda de Plata", match: "brilloso", bg: "bg-yellow-100 border-yellow-400 text-yellow-900" },
-                        { text: "👑 Anillo de Oro", match: "brilloso", bg: "bg-yellow-100 border-yellow-400 text-yellow-900" },
-                        { text: "💎 Diamante Fino", match: "brilloso", bg: "bg-yellow-100 border-yellow-400 text-yellow-900" }
+                        { text: "🪙 Moneda de Plata", match: "brilloso", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                        { text: "👑 Anillo de Oro", match: "brilloso", bg: "bg-purple-100 border-purple-400 text-purple-900" },
+                        { text: "💎 Diamante Fino", match: "brilloso", bg: "bg-purple-100 border-purple-400 text-purple-900" }
                     ]
                 };
                 
@@ -4856,9 +4925,9 @@
                         title: "Cuadro Sinóptico",
                         desc: "Identifica las partes de este Cuadro Sinóptico. Arrastra las etiquetas a su lugar.",
                         draggables: [
-                            { match: "principal", text: "Idea Principal", bg: "bg-blue-500 text-white font-bold" },
-                            { match: "llave", text: "Llave", bg: "bg-purple-500 text-white font-bold" },
-                            { match: "detalles", text: "Subtemas", bg: "bg-green-500 text-white font-bold" }
+                            { match: "principal", text: "Idea Principal", bg: "bg-purple-600 text-white font-bold border-2 border-purple-700" },
+                            { match: "llave", text: "Llave", bg: "bg-purple-600 text-white font-bold border-2 border-purple-700" },
+                            { match: "detalles", text: "Subtemas", bg: "bg-purple-600 text-white font-bold border-2 border-purple-700" }
                         ],
                         html: `
                             <div class="flex items-center justify-center gap-6 p-6 bg-purple-50 rounded-3xl border-4 border-purple-200 min-h-[220px] max-w-md mx-auto shadow-inner relative">
@@ -4888,9 +4957,9 @@
                         title: "Tabla de Datos",
                         desc: "Identifica las partes de esta Tabla de Datos. Arrastra las etiquetas a su lugar.",
                         draggables: [
-                            { match: "header", text: "Encabezado", bg: "bg-orange-500 text-white font-bold" },
-                            { match: "columna", text: "Columnas", bg: "bg-teal-500 text-white font-bold" },
-                            { match: "filas", text: "Filas de Datos", bg: "bg-indigo-500 text-white font-bold" }
+                            { match: "header", text: "Encabezado", bg: "bg-purple-600 text-white font-bold border-2 border-purple-700" },
+                            { match: "columna", text: "Columnas", bg: "bg-purple-600 text-white font-bold border-2 border-purple-700" },
+                            { match: "filas", text: "Filas de Datos", bg: "bg-purple-600 text-white font-bold border-2 border-purple-700" }
                         ],
                         html: `
                             <div class="p-6 bg-orange-50 rounded-3xl border-4 border-orange-200 max-w-md mx-auto shadow-inner relative">
@@ -4920,9 +4989,9 @@
                         title: "Gráfica de Barras",
                         desc: "Identifica las partes de esta Gráfica de Barras. Arrastra las etiquetas a su lugar.",
                         draggables: [
-                            { match: "ejey", text: "Eje Y (Cantidad)", bg: "bg-blue-500 text-white font-bold" },
-                            { match: "barra", text: "Barra", bg: "bg-pink-500 text-white font-bold" },
-                            { match: "ejex", text: "Eje X (Categorías)", bg: "bg-green-500 text-white font-bold" }
+                            { match: "ejey", text: "Eje Y (Cantidad)", bg: "bg-purple-600 text-white font-bold border-2 border-purple-700" },
+                            { match: "barra", text: "Barra", bg: "bg-purple-600 text-white font-bold border-2 border-purple-700" },
+                            { match: "ejex", text: "Eje X (Categorías)", bg: "bg-purple-600 text-white font-bold border-2 border-purple-700" }
                         ],
                         html: `
                             <div class="p-6 bg-blue-50 rounded-3xl border-4 border-blue-200 max-w-md mx-auto shadow-inner flex justify-center relative min-h-[220px]">
@@ -4950,9 +5019,9 @@
                         title: "Mapa Mental",
                         desc: "Identifica las partes de este Mapa Mental. Arrastra las etiquetas a su lugar.",
                         draggables: [
-                            { match: "central", text: "Concepto Central", bg: "bg-red-500 text-white font-bold" },
-                            { match: "lineas", text: "Líneas de Enlace", bg: "bg-yellow-500 text-gray-800 font-bold" },
-                            { match: "subtemas", text: "Subtemas", bg: "bg-teal-500 text-white font-bold" }
+                            { match: "central", text: "Concepto Central", bg: "bg-purple-600 text-white font-bold border-2 border-purple-700" },
+                            { match: "lineas", text: "Líneas de Enlace", bg: "bg-purple-600 text-white font-bold border-2 border-purple-700" },
+                            { match: "subtemas", text: "Subtemas", bg: "bg-purple-600 text-white font-bold border-2 border-purple-700" }
                         ],
                         html: `
                             <div class="p-6 bg-red-50 rounded-3xl border-4 border-red-200 max-w-md mx-auto shadow-inner flex flex-col items-center justify-center min-h-[220px] relative">
@@ -4994,6 +5063,18 @@
                 `;
                 
                 initPointerDragDrop();
+            }
+            else if (type === 'final_memorama') {
+                document.getElementById('minigame-title').innerText = "🃏 Memorama de Figuras";
+                content.innerHTML = `
+                    <p class="text-center font-bold text-gray-600 mb-4 text-lg">¡Encuentra los pares! Junta la figura geométrica con su nombre correcto.</p>
+                    <div id="memo-grid" class="grid grid-cols-3 md:grid-cols-4 gap-3 max-w-xl mx-auto"></div>
+                `;
+                initShapeMemorama();
+            }
+            else if (type === 'final_vertices') {
+                document.getElementById('minigame-title').innerText = "📐 Vértices y Aristas";
+                initVerticesGame();
             }
         }
 
@@ -6249,12 +6330,15 @@
                 correctMatches = totalMatches;
                 celebrate();
                 document.getElementById('minigame-success').classList.remove('hidden');
-            } else if (currentGameType === 'memorama') {
+            } else if (currentGameType === 'memorama' || currentGameType === 'final_memorama') {
                 document.querySelectorAll('.memo-card:not(.matched)').forEach(card => card.classList.add('flipped', 'matched'));
                 setTimeout(() => {
                     celebrate();
                     document.getElementById('minigame-success').classList.remove('hidden');
                 }, 500);
+            } else if (currentGameType === 'final_vertices') {
+                celebrate();
+                document.getElementById('minigame-success').classList.remove('hidden');
             }
         }
 
@@ -6413,6 +6497,279 @@
                     card2.classList.remove('flipped');
                     flippedMemoCards = [];
                 }, 1000);
+            }
+        }
+
+        // ==========================================
+        // NUEVO: MEMORAMA DE FIGURAS
+        // ==========================================
+        function initShapeMemorama() {
+            const grid = document.getElementById('memo-grid');
+            grid.innerHTML = '';
+            memoCards = [];
+            flippedMemoCards = [];
+            memoMatches = 0;
+
+            const cardsData = [];
+            const SHAPE_MEMO_PAIRS = [
+                { id: 1, name: "Círculo", svg: `<svg class="w-14 h-14 md:w-16 md:h-16 text-blue-500" viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="50" r="40" /></svg>` },
+                { id: 2, name: "Triángulo", svg: `<svg class="w-14 h-14 md:w-16 md:h-16 text-green-500" viewBox="0 0 100 100" fill="currentColor"><polygon points="50,15 90,85 10,85" /></svg>` },
+                { id: 3, name: "Cuadrado", svg: `<svg class="w-14 h-14 md:w-16 md:h-16 text-orange-500" viewBox="0 0 100 100" fill="currentColor"><rect x="15" y="15" width="70" height="70" rx="8" /></svg>` },
+                { id: 4, name: "Rectángulo", svg: `<svg class="w-14 h-14 md:w-16 md:h-16 text-red-500" viewBox="0 0 100 100" fill="currentColor"><rect x="10" y="25" width="80" height="50" rx="8" /></svg>` },
+                { id: 5, name: "Rombo", svg: `<svg class="w-14 h-14 md:w-16 md:h-16 text-yellow-500" viewBox="0 0 100 100" fill="currentColor"><polygon points="50,10 90,50 50,90 10,50" /></svg>` },
+                { id: 6, name: "Óvalo", svg: `<svg class="w-14 h-14 md:w-16 md:h-16 text-pink-500" viewBox="0 0 100 100" fill="currentColor"><ellipse cx="50" cy="50" rx="45" ry="25" /></svg>` }
+            ];
+
+            SHAPE_MEMO_PAIRS.forEach(pair => {
+                cardsData.push({ id: pair.id, content: pair.svg });
+                cardsData.push({ id: pair.id, content: `<span class="font-black text-indigo-800 text-sm md:text-lg">${pair.name}</span>` });
+            });
+
+            cardsData.sort(() => Math.random() - 0.5);
+
+            cardsData.forEach((data, index) => {
+                const card = document.createElement('div');
+                card.className = 'memo-card h-24 md:h-32';
+                card.dataset.id = data.id;
+                card.dataset.index = index;
+
+                card.innerHTML = `
+                    <div class="memo-inner shadow-md rounded-xl">
+                        <div class="memo-front">❓</div>
+                        <div class="memo-back border-4 shadow-inner flex items-center justify-center p-2 bg-white">${data.content}</div>
+                    </div>
+                `;
+
+                card.onclick = () => flipMemoCard(card);
+                grid.appendChild(card);
+                memoCards.push(card);
+            });
+
+            totalMatches = SHAPE_MEMO_PAIRS.length;
+        }
+
+        // ==========================================
+        // NUEVO: JUEGO VÉRTICES Y ARISTAS
+        // ==========================================
+        let verticesState = {
+            currentShapeIdx: 0,
+            currentStep: 'vertices',
+            shapes: [
+                {
+                    name: "Triángulo",
+                    type: "2D",
+                    viewBox: "0 0 300 250",
+                    vertices: [
+                        {x: 150, y: 40},
+                        {x: 40, y: 210},
+                        {x: 260, y: 210}
+                    ],
+                    edges: [
+                        {v1: 0, v2: 1},
+                        {v1: 1, v2: 2},
+                        {v1: 2, v2: 0}
+                    ]
+                },
+                {
+                    name: "Cuadrado",
+                    type: "2D",
+                    viewBox: "0 0 300 250",
+                    vertices: [
+                        {x: 60, y: 50},
+                        {x: 240, y: 50},
+                        {x: 240, y: 210},
+                        {x: 60, y: 210}
+                    ],
+                    edges: [
+                        {v1: 0, v2: 1},
+                        {v1: 1, v2: 2},
+                        {v1: 2, v2: 3},
+                        {v1: 3, v2: 0}
+                    ]
+                },
+                {
+                    name: "Cubo",
+                    type: "3D",
+                    viewBox: "0 0 300 250",
+                    vertices: [
+                        {x: 60, y: 90},   // 0: A
+                        {x: 180, y: 90},  // 1: B
+                        {x: 180, y: 210}, // 2: C
+                        {x: 60, y: 210},  // 3: D
+                        {x: 120, y: 40},  // 4: E
+                        {x: 240, y: 40},  // 5: F
+                        {x: 240, y: 160}, // 6: G
+                        {x: 120, y: 160}  // 7: H
+                    ],
+                    edges: [
+                        // Frente
+                        {v1: 0, v2: 1}, {v1: 1, v2: 2}, {v1: 2, v2: 3}, {v1: 3, v2: 0},
+                        // Atrás
+                        {v1: 4, v2: 5}, {v1: 5, v2: 6}, {v1: 6, v2: 7}, {v1: 7, v2: 4},
+                        // Conectores
+                        {v1: 0, v2: 4}, {v1: 1, v2: 5}, {v1: 2, v2: 6}, {v1: 3, v2: 7}
+                    ]
+                }
+            ],
+            selectedVertices: new Set(),
+            selectedEdges: new Set()
+        };
+
+        function initVerticesGame() {
+            verticesState.currentShapeIdx = 0;
+            verticesState.currentStep = 'vertices';
+            verticesState.selectedVertices.clear();
+            verticesState.selectedEdges.clear();
+            
+            renderVerticesShape();
+        }
+
+        function renderVerticesShape() {
+            const content = document.getElementById('minigame-content');
+            const shape = verticesState.shapes[verticesState.currentShapeIdx];
+            
+            // Build lines SVG
+            let linesHTML = '';
+            let thickLinesHTML = '';
+            shape.edges.forEach((edge, idx) => {
+                const pt1 = shape.vertices[edge.v1];
+                const pt2 = shape.vertices[edge.v2];
+                // Visible line
+                linesHTML += `<line id="edge-line-${idx}" x1="${pt1.x}" y1="${pt1.y}" x2="${pt2.x}" y2="${pt2.y}" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round" />`;
+                // Invisible thick touch segment
+                thickLinesHTML += `<line x1="${pt1.x}" y1="${pt1.y}" x2="${pt2.x}" y2="${pt2.y}" stroke="transparent" stroke-width="24" stroke-linecap="round" class="cursor-pointer" onclick="handleEdgeClick(${idx})" />`;
+            });
+
+            // Build vertices SVG dots
+            let dotsHTML = '';
+            shape.vertices.forEach((pt, idx) => {
+                dotsHTML += `
+                    <g class="cursor-pointer" onclick="handleVertexClick(${idx})">
+                        <!-- Pulsing/Dashed target indicator -->
+                        <circle cx="${pt.x}" cy="${pt.y}" r="16" fill="none" stroke="#93c5fd" stroke-width="2" stroke-dasharray="3" class="animate-pulse" />
+                        <!-- Core dot -->
+                        <circle id="vertex-dot-${idx}" cx="${pt.x}" cy="${pt.y}" r="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="3" />
+                    </g>
+                `;
+            });
+
+            const instrText = verticesState.currentStep === 'vertices' 
+                ? `👉 Toca las esquinas (Vértices 🟡) del <strong>${shape.name}</strong>`
+                : `👉 Toca las líneas (Aristas 📏) del <strong>${shape.name}</strong>`;
+                
+            const progressText = verticesState.currentStep === 'vertices'
+                ? `Vértices encontrados: <span class="text-yellow-600 font-bold">${verticesState.selectedVertices.size} / ${shape.vertices.length}</span>`
+                : `Aristas encontradas: <span class="text-purple-600 font-bold">${verticesState.selectedEdges.size} / ${shape.edges.length}</span>`;
+
+            content.innerHTML = `
+                <div class="flex flex-col items-center p-4">
+                    <p class="text-center font-bold text-gray-600 mb-2 text-md">Figura ${verticesState.currentShapeIdx + 1} de 3: <span class="text-indigo-600 font-black">${shape.name} (${shape.type})</span></p>
+                    
+                    <div class="bg-indigo-50 border-2 border-indigo-100 rounded-2xl p-4 w-full max-w-md text-center shadow-inner mb-6">
+                        <p id="vertices-instruction" class="text-lg text-indigo-900">${instrText}</p>
+                        <p id="vertices-progress" class="text-sm mt-1 text-gray-500">${progressText}</p>
+                    </div>
+
+                    <div class="relative w-full max-w-xs mx-auto border-4 border-indigo-200 rounded-3xl bg-white p-4 shadow-lg flex items-center justify-center">
+                        <svg class="w-full h-auto max-h-[250px]" viewBox="${shape.viewBox}">
+                            <!-- Background faces styling if 3D (a transparent blue shade to show depth) -->
+                            ${shape.name === 'Cubo' ? `
+                                <polygon points="60,90 180,90 180,210 60,210" fill="rgba(99, 102, 241, 0.05)" />
+                                <polygon points="120,40 240,40 240,160 120,160" fill="rgba(99, 102, 241, 0.05)" />
+                            ` : ''}
+                            
+                            <!-- Visible Edges -->
+                            <g>${linesHTML}</g>
+                            
+                            <!-- Invisible Thick touch target lines (drawn on top of visible lines but below dots) -->
+                            <g>${thickLinesHTML}</g>
+                            
+                            <!-- Vertices Dots -->
+                            <g>${dotsHTML}</g>
+                        </svg>
+                    </div>
+                </div>
+            `;
+        }
+
+        function handleVertexClick(idx) {
+            if (verticesState.currentStep !== 'vertices') return;
+            if (verticesState.selectedVertices.has(idx)) return;
+
+            verticesState.selectedVertices.add(idx);
+            
+            // Visual feedback on click
+            const dot = document.getElementById(`vertex-dot-${idx}`);
+            if (dot) {
+                dot.setAttribute('fill', '#fbbf24'); // gold yellow
+                dot.setAttribute('stroke', '#d97706'); // dark gold
+            }
+            
+            playAudio(true);
+            
+            const shape = verticesState.shapes[verticesState.currentShapeIdx];
+            
+            // Check step finish
+            if (verticesState.selectedVertices.size === shape.vertices.length) {
+                verticesState.currentStep = 'edges';
+                setTimeout(() => {
+                    playAudio(true);
+                    renderVerticesShape();
+                }, 400);
+            } else {
+                // Update progress counter
+                const progressEl = document.getElementById('vertices-progress');
+                if (progressEl) {
+                    progressEl.innerHTML = `Vértices encontrados: <span class="text-yellow-600 font-bold">${verticesState.selectedVertices.size} / ${shape.vertices.length}</span>`;
+                }
+            }
+        }
+
+        function handleEdgeClick(idx) {
+            if (verticesState.currentStep !== 'edges') return;
+            if (verticesState.selectedEdges.has(idx)) return;
+
+            verticesState.selectedEdges.add(idx);
+            
+            // Visual feedback on click
+            const line = document.getElementById(`edge-line-${idx}`);
+            if (line) {
+                line.setAttribute('stroke', '#8b5cf6'); // purple/indigo
+                line.setAttribute('stroke-width', '7');
+            }
+            
+            playAudio(true);
+            
+            const shape = verticesState.shapes[verticesState.currentShapeIdx];
+            
+            // Check step finish
+            if (verticesState.selectedEdges.size === shape.edges.length) {
+                if (verticesState.currentShapeIdx < verticesState.shapes.length - 1) {
+                    // Next shape
+                    verticesState.currentShapeIdx++;
+                    verticesState.currentStep = 'vertices';
+                    verticesState.selectedVertices.clear();
+                    verticesState.selectedEdges.clear();
+                    
+                    setTimeout(() => {
+                        confetti({ particleCount: 30, spread: 40, origin: { y: 0.8 } });
+                        playAudio(true);
+                        renderVerticesShape();
+                    }, 400);
+                } else {
+                    // Minigame solved!
+                    setTimeout(() => {
+                        celebrate();
+                        document.getElementById('minigame-success').classList.remove('hidden');
+                        addMiniStar('final_vertices');
+                    }, 500);
+                }
+            } else {
+                // Update progress counter
+                const progressEl = document.getElementById('vertices-progress');
+                if (progressEl) {
+                    progressEl.innerHTML = `Aristas encontradas: <span class="text-purple-600 font-bold">${verticesState.selectedEdges.size} / ${shape.edges.length}</span>`;
+                }
             }
         }
     </script>
