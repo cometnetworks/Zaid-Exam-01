@@ -551,27 +551,214 @@
 
     <!-- PANTALLA DE SELECCIÓN DE FASE (MISIÓN) -->
     <div id="phase-screen" class="w-full max-w-2xl text-center flex flex-col items-center justify-center py-8">
+        <!-- Banner de Logros de 1º -->
+        <div onclick="showBoletaScreen()" class="w-full max-w-2xl mb-6 bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-400 p-4 rounded-3xl shadow-lg border-4 border-white cursor-pointer hover:scale-105 transform transition flex items-center justify-between gap-4 animate-pulse">
+            <span class="text-3xl">🏆</span>
+            <div class="text-left flex-1">
+                <h3 class="text-base md:text-lg font-black text-white leading-tight">¡Christopher Zaid aprobó 1er Grado! 🎉</h3>
+                <p class="text-xxs md:text-xs font-bold text-yellow-950 opacity-90">Toca para ver su boleta de calificaciones y reporte Progrentis (Promedio: 96.29)</p>
+            </div>
+            <span class="text-xl text-white font-bold">➔</span>
+        </div>
+
         <h1 class="text-4xl md:text-5xl font-black text-indigo-600 mb-2 animate-bounce-slow">🌟 ¡Súper Zaid! 🌟</h1>
         <p class="text-xl text-gray-700 mb-8 font-bold">¡Bienvenido de nuevo, súper héroe! Elige tu misión:</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-xl mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-3xl mb-8">
             <!-- Tarjeta Misión 1 (Trimestral/Repaso) -->
             <button onclick="selectPhase('repaso')"
-                class="bg-gradient-to-br from-blue-400 to-indigo-500 hover:from-blue-500 hover:to-indigo-600 text-white p-8 rounded-3xl shadow-xl border-b-8 border-indigo-700 transform transition hover:-translate-y-1 flex flex-col items-center justify-center relative overflow-hidden group">
-                <span class="text-6xl mb-4 group-hover:scale-110 transition">🚀</span>
-                <span class="text-3xl font-black mb-2">Misión 1</span>
-                <span class="text-lg font-bold opacity-90 bg-indigo-900 bg-opacity-30 px-4 py-1 rounded-full border border-indigo-300">Repaso General</span>
-                <p class="text-xs mt-4 opacity-80 font-semibold leading-relaxed">Repasa temas anteriores del 2º Trimestre (Nota, Carta, Poema, Tangram, etc.)</p>
+                class="bg-gradient-to-br from-blue-400 to-indigo-500 hover:from-blue-500 hover:to-indigo-600 text-white p-6 rounded-3xl shadow-xl border-b-8 border-indigo-700 transform transition hover:-translate-y-1 flex flex-col items-center justify-center relative overflow-hidden group">
+                <span class="text-5xl mb-3 group-hover:scale-110 transition">🚀</span>
+                <span class="text-2xl font-black mb-1">Misión 1</span>
+                <span class="text-sm font-bold opacity-90 bg-indigo-900 bg-opacity-30 px-3 py-0.5 rounded-full border border-indigo-300">Repaso General</span>
+                <p class="text-xxs mt-3 opacity-80 font-semibold leading-relaxed">Repasa temas anteriores del 2º Trimestre (Nota, Carta, Poema, etc.)</p>
             </button>
 
             <!-- Tarjeta Misión 2 (Examen Final) -->
             <button onclick="selectPhase('examen_final')"
-                class="bg-gradient-to-br from-pink-400 to-purple-600 hover:from-pink-500 hover:to-purple-700 text-white p-8 rounded-3xl shadow-xl border-b-8 border-purple-800 transform transition hover:-translate-y-1 flex flex-col items-center justify-center relative overflow-hidden group animate-pulse">
-                <span class="text-6xl mb-4 group-hover:scale-110 transition">🏆</span>
-                <span class="text-3xl font-black mb-2">Misión 2</span>
-                <span class="text-lg font-bold opacity-90 bg-purple-900 bg-opacity-30 px-4 py-1 rounded-full border border-purple-300">Examen Final</span>
-                <p class="text-xs mt-4 opacity-80 font-semibold leading-relaxed">Prepárate para los exámenes finales con el nuevo temario del Trimestre 3</p>
+                class="bg-gradient-to-br from-pink-400 to-purple-600 hover:from-pink-500 hover:to-purple-700 text-white p-6 rounded-3xl shadow-xl border-b-8 border-purple-800 transform transition hover:-translate-y-1 flex flex-col items-center justify-center relative overflow-hidden group">
+                <span class="text-5xl mb-3 group-hover:scale-110 transition">🏆</span>
+                <span class="text-2xl font-black mb-1">Misión 2</span>
+                <span class="text-sm font-bold opacity-90 bg-purple-900 bg-opacity-30 px-3 py-0.5 rounded-full border border-purple-300">Examen Final</span>
+                <p class="text-xxs mt-3 opacity-80 font-semibold leading-relaxed">Prepárate para los exámenes finales con el temario del Trimestre 3</p>
             </button>
+
+            <!-- Tarjeta Misión 3 (Rumbo a 2º) -->
+            <button onclick="selectPhase('rumbo_segundo')"
+                class="bg-gradient-to-br from-teal-400 to-emerald-600 hover:from-teal-500 hover:to-emerald-700 text-white p-6 rounded-3xl shadow-xl border-b-8 border-emerald-800 transform transition hover:-translate-y-1 flex flex-col items-center justify-center relative overflow-hidden group animate-pulse">
+                <span class="text-5xl mb-3 group-hover:scale-110 transition">🧠</span>
+                <span class="text-2xl font-black mb-1">Misión 3</span>
+                <span class="text-sm font-bold opacity-90 bg-emerald-950 bg-opacity-30 px-3 py-0.5 rounded-full border border-emerald-300">Rumbo a 2º</span>
+                <p class="text-xxs mt-3 opacity-80 font-semibold leading-relaxed">Entrenamiento cerebral basado en destrezas Progrentis</p>
+            </button>
+        </div>
+    </div>
+
+    <!-- PANTALLA: BOLETA Y PROGRENTIS -->
+    <div id="boleta-screen" class="w-full max-w-2xl hidden flex-col items-center py-6">
+        <div class="w-full flex justify-between items-center mb-6 bg-white p-4 rounded-2xl shadow-sm border-2 border-gray-100">
+            <button onclick="hideBoletaScreen()"
+                class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-xl">⬅️ Volver</button>
+            <h2 class="text-lg md:text-xl font-black uppercase text-indigo-600 flex items-center gap-2">🏆 Logros de 1º Primaria</h2>
+            <div class="w-10"></div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="flex w-full mb-6 bg-white p-1 rounded-2xl shadow-sm border-2 border-gray-100">
+            <button onclick="switchBoletaTab('boleta')" id="tab-btn-boleta" class="flex-1 py-3 text-lg font-black rounded-xl transition bg-indigo-600 text-white">📋 Boleta Escolar</button>
+            <button onclick="switchBoletaTab('progrentis')" id="tab-btn-progrentis" class="flex-1 py-3 text-lg font-black rounded-xl transition text-gray-500 hover:bg-gray-100">⚡ Reporte Progrentis</button>
+        </div>
+
+        <!-- TAB: BOLETA ESCOLAR -->
+        <div id="tab-content-boleta" class="w-full flex flex-col items-center">
+            <!-- Diploma Virtual Card -->
+            <div class="w-full bg-gradient-to-br from-amber-50 to-orange-100 border-4 border-amber-300 rounded-3xl p-6 mb-6 shadow-md text-center relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-200 rounded-full opacity-20"></div>
+                <div class="text-5xl mb-2">🎓</div>
+                <h3 class="text-2xl font-black text-amber-800 mb-1">¡Felicidades Christopher Zaid!</h3>
+                <p class="text-sm font-bold text-amber-700 mb-4">Por haber aprobado con éxito el 1er Grado de Primaria</p>
+                <div class="inline-block bg-amber-500 text-white font-black text-3xl px-6 py-2 rounded-full border-4 border-white shadow-md">
+                    96.29 ⭐
+                </div>
+                <p class="text-xs font-bold text-amber-800 mt-2">Promedio General Sobresaliente</p>
+            </div>
+
+            <!-- Tabla de Calificaciones -->
+            <div class="w-full bg-white rounded-3xl p-6 shadow-md border-2 border-gray-100">
+                <h4 class="text-base md:text-lg font-black text-gray-800 mb-4 flex items-center gap-2">📊 Calificaciones Oficiales (Ciclo 2025-2026)</h4>
+                <div class="overflow-x-auto w-full">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-gray-100 text-gray-400 text-xs font-bold uppercase">
+                                <th class="pb-3">Materia / Campo</th>
+                                <th class="pb-3 text-right">Calificación</th>
+                                <th class="pb-3 text-right">Estatus</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50 text-sm font-bold text-gray-700">
+                            <tr>
+                                <td class="py-3 flex items-center gap-2"><span>🗣️</span> Lengua (Español)</td>
+                                <td class="py-3 text-right text-indigo-600">91.15</td>
+                                <td class="py-3 text-right text-green-500">Aprobado ✅</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 flex items-center gap-2"><span>📐</span> Matemáticas</td>
+                                <td class="py-3 text-right text-indigo-600">84.65</td>
+                                <td class="py-3 text-right text-green-500">Aprobado ✅</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 flex items-center gap-2"><span>🔢</span> Habilidades Matemáticas</td>
+                                <td class="py-3 text-right text-indigo-600">97.00</td>
+                                <td class="py-3 text-right text-green-500">Aprobado ✅</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 flex items-center gap-2"><span>🇬🇧</span> Inglés</td>
+                                <td class="py-3 text-right text-indigo-600">100.00</td>
+                                <td class="py-3 text-right text-green-500">Aprobado ✅</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 flex items-center gap-2"><span>🎨</span> Artes</td>
+                                <td class="py-3 text-right text-indigo-600">100.00</td>
+                                <td class="py-3 text-right text-green-500">Aprobado ✅</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 flex items-center gap-2"><span>🌱</span> Integrado (Ética, Nat. y Soc.)</td>
+                                <td class="py-3 text-right text-indigo-600">91.00</td>
+                                <td class="py-3 text-right text-green-500">Aprobado ✅</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 flex items-center gap-2"><span>🏃</span> Educación Física</td>
+                                <td class="py-3 text-right text-indigo-600">100.00</td>
+                                <td class="py-3 text-right text-green-500">Aprobado ✅</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 flex items-center gap-2"><span>❤️</span> Educación Socioemocional</td>
+                                <td class="py-3 text-right text-indigo-600">100.00</td>
+                                <td class="py-3 text-right text-green-500">Aprobado ✅</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="mt-4 pt-4 border-t border-gray-100 flex flex-wrap justify-between items-center text-xs text-gray-400 font-semibold gap-2">
+                    <span>Tareas no realizadas: 2</span>
+                    <span>Inasistencias: 3</span>
+                    <span>Conducta: 100 🌟</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: REPORTE PROGRENTIS -->
+        <div id="tab-content-progrentis" class="w-full hidden flex-col items-center">
+            <!-- Neuroagility Badges -->
+            <div class="grid grid-cols-3 gap-3 w-full mb-6">
+                <div class="bg-white rounded-3xl p-3 shadow-md border-2 border-gray-100 text-center flex flex-col items-center justify-center">
+                    <span class="text-2xl mb-1">🧠</span>
+                    <h5 class="text-xxs text-gray-400 font-black uppercase">Neuroagilidad</h5>
+                    <p class="text-xl font-black text-indigo-600">8000</p>
+                    <span class="text-xxs bg-green-100 text-green-700 px-1 py-0.5 rounded-full font-bold mt-1">Experto</span>
+                </div>
+                <div class="bg-white rounded-3xl p-3 shadow-md border-2 border-gray-100 text-center flex flex-col items-center justify-center">
+                    <span class="text-2xl mb-1">📖</span>
+                    <h5 class="text-xxs text-gray-400 font-black uppercase">Lectura (PEM)</h5>
+                    <div class="flex items-center gap-1 mt-1">
+                        <span class="text-xs text-gray-400 line-through">40</span>
+                        <span class="text-xl font-black text-green-600">120</span>
+                    </div>
+                    <span class="text-xxs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-bold mt-1">+200% Mejora</span>
+                </div>
+                <div class="bg-white rounded-3xl p-3 shadow-md border-2 border-gray-100 text-center flex flex-col items-center justify-center">
+                    <span class="text-2xl mb-1">⚡</span>
+                    <h5 class="text-xxs text-gray-400 font-black uppercase">Productividad (IPD)</h5>
+                    <div class="flex items-center gap-1 mt-1">
+                        <span class="text-xs text-gray-400 line-through">3.2</span>
+                        <span class="text-xl font-black text-green-600">16.8</span>
+                    </div>
+                    <span class="text-xxs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-bold mt-1">+425% Mejora</span>
+                </div>
+            </div>
+
+            <!-- Destrezas Destacadas -->
+            <div class="w-full bg-white rounded-3xl p-6 shadow-md border-2 border-gray-100 mb-6">
+                <h4 class="text-lg font-black text-gray-800 mb-4 flex items-center gap-2">⭐ Mis Mayores Fortalezas</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm font-bold text-gray-700">
+                    <div class="flex items-center gap-2 bg-green-50 p-3 rounded-2xl border border-green-100">
+                        <span class="text-xl">🎯</span>
+                        <div class="flex-1">
+                            <p class="text-xxs text-gray-400">Discriminación Perceptiva</p>
+                            <p>100% Excelente</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 bg-green-50 p-3 rounded-2xl border border-green-100">
+                        <span class="text-xl">🧭</span>
+                        <div class="flex-1">
+                            <p class="text-xxs text-gray-400">Reconocer Direccionalidad</p>
+                            <p>100% Excelente</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 bg-green-50 p-3 rounded-2xl border border-green-100">
+                        <span class="text-xl">📍</span>
+                        <div class="flex-1">
+                            <p class="text-xxs text-gray-400">Reconocer Posiciones</p>
+                            <p>100% Excelente</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 bg-green-50 p-3 rounded-2xl border border-green-100">
+                        <span class="text-xl">➕</span>
+                        <div class="flex-1">
+                            <p class="text-xxs text-gray-400">Entender Operaciones</p>
+                            <p>100% Excelente</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entrenamiento Misión 3 Banner -->
+            <div class="w-full bg-indigo-50 border-2 border-indigo-100 rounded-3xl p-6 shadow-inner text-center">
+                <h4 class="text-lg font-black text-indigo-900 mb-2">🧠 Plan de Entrenamiento Rumbo a 2º</h4>
+                <p class="text-sm text-indigo-700 font-semibold mb-4 leading-relaxed font-sans">Para seguir superándonos, entrenaremos las habilidades de comprensión, completado de ideas, secuencias de patrones y cálculo mental con los juegos de la Misión 3.</p>
+                <button onclick="hideBoletaScreen(); selectPhase('rumbo_segundo');" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black px-6 py-3 rounded-2xl shadow border-b-4 border-indigo-800 text-sm transition active:translate-y-0.5 active:border-b-0">🎮 ¡Empezar Misión 3! 🚀</button>
+            </div>
         </div>
     </div>
 
@@ -588,7 +775,7 @@
         <h1 class="text-4xl md:text-5xl font-black text-green-600 mb-4 animate-bounce-slow">🌟 ¡Súper Zaid! 🌟</h1>
         <p class="text-xl text-gray-700 mb-6 font-bold">Elige la misión de hoy:</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <div id="home-quizzes-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             <button onclick="startQuiz('espanol')"
                 class="bg-blue-400 hover:bg-blue-500 text-white p-6 rounded-3xl shadow-lg border-b-8 border-blue-600 transform transition hover:-translate-y-1 text-2xl font-bold flex flex-col items-center">
                 <span class="text-4xl mb-2">📚</span> Examen Español
@@ -607,6 +794,19 @@
             </button>
         </div>
 
+        <!-- Contenedor Especial Misión 3: Rumbo a 2º -->
+        <div id="home-segundo-menu" class="hidden flex-col gap-4 mb-8">
+            <div class="bg-indigo-50 border-2 border-indigo-100 rounded-3xl p-6 text-center shadow-inner mb-2">
+                <p class="text-indigo-900 font-bold text-lg leading-relaxed">🧠 ¡Entrenamiento Cerebral Rumbo a 2º! ⚡</p>
+                <p class="text-gray-600 text-sm font-semibold mt-1">Diseñado para repasar destrezas Progrentis y prepararte para el inicio de tu segundo año escolar.</p>
+            </div>
+            
+            <button onclick="showMinigamesMenu()"
+                class="w-full bg-gradient-to-r from-teal-400 to-emerald-500 hover:from-teal-500 hover:to-emerald-600 text-white p-8 rounded-3xl shadow-xl border-b-8 border-emerald-700 transform transition hover:-translate-y-1 text-3xl font-black flex items-center justify-center gap-4 animate-pulse">
+                🎮 ¡Juegos de Entrenamiento! ⚡
+            </button>
+        </div>
+
         <button onclick="showFlashcardsSubjectMenu()"
             class="w-full bg-orange-400 hover:bg-orange-500 text-white p-6 rounded-3xl shadow-xl border-b-8 border-orange-600 transform transition hover:-translate-y-1 text-3xl font-black flex items-center justify-center gap-4 mb-4">
             🎴 ¡Tarjetas de Repaso!
@@ -617,7 +817,7 @@
             🌟 Mi Progreso
         </button>
 
-        <button onclick="showMinigamesMenu()"
+        <button id="btn-minijuegos-magicos" onclick="showMinigamesMenu()"
             class="w-full bg-purple-500 hover:bg-purple-600 text-white p-6 rounded-3xl shadow-xl border-b-8 border-purple-700 transform transition hover:-translate-y-1 text-3xl font-black flex items-center justify-center gap-4 animate-pulse">
             🧩 ¡Minijuegos Mágicos! ✨
         </button>
@@ -770,6 +970,22 @@
             <button onclick="startMinigame('final_vertices')"
                 class="bg-teal-100 border-4 border-teal-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-teal-800 text-left flex items-center gap-4 hover:bg-teal-200">
                 <span class="text-4xl">📐</span> 8. Vértices y Aristas
+            </button>
+        </div>
+
+        <!-- Minijuegos de Misión 3 (Rumbo a 2º) -->
+        <div id="menu-minigames-segundo" class="grid grid-cols-1 gap-4 hidden">
+            <button onclick="startMinigame('segundo_palabras')"
+                class="bg-blue-100 border-4 border-blue-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-blue-800 text-left flex items-center gap-4 hover:bg-blue-200">
+                <span class="text-4xl">🔍</span> 1. Detective de Palabras
+            </button>
+            <button onclick="startMinigame('segundo_patrones')"
+                class="bg-orange-100 border-4 border-orange-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-orange-800 text-left flex items-center gap-4 hover:bg-orange-200">
+                <span class="text-4xl">🧩</span> 2. Secuencia de Patrones
+            </button>
+            <button onclick="startMinigame('segundo_calculo')"
+                class="bg-green-100 border-4 border-green-400 p-6 rounded-2xl font-bold text-xl md:text-2xl text-green-800 text-left flex items-center gap-4 hover:bg-green-200">
+                <span class="text-4xl">⚡</span> 3. Sumas de Velocidad
             </button>
         </div>
     </div>
@@ -3795,16 +4011,31 @@
             currentPhase = phase;
             document.getElementById('phase-screen').classList.add('hidden');
             document.getElementById('phase-screen').classList.remove('flex');
+            document.getElementById('boleta-screen').classList.add('hidden');
+            document.getElementById('boleta-screen').classList.remove('flex');
             document.getElementById('home-screen').classList.remove('hidden');
             
             const mainNatBtn = document.getElementById('subject-btn-naturaleza');
             const fcNatBtn = document.getElementById('fc-btn-naturaleza');
             const homeTitle = document.getElementById('home-title');
+            const homeQuizzesGrid = document.getElementById('home-quizzes-grid');
+            const homeSegundoMenu = document.getElementById('home-segundo-menu');
+            const btnMinijuegos = document.getElementById('btn-minijuegos-magicos');
             
+            // Default visibility resets
+            if (homeQuizzesGrid) homeQuizzesGrid.style.display = 'grid';
+            if (homeSegundoMenu) { homeSegundoMenu.classList.add('hidden'); homeSegundoMenu.classList.remove('flex'); }
+            if (btnMinijuegos) btnMinijuegos.classList.remove('hidden');
+
             if (phase === 'examen_final') {
                 if (mainNatBtn) mainNatBtn.innerHTML = '<span class="text-4xl mb-2">🌱</span> Examen Ética y Nat.';
                 if (fcNatBtn) fcNatBtn.innerHTML = '<span class="text-4xl">🌱</span> Ética y Nat.';
                 if (homeTitle) homeTitle.innerText = "🏆 Examen Final - Misión 2";
+            } else if (phase === 'rumbo_segundo') {
+                if (homeQuizzesGrid) homeQuizzesGrid.style.display = 'none';
+                if (homeSegundoMenu) { homeSegundoMenu.classList.remove('hidden'); homeSegundoMenu.classList.add('flex'); }
+                if (btnMinijuegos) btnMinijuegos.classList.add('hidden');
+                if (homeTitle) homeTitle.innerText = "🧠 Rumbo a 2º - Misión 3";
             } else {
                 if (mainNatBtn) mainNatBtn.innerHTML = '<span class="text-4xl mb-2">🌱</span> Examen Nat.';
                 if (fcNatBtn) fcNatBtn.innerHTML = '<span class="text-4xl">🌱</span> Naturaleza';
@@ -3814,9 +4045,50 @@
 
         function changePhaseScreen() {
             document.getElementById('home-screen').classList.add('hidden');
+            document.getElementById('boleta-screen').classList.add('hidden');
+            document.getElementById('boleta-screen').classList.remove('flex');
             document.getElementById('phase-screen').classList.remove('hidden');
             document.getElementById('phase-screen').classList.add('flex');
             window.speechSynthesis.cancel();
+        }
+
+        function showBoletaScreen() {
+            document.getElementById('phase-screen').classList.add('hidden');
+            document.getElementById('phase-screen').classList.remove('flex');
+            document.getElementById('home-screen').classList.add('hidden');
+            document.getElementById('boleta-screen').classList.remove('hidden');
+            document.getElementById('boleta-screen').classList.add('flex');
+            window.speechSynthesis.cancel();
+        }
+
+        function hideBoletaScreen() {
+            document.getElementById('boleta-screen').classList.add('hidden');
+            document.getElementById('boleta-screen').classList.remove('flex');
+            document.getElementById('phase-screen').classList.remove('hidden');
+            document.getElementById('phase-screen').classList.add('flex');
+        }
+
+        function switchBoletaTab(tab) {
+            const tabBtnBoleta = document.getElementById('tab-btn-boleta');
+            const tabBtnProgrentis = document.getElementById('tab-btn-progrentis');
+            const tabContentBoleta = document.getElementById('tab-content-boleta');
+            const tabContentProgrentis = document.getElementById('tab-content-progrentis');
+
+            if (tab === 'boleta') {
+                tabBtnBoleta.className = "flex-1 py-3 text-lg font-black rounded-xl transition bg-indigo-600 text-white";
+                tabBtnProgrentis.className = "flex-1 py-3 text-lg font-black rounded-xl transition text-gray-500 hover:bg-gray-100";
+                tabContentBoleta.classList.remove('hidden');
+                tabContentBoleta.classList.add('flex');
+                tabContentProgrentis.classList.add('hidden');
+                tabContentProgrentis.classList.remove('flex');
+            } else {
+                tabBtnProgrentis.className = "flex-1 py-3 text-lg font-black rounded-xl transition bg-indigo-600 text-white";
+                tabBtnBoleta.className = "flex-1 py-3 text-lg font-black rounded-xl transition text-gray-500 hover:bg-gray-100";
+                tabContentProgrentis.classList.remove('hidden');
+                tabContentProgrentis.classList.add('flex');
+                tabContentBoleta.classList.add('hidden');
+                tabContentBoleta.classList.remove('flex');
+            }
         }
 
         // --- FUNCIONES DE STORAGE Y DASHBOARD --- 
@@ -3931,6 +4203,8 @@
         function goHome() {
             document.getElementById('phase-screen').classList.add('hidden');
             document.getElementById('phase-screen').classList.remove('flex');
+            document.getElementById('boleta-screen').classList.add('hidden');
+            document.getElementById('boleta-screen').classList.remove('flex');
             document.getElementById('quiz-screen').classList.add('hidden');
             document.getElementById('quiz-screen').classList.remove('flex');
             document.getElementById('result-screen').classList.add('hidden');
@@ -4142,13 +4416,26 @@
 
             const repasoMenu = document.getElementById('menu-minigames-repaso');
             const examenMenu = document.getElementById('menu-minigames-examen');
+            const segundoMenu = document.getElementById('menu-minigames-segundo');
+
+            repasoMenu.classList.add('hidden');
+            repasoMenu.classList.remove('grid');
+            examenMenu.classList.add('hidden');
+            examenMenu.classList.remove('grid');
+            if (segundoMenu) {
+                segundoMenu.classList.add('hidden');
+                segundoMenu.classList.remove('grid');
+            }
 
             if (currentPhase === 'examen_final') {
-                repasoMenu.classList.add('hidden');
                 examenMenu.classList.remove('hidden');
                 examenMenu.classList.add('grid');
+            } else if (currentPhase === 'rumbo_segundo') {
+                if (segundoMenu) {
+                    segundoMenu.classList.remove('hidden');
+                    segundoMenu.classList.add('grid');
+                }
             } else {
-                examenMenu.classList.add('hidden');
                 repasoMenu.classList.remove('hidden');
                 repasoMenu.classList.add('grid');
             }
@@ -4173,6 +4460,20 @@
 
             const content = document.getElementById('minigame-content');
             content.innerHTML = ''; currentGameType = type; correctMatches = 0;
+
+            if (type === 'segundo_palabras') {
+                document.getElementById('minigame-title').innerText = "🔍 Detective de Palabras";
+                initDetectivePalabras();
+                return;
+            } else if (type === 'segundo_patrones') {
+                document.getElementById('minigame-title').innerText = "🧩 Secuencia de Patrones";
+                initSecuenciaPatrones();
+                return;
+            } else if (type === 'segundo_calculo') {
+                document.getElementById('minigame-title').innerText = "⚡ Sumas de Velocidad";
+                initSumasVelocidad();
+                return;
+            }
 
             if (type === 'nota') {
                 document.getElementById('minigame-title').innerText = "📰 Arma la Nota";
@@ -6306,6 +6607,346 @@
             } catch (e) { }
         }
 
+        // ==========================================
+        // MINIJUEGOS DE MISIÓN 3 (RUMBO A 2º)
+        // ==========================================
+
+        // 1. Detective de Palabras
+        let palabrasState = {
+            currentIndex: 0,
+            questions: [
+                { q: "El perro de Zaid _ alegremente en el jardín.", options: ["corrió", "currió", "corró"], ans: 0 },
+                { q: "La _ come hojas de los árboles altos.", options: ["jirafa", "girafa", "jirafas"], ans: 0 },
+                { q: "Zaid y su amigo _ fútbol en la escuela.", options: ["juegan", "jegan", "jugan"], ans: 0 },
+                { q: "Ayer mi mamá cocinó una _ sopa de verduras.", options: ["deliciosa", "delisioza", "delisiosa"], ans: 0 },
+                { q: "El cohete de la misión _ hacia las estrellas.", options: ["viajó", "biajó", "viajo"], ans: 0 }
+            ]
+        };
+
+        function initDetectivePalabras() {
+            palabrasState.currentIndex = 0;
+            palabrasState.questions.sort(() => Math.random() - 0.5);
+            renderDetectivePalabras();
+        }
+
+        function renderDetectivePalabras() {
+            const content = document.getElementById('minigame-content');
+            const q = palabrasState.questions[palabrasState.currentIndex];
+            
+            let optionsHTML = '';
+            q.options.forEach((opt, idx) => {
+                optionsHTML += `
+                    <button onclick="checkPalabrasAnswer(${idx})" id="palabras-opt-${idx}" 
+                        class="w-full bg-purple-100 hover:bg-purple-200 border-4 border-purple-400 p-4 rounded-2xl font-bold text-xl text-purple-900 transition flex items-center justify-between">
+                        <span>${opt}</span>
+                        <span class="text-2xl opacity-0 feedback-icon">✔️</span>
+                    </button>
+                `;
+            });
+            
+            content.innerHTML = `
+                <div class="flex flex-col items-center p-4">
+                    <p class="text-center font-bold text-gray-500 mb-2">Oración ${palabrasState.currentIndex + 1} de 5</p>
+                    <div class="bg-indigo-50 border-2 border-indigo-100 rounded-2xl p-6 w-full max-w-md text-center shadow-inner mb-6">
+                        <p class="text-2xl font-black text-indigo-900">${q.q.replace('_', '<span class="text-purple-600 underline">______</span>')}</p>
+                    </div>
+                    <div class="flex flex-col gap-4 w-full max-w-md">
+                        ${optionsHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkPalabrasAnswer(idx) {
+            const q = palabrasState.questions[palabrasState.currentIndex];
+            const btn = document.getElementById(`palabras-opt-${idx}`);
+            
+            if (idx === q.ans) {
+                btn.classList.remove('bg-purple-100', 'border-purple-400');
+                btn.classList.add('bg-green-500', 'border-green-600', 'text-white');
+                btn.querySelector('.feedback-icon').classList.remove('opacity-0');
+                btn.querySelector('.feedback-icon').innerText = '✅';
+                playAudio(true);
+                
+                document.querySelectorAll('[id^="palabras-opt-"]').forEach(b => b.disabled = true);
+                
+                setTimeout(() => {
+                    if (palabrasState.currentIndex < 4) {
+                        palabrasState.currentIndex++;
+                        renderDetectivePalabras();
+                    } else {
+                        celebrate();
+                        document.getElementById('minigame-success').classList.remove('hidden');
+                        addMiniStar('segundo_palabras');
+                    }
+                }, 1000);
+            } else {
+                btn.classList.add('animate-shake', 'bg-red-200', 'border-red-400', 'text-red-950');
+                btn.querySelector('.feedback-icon').classList.remove('opacity-0');
+                btn.querySelector('.feedback-icon').innerText = '❌';
+                playAudio(false);
+                setTimeout(() => {
+                    btn.classList.remove('animate-shake', 'bg-red-200', 'border-red-400', 'text-red-950');
+                    btn.querySelector('.feedback-icon').classList.add('opacity-0');
+                }, 800);
+            }
+        }
+
+        // 2. Secuencia de Patrones
+        let patronesState = {
+            currentIndex: 0,
+            questions: [
+                {
+                    type: "visual",
+                    sequence: ["square-green", "square-green", "circle-yellow", "square-green", "square-green", "circle-yellow", "square-green", "square-green"],
+                    options: ["circle-yellow", "square-green", "triangle-blue"],
+                    ans: 0
+                },
+                {
+                    type: "number",
+                    sequence: [2, 4, 6, 8, 10, 12],
+                    options: [13, 14, 15],
+                    ans: 1
+                },
+                {
+                    type: "visual",
+                    sequence: ["triangle-blue", "circle-pink", "triangle-blue", "circle-pink", "triangle-blue", "circle-pink"],
+                    options: ["triangle-blue", "circle-pink", "square-green"],
+                    ans: 0
+                },
+                {
+                    type: "number",
+                    sequence: [15, 13, 11, 9, 7],
+                    options: [6, 5, 4],
+                    ans: 1
+                },
+                {
+                    type: "visual",
+                    sequence: ["circle-yellow", "square-green", "triangle-blue", "circle-yellow", "square-green", "triangle-blue"],
+                    options: ["circle-yellow", "square-green", "triangle-blue"],
+                    ans: 0
+                }
+            ]
+        };
+
+        function initSecuenciaPatrones() {
+            patronesState.currentIndex = 0;
+            patronesState.questions.sort(() => Math.random() - 0.5);
+            renderSecuenciaPatrones();
+        }
+
+        function getShapeSVG(shapeName, size = 60) {
+            if (shapeName === "square-green") {
+                return `<rect width="${size}" height="${size}" rx="12" fill="#10b981" />`;
+            } else if (shapeName === "circle-yellow") {
+                return `<circle cx="${size/2}" cy="${size/2}" r="${size/2}" fill="#f59e0b" />`;
+            } else if (shapeName === "triangle-blue") {
+                return `<polygon points="${size/2},0 ${size},${size} 0,${size}" fill="#3b82f6" />`;
+            } else if (shapeName === "circle-pink") {
+                return `<circle cx="${size/2}" cy="${size/2}" r="${size/2}" fill="#ec4899" />`;
+            }
+            return '';
+        }
+
+        function renderSecuenciaPatrones() {
+            const content = document.getElementById('minigame-content');
+            const q = patronesState.questions[patronesState.currentIndex];
+
+            let sequenceHTML = '';
+            if (q.type === "visual") {
+                q.sequence.forEach(shape => {
+                    sequenceHTML += `
+                        <div class="w-16 h-16 flex items-center justify-center bg-white border-2 border-gray-100 rounded-2xl shadow-sm p-1">
+                            <svg class="w-12 h-12" viewBox="0 0 60 60">${getShapeSVG(shape)}</svg>
+                        </div>
+                    `;
+                });
+                sequenceHTML += `
+                    <div class="w-16 h-16 flex items-center justify-center bg-purple-50 border-4 border-dashed border-purple-400 rounded-2xl animate-pulse">
+                        <span class="text-purple-600 font-bold text-2xl">?</span>
+                    </div>
+                `;
+            } else {
+                q.sequence.forEach(num => {
+                    sequenceHTML += `
+                        <div class="w-16 h-16 flex items-center justify-center bg-indigo-50 border-2 border-indigo-200 rounded-2xl shadow-sm font-black text-2xl text-indigo-700">
+                            ${num}
+                        </div>
+                    `;
+                });
+                sequenceHTML += `
+                    <div class="w-16 h-16 flex items-center justify-center bg-purple-50 border-4 border-dashed border-purple-400 rounded-2xl font-black text-2xl text-purple-600 animate-pulse">
+                        ?
+                    </div>
+                `;
+            }
+
+            let optionsHTML = '';
+            q.options.forEach((opt, idx) => {
+                let innerContent = '';
+                if (q.type === "visual") {
+                    innerContent = `<svg class="w-12 h-12" viewBox="0 0 60 60">${getShapeSVG(opt)}</svg>`;
+                } else {
+                    innerContent = `<span class="text-3xl font-black text-indigo-700">${opt}</span>`;
+                }
+
+                optionsHTML += `
+                    <button onclick="checkPatronesAnswer(${idx})" id="patrones-opt-${idx}" 
+                        class="w-24 h-24 bg-white border-4 border-purple-300 hover:border-purple-500 rounded-3xl shadow-md flex items-center justify-center transition hover:-translate-y-1 transform">
+                        ${innerContent}
+                    </button>
+                `;
+            });
+
+            content.innerHTML = `
+                <div class="flex flex-col items-center p-4">
+                    <p class="text-center font-bold text-gray-500 mb-2">Patrón ${patronesState.currentIndex + 1} de 5</p>
+                    <div class="bg-white border-4 border-indigo-200 rounded-3xl p-6 w-full max-w-xl shadow-md mb-8">
+                        <p class="text-center font-bold text-gray-600 mb-4 uppercase tracking-wider text-xs">Completa la secuencia:</p>
+                        <div class="flex flex-wrap justify-center gap-3">
+                            ${sequenceHTML}
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center gap-6 w-full max-w-md">
+                        ${optionsHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkPatronesAnswer(idx) {
+            const q = patronesState.questions[patronesState.currentIndex];
+            const btn = document.getElementById(`patrones-opt-${idx}`);
+
+            if (idx === q.ans) {
+                btn.classList.remove('border-purple-300');
+                btn.classList.add('border-green-500', 'bg-green-50');
+                playAudio(true);
+                
+                document.querySelectorAll('[id^="patrones-opt-"]').forEach(b => b.disabled = true);
+
+                setTimeout(() => {
+                    if (patronesState.currentIndex < 4) {
+                        patronesState.currentIndex++;
+                        renderSecuenciaPatrones();
+                    } else {
+                        celebrate();
+                        document.getElementById('minigame-success').classList.remove('hidden');
+                        addMiniStar('segundo_patrones');
+                    }
+                }, 1000);
+            } else {
+                btn.classList.add('animate-shake', 'border-red-500', 'bg-red-50');
+                playAudio(false);
+                setTimeout(() => {
+                    btn.classList.remove('animate-shake', 'border-red-500', 'bg-red-50');
+                }, 800);
+            }
+        }
+
+        // 3. Sumas de Velocidad
+        let calculoState = {
+            score: 0,
+            currentEq: null,
+            totalGoal: 10,
+            db: [
+                { eq: "5 + 3 = 8", ans: true },
+                { eq: "4 + 2 = 6", ans: true },
+                { eq: "9 - 3 = 6", ans: true },
+                { eq: "10 - 4 = 5", ans: false },
+                { eq: "8 + 2 = 10", ans: true },
+                { eq: "6 - 2 = 3", ans: false },
+                { eq: "7 + 3 = 9", ans: false },
+                { eq: "5 + 5 = 10", ans: true },
+                { eq: "9 - 4 = 5", ans: true },
+                { eq: "8 - 3 = 4", ans: false },
+                { eq: "3 + 6 = 9", ans: true },
+                { eq: "10 - 7 = 3", ans: true },
+                { eq: "5 - 2 = 4", ans: false },
+                { eq: "4 + 4 = 8", ans: true },
+                { eq: "7 - 3 = 5", ans: false },
+                { eq: "8 + 3 = 11", ans: true },
+                { eq: "12 - 4 = 8", ans: true },
+                { eq: "10 + 5 = 15", ans: true },
+                { eq: "15 - 5 = 9", ans: false },
+                { eq: "6 + 6 = 12", ans: true }
+            ]
+        };
+
+        function initSumasVelocidad() {
+            calculoState.score = 0;
+            calculoState.db.sort(() => Math.random() - 0.5);
+            nextCalculoOperation();
+        }
+
+        function nextCalculoOperation() {
+            calculoState.currentEq = calculoState.db[calculoState.score % calculoState.db.length];
+            renderSumasVelocidad();
+        }
+
+        function renderSumasVelocidad() {
+            const content = document.getElementById('minigame-content');
+            const eq = calculoState.currentEq;
+            const progressPercent = (calculoState.score / calculoState.totalGoal) * 100;
+
+            content.innerHTML = `
+                <div class="flex flex-col items-center p-4">
+                    <p class="text-center font-bold text-gray-500 mb-2">Aciertos: ${calculoState.score} / ${calculoState.totalGoal}</p>
+                    
+                    <div class="w-full max-w-md bg-gray-200 h-4 rounded-full overflow-hidden mb-6 shadow-inner border border-gray-300">
+                        <div class="bg-green-500 h-full transition-all duration-300" style="width: ${progressPercent}%"></div>
+                    </div>
+
+                    <div class="bg-indigo-50 border-4 border-indigo-200 rounded-3xl p-10 w-full max-w-md text-center shadow-lg mb-8">
+                        <p class="text-5xl font-black text-indigo-900 select-none">${eq.eq}</p>
+                    </div>
+
+                    <div class="flex gap-6 w-full max-w-md">
+                        <button onclick="checkCalculoAnswer(false)"
+                            class="flex-1 bg-red-500 hover:bg-red-600 text-white font-black py-5 rounded-2xl text-2xl shadow-md border-b-8 border-red-700 active:translate-y-1 active:border-b-0 transition-all flex flex-col items-center justify-center gap-1">
+                            <span class="text-4xl">❌</span>
+                            <span>Incorrecto</span>
+                        </button>
+                        <button onclick="checkCalculoAnswer(true)"
+                            class="flex-1 bg-green-500 hover:bg-green-600 text-white font-black py-5 rounded-2xl text-2xl shadow-md border-b-8 border-green-700 active:translate-y-1 active:border-b-0 transition-all flex flex-col items-center justify-center gap-1">
+                            <span class="text-4xl">✅</span>
+                            <span>Correcto</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkCalculoAnswer(ans) {
+            const eq = calculoState.currentEq;
+
+            if (ans === eq.ans) {
+                calculoState.score++;
+                playAudio(true);
+                confetti({ particleCount: 15, spread: 30, origin: { y: 0.8 } });
+
+                if (calculoState.score >= calculoState.totalGoal) {
+                    setTimeout(() => {
+                        celebrate();
+                        document.getElementById('minigame-success').classList.remove('hidden');
+                        addMiniStar('segundo_calculo');
+                    }, 500);
+                } else {
+                    nextCalculoOperation();
+                }
+            } else {
+                const contentCard = document.querySelector('.bg-indigo-50');
+                if (contentCard) {
+                    contentCard.classList.add('animate-shake', '!bg-red-100', '!border-red-400');
+                    playAudio(false);
+                    setTimeout(() => {
+                        contentCard.classList.remove('animate-shake', '!bg-red-100', '!border-red-400');
+                    }, 800);
+                }
+            }
+        }
+
         function celebrate() {
             confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
             playVictorySound();
@@ -6339,6 +6980,10 @@
             } else if (currentGameType === 'final_vertices') {
                 celebrate();
                 document.getElementById('minigame-success').classList.remove('hidden');
+            } else if (currentGameType === 'segundo_palabras' || currentGameType === 'segundo_patrones' || currentGameType === 'segundo_calculo') {
+                celebrate();
+                document.getElementById('minigame-success').classList.remove('hidden');
+                addMiniStar(currentGameType);
             }
         }
 
