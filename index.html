@@ -6633,12 +6633,16 @@
             const content = document.getElementById('minigame-content');
             const q = palabrasState.questions[palabrasState.currentIndex];
             
+            // Shuffle options and track which one was correct
+            let optionsWithIndex = q.options.map((opt, idx) => ({ text: opt, isCorrect: idx === q.ans }));
+            optionsWithIndex = optionsWithIndex.sort(() => Math.random() - 0.5);
+            
             let optionsHTML = '';
-            q.options.forEach((opt, idx) => {
+            optionsWithIndex.forEach((opt, idx) => {
                 optionsHTML += `
-                    <button onclick="checkPalabrasAnswer(${idx})" id="palabras-opt-${idx}" 
+                    <button onclick="checkPalabrasAnswer(${opt.isCorrect}, ${idx})" id="palabras-opt-${idx}" 
                         class="w-full bg-purple-100 hover:bg-purple-200 border-4 border-purple-400 p-4 rounded-2xl font-bold text-xl text-purple-900 transition flex items-center justify-between">
-                        <span>${opt}</span>
+                        <span>${opt.text}</span>
                         <span class="text-2xl opacity-0 feedback-icon">✔️</span>
                     </button>
                 `;
@@ -6657,11 +6661,10 @@
             `;
         }
 
-        function checkPalabrasAnswer(idx) {
-            const q = palabrasState.questions[palabrasState.currentIndex];
+        function checkPalabrasAnswer(isCorrect, idx) {
             const btn = document.getElementById(`palabras-opt-${idx}`);
             
-            if (idx === q.ans) {
+            if (isCorrect) {
                 btn.classList.remove('bg-purple-100', 'border-purple-400');
                 btn.classList.add('bg-green-500', 'border-green-600', 'text-white');
                 btn.querySelector('.feedback-icon').classList.remove('opacity-0');
@@ -6679,7 +6682,7 @@
                         document.getElementById('minigame-success').classList.remove('hidden');
                         addMiniStar('segundo_palabras');
                     }
-                }, 1000);
+                }, 1500);
             } else {
                 btn.classList.add('animate-shake', 'bg-red-200', 'border-red-400', 'text-red-950');
                 btn.querySelector('.feedback-icon').classList.remove('opacity-0');
@@ -6781,17 +6784,21 @@
                 `;
             }
 
+            // Shuffle options and track correct option index
+            let optionsWithIndex = q.options.map((opt, idx) => ({ val: opt, isCorrect: idx === q.ans }));
+            optionsWithIndex = optionsWithIndex.sort(() => Math.random() - 0.5);
+
             let optionsHTML = '';
-            q.options.forEach((opt, idx) => {
+            optionsWithIndex.forEach((opt, idx) => {
                 let innerContent = '';
                 if (q.type === "visual") {
-                    innerContent = `<svg class="w-12 h-12" viewBox="0 0 60 60">${getShapeSVG(opt)}</svg>`;
+                    innerContent = `<svg class="w-12 h-12" viewBox="0 0 60 60">${getShapeSVG(opt.val)}</svg>`;
                 } else {
-                    innerContent = `<span class="text-3xl font-black text-indigo-700">${opt}</span>`;
+                    innerContent = `<span class="text-3xl font-black text-indigo-700">${opt.val}</span>`;
                 }
 
                 optionsHTML += `
-                    <button onclick="checkPatronesAnswer(${idx})" id="patrones-opt-${idx}" 
+                    <button onclick="checkPatronesAnswer(${opt.isCorrect}, ${idx})" id="patrones-opt-${idx}" 
                         class="w-24 h-24 bg-white border-4 border-purple-300 hover:border-purple-500 rounded-3xl shadow-md flex items-center justify-center transition hover:-translate-y-1 transform">
                         ${innerContent}
                     </button>
@@ -6815,11 +6822,10 @@
             `;
         }
 
-        function checkPatronesAnswer(idx) {
-            const q = patronesState.questions[patronesState.currentIndex];
+        function checkPatronesAnswer(isCorrect, idx) {
             const btn = document.getElementById(`patrones-opt-${idx}`);
 
-            if (idx === q.ans) {
+            if (isCorrect) {
                 btn.classList.remove('border-purple-300');
                 btn.classList.add('border-green-500', 'bg-green-50');
                 playAudio(true);
@@ -6835,7 +6841,7 @@
                         document.getElementById('minigame-success').classList.remove('hidden');
                         addMiniStar('segundo_patrones');
                     }
-                }, 1000);
+                }, 1500);
             } else {
                 btn.classList.add('animate-shake', 'border-red-500', 'bg-red-50');
                 playAudio(false);
@@ -6898,17 +6904,17 @@
                         <div class="bg-green-500 h-full transition-all duration-300" style="width: ${progressPercent}%"></div>
                     </div>
 
-                    <div class="bg-indigo-50 border-4 border-indigo-200 rounded-3xl p-10 w-full max-w-md text-center shadow-lg mb-8">
+                    <div id="calculo-card" class="bg-indigo-50 border-4 border-indigo-200 rounded-3xl p-10 w-full max-w-md text-center shadow-lg mb-8 transition-colors duration-300">
                         <p class="text-5xl font-black text-indigo-900 select-none">${eq.eq}</p>
                     </div>
 
                     <div class="flex gap-6 w-full max-w-md">
-                        <button onclick="checkCalculoAnswer(false)"
+                        <button onclick="checkCalculoAnswer(false)" id="calculo-btn-false"
                             class="flex-1 bg-red-500 hover:bg-red-600 text-white font-black py-5 rounded-2xl text-2xl shadow-md border-b-8 border-red-700 active:translate-y-1 active:border-b-0 transition-all flex flex-col items-center justify-center gap-1">
                             <span class="text-4xl">❌</span>
                             <span>Incorrecto</span>
                         </button>
-                        <button onclick="checkCalculoAnswer(true)"
+                        <button onclick="checkCalculoAnswer(true)" id="calculo-btn-true"
                             class="flex-1 bg-green-500 hover:bg-green-600 text-white font-black py-5 rounded-2xl text-2xl shadow-md border-b-8 border-green-700 active:translate-y-1 active:border-b-0 transition-all flex flex-col items-center justify-center gap-1">
                             <span class="text-4xl">✅</span>
                             <span>Correcto</span>
@@ -6920,29 +6926,56 @@
 
         function checkCalculoAnswer(ans) {
             const eq = calculoState.currentEq;
+            const card = document.getElementById('calculo-card');
+            const btnTrue = document.getElementById('calculo-btn-true');
+            const btnFalse = document.getElementById('calculo-btn-false');
 
-            if (ans === eq.ans) {
-                calculoState.score++;
-                playAudio(true);
-                confetti({ particleCount: 15, spread: 30, origin: { y: 0.8 } });
+            if (card) {
+                // Disable buttons to prevent multiple clicks during transition
+                if (btnTrue) btnTrue.disabled = true;
+                if (btnFalse) btnFalse.disabled = true;
 
-                if (calculoState.score >= calculoState.totalGoal) {
-                    setTimeout(() => {
-                        celebrate();
-                        document.getElementById('minigame-success').classList.remove('hidden');
-                        addMiniStar('segundo_calculo');
-                    }, 500);
+                if (ans === eq.ans) {
+                    calculoState.score++;
+                    playAudio(true);
+                    confetti({ particleCount: 15, spread: 30, origin: { y: 0.8 } });
+                    
+                    card.classList.remove('bg-indigo-50', 'border-indigo-200');
+                    card.classList.add('bg-green-500', 'border-green-600');
+                    const textP = card.querySelector('p');
+                    if (textP) {
+                        textP.classList.remove('text-indigo-900');
+                        textP.classList.add('text-white');
+                    }
+
+                    if (calculoState.score >= calculoState.totalGoal) {
+                        setTimeout(() => {
+                            celebrate();
+                            document.getElementById('minigame-success').classList.remove('hidden');
+                            addMiniStar('segundo_calculo');
+                        }, 1500);
+                    } else {
+                        setTimeout(() => {
+                            nextCalculoOperation();
+                        }, 1500);
+                    }
                 } else {
-                    nextCalculoOperation();
-                }
-            } else {
-                const contentCard = document.querySelector('.bg-indigo-50');
-                if (contentCard) {
-                    contentCard.classList.add('animate-shake', '!bg-red-100', '!border-red-400');
+                    card.classList.add('animate-shake', '!bg-red-100', '!border-red-400');
+                    const textP = card.querySelector('p');
+                    if (textP) {
+                        textP.classList.remove('text-indigo-900');
+                        textP.classList.add('text-red-950');
+                    }
                     playAudio(false);
                     setTimeout(() => {
-                        contentCard.classList.remove('animate-shake', '!bg-red-100', '!border-red-400');
-                    }, 800);
+                        card.classList.remove('animate-shake', '!bg-red-100', '!border-red-400');
+                        if (textP) {
+                            textP.classList.remove('text-red-950');
+                            textP.classList.add('text-indigo-900');
+                        }
+                        if (btnTrue) btnTrue.disabled = false;
+                        if (btnFalse) btnFalse.disabled = false;
+                    }, 1200);
                 }
             }
         }
